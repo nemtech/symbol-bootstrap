@@ -17,7 +17,7 @@
 import { expect } from 'chai';
 import { promises as fsPromises } from 'fs';
 import 'mocha';
-import { BootstrapUtils, ConfigLoader, Preset } from '../../src/service';
+import { BootstrapUtils } from '../../src/service';
 import { AgentCertificateService } from '../../src/service/AgentCertificateService';
 
 describe('AgentCertificateService', () => {
@@ -25,15 +25,9 @@ describe('AgentCertificateService', () => {
         const target = 'target/tests/AgentCertificateService';
         await BootstrapUtils.deleteFolder(target);
         await BootstrapUtils.mkdir(target);
-        const service = new AgentCertificateService('.', { target: target, user: await BootstrapUtils.getDockerUserGroup() });
+        const service = new AgentCertificateService({ target: target });
 
-        const presetData = new ConfigLoader().createPresetData({
-            root: '.',
-            preset: Preset.bootstrap,
-            password: 'abc',
-        });
-
-        await service.run(presetData.symbolServerToolsImage, 'supernode', target);
+        await service.run('supernode', target);
 
         const files = await fsPromises.readdir(target);
         expect(files).deep.eq(['agent-crt.pem', 'agent-key.pem']);

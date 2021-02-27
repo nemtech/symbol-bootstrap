@@ -241,7 +241,7 @@ export class ConfigService {
             (presetData.nodes || [])
                 .filter((n) => n.rewardProgram)
                 .map(async (account) => {
-                    return await new AgentCertificateService(this.root, this.params).run(presetData.symbolServerToolsImage, account.name);
+                    return await new AgentCertificateService(this.params).run(account.name);
                 }),
         );
     }

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-import { join, resolve } from 'path';
+import { pki } from 'node-forge';
+import { join } from 'path';
+import { Crypto } from 'symbol-sdk';
 import { LogType } from '../logger';
 import Logger from '../logger/Logger';
 import LoggerFactory from '../logger/LoggerFactory';
@@ -22,54 +24,104 @@ import { BootstrapUtils } from './BootstrapUtils';
 
 export interface AgentCertificateParams {
     readonly target: string;
-    readonly user: string;
 }
 
 const logger: Logger = LoggerFactory.getLogger(LogType.System);
 
 export class AgentCertificateService {
-    constructor(private readonly root: string, protected readonly params: AgentCertificateParams) {}
+    constructor(protected readonly params: AgentCertificateParams) {}
 
-    public async run(symbolServerToolsImage: string, name: string, customCertFolder?: string): Promise<void> {
-        const copyFrom = `${this.root}/config/agent-cert`;
+    public async run(name: string, customCertFolder?: string): Promise<void> {
         const certFolder = customCertFolder || BootstrapUtils.getTargetNodesFolder(this.params.target, false, name, 'agent');
         await BootstrapUtils.mkdir(certFolder);
-        const generatedContext = { name };
-        await BootstrapUtils.generateConfiguration(generatedContext, copyFrom, certFolder, []);
-        const command = this.createCertCommands('/data');
-        await BootstrapUtils.writeTextFile(join(certFolder, 'createCertificate.sh'), command);
-        const cmd = ['bash', 'createCertificate.sh'];
-        const binds = [`${resolve(certFolder)}:/data:rw`];
-        const userId = await BootstrapUtils.resolveDockerUserFromParam(this.params.user);
-        const { stdout, stderr } = await BootstrapUtils.runImageUsingExec({
-            image: symbolServerToolsImage,
-            userId: userId,
-            workdir: '/data',
-            cmds: cmd,
-            binds: binds,
-        });
-        if (stdout.indexOf('Certificate Created') < 0) {
-            logger.info(BootstrapUtils.secureString(stdout));
-            logger.error(BootstrapUtils.secureString(stderr));
-            throw new Error('Certificate creation failed. Check the logs!');
-        }
+        await this.createCertificates(certFolder);
         logger.info(`Agent Certificate for node ${name} created`);
     }
 
-    private createCertCommands(target: string): string {
-        return `set -e
-        cd ${target}
-# Creating a self signed certificate for the agent. This will be created by bootstrap when setting up a supernode
-openssl genrsa -out agent-key.pem 4096
-openssl req -new -config agent.cnf -key agent-key.pem -out agent-csr.pem
-openssl x509 -req -extfile agent.cnf -days 999 -in agent-csr.pem -out agent-crt.pem -signkey agent-key.pem
+    private async createCertificates(target: string): Promise<void> {
+        const keys = pki.rsa.generateKeyPair(2048);
+        const cert = pki.createCertificate();
+        const privateKeyPem = pki.privateKeyToPem(keys.privateKey);
+        cert.publicKey = keys.publicKey;
 
+        // NOTE: serialNumber is the hex encoded value of an ASN.1 INTEGER.
+        // Conforming CAs should ensure serialNumber is:
+        // - no more than 20 octets
+        // - non-negative (prefix a '00' if your value starts with a '1' bit)
+        cert.serialNumber = '01' + Crypto.randomBytes(19).toString('hex'); // 1 octet = 8 bits = 1 byte = 2 hex chars
+        cert.validity.notBefore = new Date();
+        cert.validity.notAfter = new Date();
+        cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 5); // adding 5 year of validity from now
+        const attrs = [
+            {
+                name: 'commonName',
+                value: 'example.org',
+            },
+            {
+                name: 'countryName',
+                value: 'US',
+            },
+            {
+                shortName: 'ST',
+                value: 'Texas',
+            },
+            {
+                name: 'localityName',
+                value: 'Austin',
+            },
+            {
+                name: 'organizationName',
+                value: 'Texas Toast Coffee Shop',
+            },
+            {
+                shortName: 'OU',
+                value: 'Test',
+            },
+        ];
+        cert.setSubject(attrs);
+        cert.setIssuer(attrs);
+        cert.setExtensions([
+            {
+                name: 'basicConstraints',
+                cA: true,
+            },
+            {
+                name: 'keyUsage',
+                keyCertSign: true,
+                digitalSignature: true,
+                nonRepudiation: true,
+                keyEncipherment: true,
+                dataEncipherment: true,
+            },
+            {
+                name: 'extKeyUsage',
+                serverAuth: true,
+                clientAuth: true,
+                codeSigning: true,
+                emailProtection: true,
+                timeStamping: true,
+            },
+            {
+                name: 'nsCertType',
+                client: true,
+                server: true,
+                email: true,
+                objsign: true,
+                sslCA: true,
+                emailCA: true,
+                objCA: true,
+            },
+            {
+                name: 'subjectKeyIdentifier',
+            },
+        ]);
 
-rm createCertificate.sh
-rm agent-csr.pem
-rm agent.cnf
+        // self-sign certificate
+        cert.sign(keys.privateKey);
 
-echo "Certificate Created"
-`;
+        // Convert a Forge certificate to PEM
+        const certificatePem = pki.certificateToPem(cert);
+        await BootstrapUtils.writeTextFile(join(target, 'agent-crt.pem'), certificatePem);
+        await BootstrapUtils.writeTextFile(join(target, 'agent-key.pem'), privateKeyPem);
     }
 }
