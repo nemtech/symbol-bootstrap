@@ -88,7 +88,7 @@ export class AnnounceService {
             description: 'If --ready is provided, the command will not ask for confirmation when announcing transactions.',
         }),
         maxFee: flags.integer({
-            description: 'the max fee used when announcing (absolute). The node min multiplier will be used if it is not provided.',
+            description: `The max fee used when announcing (absolute). The network 'announceDefaultMaxFee' will be used (0.1 XYMs/Coins).`,
         }),
     };
     public async announce(
@@ -132,12 +132,8 @@ export class AnnounceService {
         const currency = (await repositoryFactory.getCurrencies().toPromise()).currency;
         const currencyMosaicId = currency.mosaicId;
         const deadline = Deadline.create(epochAdjustment);
-        const minFeeMultiplier = (await repositoryFactory.createNetworkRepository().getTransactionFees().toPromise()).minFeeMultiplier;
-        if (providedMaxFee) {
-            logger.info(`MaxFee is ${providedMaxFee / Math.pow(10, currency.divisibility)}`);
-        } else {
-            logger.info(`Node's minFeeMultiplier is ${minFeeMultiplier}`);
-        }
+        const maxFee = UInt64.fromUint(providedMaxFee || presetData.announceDefaultMaxFee || 100000);
+        logger.info(`MaxFee is ${maxFee.compact() / Math.pow(10, currency.divisibility)}`);
 
         const generationHash = await repositoryFactory.getGenerationHash().toPromise();
         if (generationHash?.toUpperCase() !== presetData.nemesisGenerationHashSeed?.toUpperCase()) {
@@ -167,7 +163,6 @@ export class AnnounceService {
                 );
                 continue;
             }
-            const defaultMaxFee = UInt64.fromUint(providedMaxFee || 0);
             const multisigAccountInfo = await this.getMultisigAccount(repositoryFactory, mainAccount.address);
             const params: TransactionFactoryParams = {
                 presetData,
@@ -176,7 +171,7 @@ export class AnnounceService {
                 mainAccountInfo,
                 mainAccount,
                 deadline,
-                maxFee: defaultMaxFee,
+                maxFee: maxFee,
             };
             const transactions = await transactionFactory.createTransactions(params);
             if (!transactions.length) {
@@ -235,16 +230,13 @@ export class AnnounceService {
                 }
                 logger.info(`Cosigner ${bestCosigner.address.plain()} is initializing the transactions.`);
                 if (cosigners.length >= multisigAccountInfo.minApproval) {
-                    let aggregateTransaction = AggregateTransaction.createComplete(
+                    const aggregateTransaction = AggregateTransaction.createComplete(
                         deadline,
                         transactions.map((t) => t.toAggregate(mainAccount)),
                         networkType,
                         [],
-                        defaultMaxFee,
+                        maxFee,
                     );
-                    if (!providedMaxFee) {
-                        aggregateTransaction = aggregateTransaction.setMaxFeeForAggregate(minFeeMultiplier, cosigners.length - 1);
-                    }
                     const signedAggregateTransaction = bestCosigner.signTransactionWithCosignatories(
                         aggregateTransaction,
                         cosigners.filter((a) => a !== bestCosigner),
@@ -265,32 +257,26 @@ export class AnnounceService {
                         logger.error(message);
                     }
                 } else {
-                    let aggregateTransaction = AggregateTransaction.createBonded(
+                    const aggregateTransaction = AggregateTransaction.createBonded(
                         deadline,
                         transactions.map((t) => t.toAggregate(mainAccount)),
                         networkType,
                         [],
-                        defaultMaxFee,
+                        maxFee,
                     );
-                    if (!providedMaxFee) {
-                        aggregateTransaction = aggregateTransaction.setMaxFeeForAggregate(minFeeMultiplier, cosigners.length - 1);
-                    }
                     const signedAggregateTransaction = bestCosigner.signTransactionWithCosignatories(
                         aggregateTransaction,
                         cosigners.filter((a) => a !== bestCosigner),
                         generationHash,
                     );
-                    let lockFundsTransaction: Transaction = LockFundsTransaction.create(
+                    const lockFundsTransaction: Transaction = LockFundsTransaction.create(
                         deadline,
                         currency.createRelative(10),
                         UInt64.fromUint(1000),
                         signedAggregateTransaction,
                         networkType,
-                        defaultMaxFee,
+                        maxFee,
                     );
-                    if (!providedMaxFee) {
-                        lockFundsTransaction = lockFundsTransaction.setMaxFee(minFeeMultiplier);
-                    }
                     const signedLockFundsTransaction = bestCosigner.sign(lockFundsTransaction, generationHash);
                     if (!(await shouldAnnounce(lockFundsTransaction, signedLockFundsTransaction))) {
                         continue;
@@ -329,10 +315,8 @@ export class AnnounceService {
                     networkType,
                 );
                 if (transactions.length == 1) {
-                    let transaction = transactions[0];
-                    if (!providedMaxFee) {
-                        transaction = transaction.setMaxFee(minFeeMultiplier);
-                    }
+                    const transaction = transactions[0];
+
                     const signedTransaction = signerAccount.sign(transactions[0], generationHash);
                     if (!(await shouldAnnounce(transaction, signedTransaction))) {
                         continue;
@@ -349,16 +333,13 @@ export class AnnounceService {
                         logger.error(message);
                     }
                 } else {
-                    let aggregateTransaction = AggregateTransaction.createComplete(
+                    const aggregateTransaction = AggregateTransaction.createComplete(
                         deadline,
                         transactions.map((t) => t.toAggregate(mainAccount)),
                         networkType,
                         [],
-                        defaultMaxFee,
+                        maxFee,
                     );
-                    if (!providedMaxFee) {
-                        aggregateTransaction = aggregateTransaction.setMaxFeeForAggregate(minFeeMultiplier, 0);
-                    }
                     const signedAggregateTransaction = signerAccount.sign(aggregateTransaction, generationHash);
                     if (!(await shouldAnnounce(aggregateTransaction, signedAggregateTransaction))) {
                         continue;

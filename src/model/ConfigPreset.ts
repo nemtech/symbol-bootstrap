@@ -401,6 +401,7 @@ export interface CommonConfigPreset extends NodeConfigPreset, GatewayConfigPrese
     mongoComposeRunParam: string;
     peersP2PListLimit: number;
     peersApiListLimit: number;
+    announceDefaultMaxFee: number;
 
     nonVotingUnfinalizedBlocksDuration: string;
     votingUnfinalizedBlocksDuration?: string;

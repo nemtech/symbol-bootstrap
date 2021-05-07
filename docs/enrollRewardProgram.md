@@ -20,8 +20,8 @@ OPTIONS
   -t, --target=target     [default: target] The target folder where the symbol-bootstrap network is generated
   -u, --url=url           [default: http://localhost:3000] the network url
 
-  --maxFee=maxFee         the max fee used when announcing (absolute). The node min multiplier will be used if it is not
-                          provided.
+  --maxFee=maxFee         The max fee used when announcing (absolute). The network 'announceDefaultMaxFee' will be used
+                          (0.1 XYMs/Coins).
 
   --noPassword            When provided, Bootstrap will not use a password, so private keys will be stored in plain
                           text. Use with caution.

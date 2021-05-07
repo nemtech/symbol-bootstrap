@@ -85,6 +85,7 @@ votingKeysDirectory: ./votingkeys
 enableDelegatedHarvestersAutoDetection: true
 catapultAppFolder: /usr/catapult
 rewardProgramAgentPort: 7881
+announceDefaultMaxFee: 100000
 
 # config database
 databaseName: catapult

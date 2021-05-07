@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { spawn } from 'child_process';
+import { exec as syncExec, spawn } from 'child_process';
 import { textSync } from 'figlet';
 import {
     createWriteStream,
@@ -30,6 +30,7 @@ import {
 } from 'fs';
 import * as Handlebars from 'handlebars';
 import { get } from 'https';
+import * as yaml from 'js-yaml';
 import * as _ from 'lodash';
 import { platform, totalmem } from 'os';
 import { basename, dirname, join, resolve } from 'path';
@@ -42,10 +43,7 @@ import { CryptoUtils } from './CryptoUtils';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const version = require('../../package.json').version;
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const yaml = require('js-yaml');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const exec = util.promisify(require('child_process').exec);
+const exec = util.promisify(syncExec);
 const logger: Logger = LoggerFactory.getLogger(LogType.System);
 
 export type Password = string | false | undefined;
