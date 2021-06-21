@@ -385,7 +385,7 @@ export class ConfigLoader {
         const customPresetFileObject = this.loadCustomPreset(customPreset, params.password);
         const preset = params.preset || params.customPresetObject?.preset || customPresetFileObject?.preset || oldPresetData?.preset;
         if (!preset) {
-            throw new KnownError('Preset value could not be resolved. Have you provided the --preset parameter?');
+            throw new KnownError('Preset value could not be resolved from target folder contents. Please provide the --preset parameter.');
         }
         const assembly =
             params.assembly || params.customPresetObject?.assembly || customPresetFileObject?.assembly || params.oldPresetData?.assembly;
