@@ -18,7 +18,7 @@ import { test } from '@oclif/test';
 
 describe('config', () => {
     test.stdout()
-        .command(['config', '-r', '--password', '1111'])
+        .command(['config', '-p', 'bootstrap', '-r', '--password', '1111'])
         .it('runs config', (ctx) => {
             console.log(ctx.stdout);
         });
@@ -26,7 +26,7 @@ describe('config', () => {
 
 describe('config with opt in', () => {
     test.stdout()
-        .command(['config', '-r', '-c', './test/optin_preset.yml', '--noPassword'])
+        .command(['config', '-p', 'bootstrap', '-r', '-c', './test/optin_preset.yml', '--noPassword'])
         .it('runs config', (ctx) => {
             console.log(ctx.stdout);
         });

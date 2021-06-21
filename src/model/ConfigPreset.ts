@@ -436,6 +436,7 @@ export interface ConfigPreset extends CommonConfigPreset {
     explorers?: ExplorerPreset[];
     wallets?: WalletPreset[];
     faucets?: FaucetPreset[];
+    resolvedCustomPreset?: CustomPreset;
 }
 
 export interface CustomPreset extends Partial<CommonConfigPreset> {

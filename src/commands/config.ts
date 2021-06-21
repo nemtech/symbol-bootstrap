@@ -33,7 +33,7 @@ export default class Config extends Command {
         noPassword: CommandUtils.noPasswordFlag,
         preset: flags.enum({
             char: 'p',
-            description: `The network preset, can be provided via custom preset or cli parameter. ${
+            description: `The network preset. It can be provided via custom preset or cli parameter. ${
                 required ? '' : 'If not provided, the value is resolved from the target/preset.yml file.'
             }`,
             options: Object.keys(Preset).map((v) => v as Preset),
@@ -41,24 +41,24 @@ export default class Config extends Command {
         }),
         assembly: flags.string({
             char: 'a',
-            description: `The assembly, example "dual" for testnet. ${
+            description: `The assembly that define the node(s) layout. It can be provided via custom preset or cli parameter. ${
                 required ? '' : 'If not provided, the value is resolved from the target/preset.yml file.'
             }`,
             required: required,
         }),
         customPreset: flags.string({
             char: 'c',
-            description: `External preset file. Values in this file will override the provided presets`,
+            description: `External preset file. Values in this file will override the provided presets.`,
             required: required,
         }),
         reset: flags.boolean({
             char: 'r',
-            description: 'It resets the configuration generating a new one',
+            description: 'It resets the configuration generating a new one.',
             default: ConfigService.defaultParams.reset,
         }),
 
         upgrade: flags.boolean({
-            description: `It regenerates the configuration reusing the previous keys. Use this flag when upgrading the version of bootstrap to keep your node up to date without dropping the local data. The original preset (-t), assembly (-a), and custom preset (-a) must be used. Backup the target folder before upgrading.`,
+            description: `It regenerates the configuration reusing the previous keys. Use this flag when upgrading the version of bootstrap to keep your node up to date without dropping the local data. Backup the target folder before upgrading.`,
             default: ConfigService.defaultParams.reset,
         }),
 

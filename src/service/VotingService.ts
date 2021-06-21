@@ -51,7 +51,9 @@ export class VotingService {
         const votingKeyDesiredFutureLifetime = presetData.votingKeyDesiredFutureLifetime;
         const votingKeyDesiredLifetime = presetData.votingKeyDesiredLifetime;
         if (votingKeyDesiredFutureLifetime > votingKeyDesiredLifetime) {
-            throw new Error('votingKeyDesiredFutureLifetime cannot be greater than votingKeyDesiredLifetime');
+            throw new Error(
+                `votingKeyDesiredFutureLifetime (${votingKeyDesiredFutureLifetime}) cannot be greater than votingKeyDesiredLifetime (${votingKeyDesiredLifetime})`,
+            );
         }
         await BootstrapUtils.mkdir(votingKeysFolder);
         const votingUtils = new VotingUtils();

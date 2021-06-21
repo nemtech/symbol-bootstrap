@@ -383,13 +383,10 @@ export class ConfigLoader {
         const customPresetObject = params.customPresetObject;
         const oldPresetData = params.oldPresetData;
         const customPresetFileObject = this.loadCustomPreset(customPreset, params.password);
-        const preset =
-            params.preset ||
-            params.customPresetObject?.preset ||
-            customPresetFileObject?.preset ||
-            oldPresetData?.preset ||
-            Preset.bootstrap;
-
+        const preset = params.preset || params.customPresetObject?.preset || customPresetFileObject?.preset || oldPresetData?.preset;
+        if (!preset) {
+            throw new KnownError('Preset value could not be resolved. Have you provided the --preset parameter?');
+        }
         const assembly =
             params.assembly || params.customPresetObject?.assembly || customPresetFileObject?.assembly || params.oldPresetData?.assembly;
 
@@ -398,12 +395,15 @@ export class ConfigLoader {
         const networkPreset = BootstrapUtils.loadYaml(`${root}/presets/${preset}/network.yml`, false);
         const assemblyPreset = this.loadAssembly(root, preset, assembly);
 
-        const presetData = this.mergePresets(sharedPreset, networkPreset, assemblyPreset, customPresetFileObject, customPresetObject, {
+        const resolvedCustomPreset = _.merge(customPresetFileObject, customPresetObject) || oldPresetData?.resolvedCustomPreset;
+        const presetData = this.mergePresets(sharedPreset, networkPreset, assemblyPreset, resolvedCustomPreset, {
             preset,
         });
 
         if (presetData.assemblies && !assembly) {
-            throw new Error(`Preset ${preset} requires assembly (-a, --assembly option). Possible values are: ${presetData.assemblies}`);
+            throw new KnownError(
+                `Preset ${preset} requires assembly (-a, --assembly option). Possible values are: ${presetData.assemblies}`,
+            );
         }
         if (!ConfigLoader.presetInfoLogged) {
             logger.info(`Generating config from preset '${preset}'`);
@@ -415,12 +415,13 @@ export class ConfigLoader {
             }
         }
         ConfigLoader.presetInfoLogged = true;
-        const presetDataWithDynamicDefaults = {
+        const presetDataWithDynamicDefaults: ConfigPreset = {
             version: 1,
             preset: preset,
             assembly: assembly || '',
             ...presetData,
             nodes: this.dynamicDefaultNodeConfiguration(presetData.nodes),
+            resolvedCustomPreset: resolvedCustomPreset,
         };
         return _.merge(oldPresetData || {}, this.expandRepeat(presetDataWithDynamicDefaults));
     }

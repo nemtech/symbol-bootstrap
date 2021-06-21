@@ -19,16 +19,17 @@ import 'mocha';
 import { ConfigService, CryptoUtils, Preset } from '../../src/service';
 
 describe('ConfigService', () => {
-    it('ConfigService default run with optin_preset.yml', async () => {
+    it('ConfigService bootstrap run with optin_preset.yml', async () => {
         await new ConfigService('.', {
             ...ConfigService.defaultParams,
             reset: true,
+            preset: Preset.bootstrap,
             target: 'target/tests/ConfigService.test.optin',
             customPreset: './test/optin_preset.yml',
         }).run();
     });
 
-    it('ConfigService default run with override-currency-preset.yml', async () => {
+    it('ConfigService bootstrap in custom preset run with override-currency-preset.yml', async () => {
         await new ConfigService('.', {
             ...ConfigService.defaultParams,
             reset: true,
