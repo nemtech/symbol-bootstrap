@@ -66,7 +66,7 @@ maxNamespaceDepth: 3
 batchVerificationRandomSource:
 symbolServerImage: symbolplatform/symbol-server:gcc-10-1.0.1.0
 symbolRestImage: symbolplatform/symbol-rest:2.3.6
-symbolExplorerImage: symbolplatform/symbol-explorer:0.6.3-alpha
+symbolExplorerImage: symbolplatform/symbol-explorer:1.1.0-alpha
 symbolWalletImage: symbolplatform/symbol-desktop-wallet:1.0.1
 symbolFaucetImage: symbolplatform/symbol-faucet:0.5.0-alpha
 symbolAgentImage: symbolplatform/symbol-node-rewards-agent:2.0.0

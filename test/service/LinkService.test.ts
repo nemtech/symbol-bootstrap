@@ -404,6 +404,7 @@ describe('LinkService', () => {
                 preset: Preset.testnet,
                 customPreset: './test/unit-test-profiles/voting_preset.yml',
                 customPresetObject: {
+                    lastKnownNetworkEpoch: 235,
                     autoUpdateVotingKeys: true,
                     nodeUseRemoteAccount: true,
                 },

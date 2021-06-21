@@ -25,7 +25,6 @@ import {
     ConfigAccount,
     ConfigPreset,
     CustomPreset,
-    DeepPartial,
     MosaicAccounts,
     NodeAccount,
     NodePreset,
@@ -33,7 +32,7 @@ import {
 } from '../model';
 import { BootstrapUtils, KnownError, Migration, Password } from './BootstrapUtils';
 import { CommandUtils } from './CommandUtils';
-import { KeyName, Preset } from './ConfigService';
+import { Assembly, KeyName } from './ConfigService';
 import { CryptoUtils } from './CryptoUtils';
 
 const logger: Logger = LoggerFactory.getLogger(LogType.System);
@@ -41,39 +40,54 @@ const logger: Logger = LoggerFactory.getLogger(LogType.System);
 export class ConfigLoader {
     public static presetInfoLogged = false;
 
-    public async generateRandomConfiguration(oldAddresses: Addresses | undefined, presetData: ConfigPreset): Promise<Addresses> {
+    public async generateRandomConfiguration(
+        root: string,
+        oldAddresses: Addresses | undefined,
+        oldPresetData: ConfigPreset | undefined,
+        presetData: ConfigPreset,
+    ): Promise<Addresses> {
         const networkType = presetData.networkType;
+
+        if (!networkType) {
+            throw new Error('Network Type could not be resolved. Have your provided the right --preset?');
+        }
+
         const addresses: Addresses = {
-            version: this.getAddressesMigration(presetData.networkType).length + 1,
+            version: this.getAddressesMigration(networkType).length + 1,
             networkType: networkType,
             nemesisGenerationHashSeed:
                 presetData.nemesisGenerationHashSeed ||
                 oldAddresses?.nemesisGenerationHashSeed ||
                 Convert.uint8ToHex(Crypto.randomBytes(32)),
-            sinkAddress: presetData.sinkAddress || oldAddresses?.sinkAddress || Account.generateNewAccount(networkType).address.plain(),
+            sinkAddress: presetData.sinkAddress || oldAddresses?.sinkAddress,
+        };
+
+        //Sync address is generated on demand only
+        const getDefaultSyncAddress = (): string => {
+            addresses.sinkAddress = addresses.sinkAddress || Account.generateNewAccount(networkType).address.plain();
+            return addresses.sinkAddress;
         };
 
         if (presetData.nodes) {
             addresses.nodes = await this.generateNodeAccounts(oldAddresses, presetData, networkType);
         }
-
         if (!presetData.harvestNetworkFeeSinkAddress) {
-            presetData.harvestNetworkFeeSinkAddress = addresses.sinkAddress;
+            presetData.harvestNetworkFeeSinkAddress = getDefaultSyncAddress();
         }
         if (!presetData.mosaicRentalFeeSinkAddress) {
-            presetData.mosaicRentalFeeSinkAddress = addresses.sinkAddress;
+            presetData.mosaicRentalFeeSinkAddress = getDefaultSyncAddress();
         }
         if (!presetData.namespaceRentalFeeSinkAddress) {
-            presetData.namespaceRentalFeeSinkAddress = addresses.sinkAddress;
+            presetData.namespaceRentalFeeSinkAddress = getDefaultSyncAddress();
         }
-
-        presetData.networkIdentifier = BootstrapUtils.getNetworkIdentifier(presetData.networkType);
-        presetData.networkName = BootstrapUtils.getNetworkName(presetData.networkType);
+        presetData.networkIdentifier = BootstrapUtils.getNetworkIdentifier(networkType);
+        presetData.networkName = BootstrapUtils.getNetworkName(networkType);
         if (!presetData.nemesisGenerationHashSeed) {
             presetData.nemesisGenerationHashSeed = addresses.nemesisGenerationHashSeed;
         }
         const privateKeySecurityMode = CryptoUtils.getPrivateKeySecurityMode(presetData.privateKeySecurityMode);
-        if (presetData.nemesis) {
+        const shouldCreateNemesis = ConfigLoader.shouldCreateNemesis(root, presetData);
+        if (shouldCreateNemesis) {
             addresses.nemesisSigner = this.generateAccount(
                 networkType,
                 privateKeySecurityMode,
@@ -95,53 +109,91 @@ export class ConfigLoader {
         const nemesisSignerAddress = Address.createFromPublicKey(presetData.nemesisSignerPublicKey, networkType);
 
         if (!presetData.currencyMosaicId)
-            presetData.currencyMosaicId = BootstrapUtils.toHex(
-                MosaicId.createFromNonce(MosaicNonce.createFromNumber(0), nemesisSignerAddress).toHex(),
-            );
+            presetData.currencyMosaicId = MosaicId.createFromNonce(MosaicNonce.createFromNumber(0), nemesisSignerAddress).toHex();
+
         if (!presetData.harvestingMosaicId) {
             if (!presetData.nemesis) {
                 throw new Error('nemesis must be defined!');
             }
             if (presetData.nemesis.mosaics && presetData.nemesis.mosaics.length > 1) {
-                presetData.harvestingMosaicId = BootstrapUtils.toHex(
-                    MosaicId.createFromNonce(MosaicNonce.createFromNumber(1), nemesisSignerAddress).toHex(),
-                );
+                presetData.harvestingMosaicId = MosaicId.createFromNonce(MosaicNonce.createFromNumber(1), nemesisSignerAddress).toHex();
             } else {
                 presetData.harvestingMosaicId = presetData.currencyMosaicId;
             }
         }
 
-        if (presetData.nemesis) {
+        if (shouldCreateNemesis) {
             if (oldAddresses) {
+                if (!oldPresetData) {
+                    throw new Error('oldPresetData must be defined when upgrading!');
+                }
                 // Nemesis configuration cannot be changed on upgrade.
                 addresses.mosaics = oldAddresses.mosaics;
+                presetData.nemesis = oldPresetData.nemesis;
             } else {
                 if (presetData.nemesis.mosaics) {
                     const mosaics: MosaicAccounts[] = [];
-                    presetData.nemesis.mosaics.forEach((m, index) => {
-                        const accounts = this.generateAddresses(networkType, privateKeySecurityMode, m.accounts);
+                    presetData.nemesis.mosaics.forEach((m, mosaicIndex) => {
+                        function sum(distribution: { amount: number; address: string }[]) {
+                            return distribution
+                                .map((d, index) => {
+                                    if (d.amount < 0) {
+                                        throw new Error(
+                                            `Nemesis distribution balance cannot be less than 0. Mosaic ${m.name}, distribution address: ${d.address}, amount: ${d.amount}, index ${index}`,
+                                        );
+                                    }
+                                    return d.amount;
+                                })
+                                .reduce((a, b) => a + b, 0);
+                        }
+                        const accounts = this.generateAddresses(networkType, privateKeySecurityMode, m.accounts || 1);
+                        const id = MosaicId.createFromNonce(MosaicNonce.createFromNumber(mosaicIndex), nemesisSignerAddress).toHex();
                         mosaics.push({
-                            id: index ? presetData.currencyMosaicId : presetData.harvestingMosaicId,
+                            id: id,
                             name: m.name,
-                            type: index ? 'harvest' : 'currency',
                             accounts,
                         });
-                    });
+                        const getBalance = (nodeIndex: number): number | undefined => {
+                            return presetData?.nodes?.[nodeIndex].balances?.[mosaicIndex];
+                        };
+                        const providedDistributions = [...(m.currencyDistributions || [])];
+                        (addresses.nodes || []).forEach((node, index) => {
+                            const balance = getBalance(index);
+                            if (node.main && balance !== undefined)
+                                providedDistributions.push({
+                                    address: node.main.address,
+                                    amount: balance,
+                                });
+                        });
+                        const nodeMainAccounts = (addresses.nodes || []).filter(
+                            (node, index) => node.main && getBalance(index) === undefined,
+                        );
+                        const providedSupply = sum(providedDistributions);
+                        const remainingSupply = m.supply - providedSupply;
+                        const dynamicAccounts = accounts.length + nodeMainAccounts.length;
+                        const amountPerAccount = Math.floor(remainingSupply / dynamicAccounts);
+                        const maxHarvesterBalance =
+                            (presetData.nemesis.mosaics.length == 1 && mosaicIndex == 0) ||
+                            (presetData.nemesis.mosaics.length > 1 && mosaicIndex == 1)
+                                ? presetData.maxHarvesterBalance
+                                : Number.MAX_SAFE_INTEGER;
+                        const generatedAccounts = [
+                            ...accounts.map((a) => ({
+                                address: a.address,
+                                amount: amountPerAccount,
+                            })),
+                            ...nodeMainAccounts.map((n) => ({
+                                address: n.main!.address,
+                                amount: Math.min(maxHarvesterBalance, amountPerAccount),
+                            })),
+                        ];
+                        m.currencyDistributions = [...generatedAccounts, ...providedDistributions].filter((d) => d.amount > 0);
 
-                    presetData.nemesis.mosaics.forEach((m, index) => {
-                        const accounts = mosaics[index].accounts;
-                        if (!m.currencyDistributions) {
-                            const nodeMainAccounts = (addresses.nodes || []).filter((node) => node.main);
-                            const totalAccounts = (m.accounts || 0) + nodeMainAccounts.length;
-                            const amountPerAccount = Math.floor(m.supply / totalAccounts);
-                            m.currencyDistributions = [
-                                ...accounts.map((a) => ({ address: a.address, amount: amountPerAccount })),
-                                ...nodeMainAccounts.map((n) => ({ address: n.main!.address, amount: amountPerAccount })),
-                            ];
-                            if (m.currencyDistributions.length)
-                                m.currencyDistributions[0].amount += m.supply - totalAccounts * amountPerAccount;
-                        }
-                        const supplied = m.currencyDistributions.map((d) => d.amount).reduce((a, b) => a + b, 0);
+                        const generatedSupply = sum(generatedAccounts.slice(1));
+
+                        m.currencyDistributions[0].amount = m.supply - providedSupply - generatedSupply;
+
+                        const supplied = sum(m.currencyDistributions);
                         if (m.supply != supplied) {
                             throw new Error(`Invalid nemgen total supplied value, expected ${m.supply} but total is ${supplied}`);
                         }
@@ -154,10 +206,24 @@ export class ConfigLoader {
         return addresses;
     }
 
-    public generateAddresses(networkType: NetworkType, privateKeySecurityMode: PrivateKeySecurityMode, size: number): ConfigAccount[] {
-        return ConfigLoader.getArray(size).map(() =>
-            this.generateAccount(networkType, privateKeySecurityMode, KeyName.NemesisAccount, undefined, undefined, undefined),
+    public static shouldCreateNemesis(root: string, presetData: ConfigPreset): boolean {
+        return (
+            presetData.nemesis &&
+            !presetData.nemesisSeedFolder &&
+            (BootstrapUtils.isYmlFile(presetData.preset) || !existsSync(join(root, 'presets', presetData.preset, 'seed')))
         );
+    }
+
+    public generateAddresses(
+        networkType: NetworkType,
+        privateKeySecurityMode: PrivateKeySecurityMode,
+        accounts: number | string[],
+    ): ConfigAccount[] {
+        if (typeof accounts == 'number') {
+            return ConfigLoader.getArray(accounts).map(() => this.toConfig(Account.generateNewAccount(networkType)));
+        } else {
+            return accounts.map((key) => this.toConfig(Account.createFromPrivateKey(key, networkType)));
+        }
     }
 
     public getAccount(
@@ -349,31 +415,54 @@ export class ConfigLoader {
         return BootstrapUtils.loadYaml(customPreset, password);
     }
 
-    private loadAssembly(root: string, preset: Preset, assembly: string | undefined): CustomPreset {
-        if (!assembly) {
-            return {};
+    public static loadAssembly(root: string, preset: string, assembly: string): CustomPreset {
+        if (BootstrapUtils.isYmlFile(assembly)) {
+            if (!existsSync(assembly)) {
+                throw new KnownError(
+                    `Assembly '${assembly}' does not exist. Have you provided the right --preset <preset> --assembly <assembly> ?`,
+                );
+            }
+            return BootstrapUtils.loadYaml(assembly, false);
         }
-        const fileLocation = `${root}/presets/${preset}/assembly-${assembly}.yml`;
-        if (!existsSync(fileLocation)) {
-            throw new KnownError(
-                `Assembly '${assembly}' is not valid for preset '${preset}'. Have you provided the right --preset <preset> --assembly <assembly> ?`,
-            );
+        const fileLocation = `${root}/presets/assemblies/assembly-${assembly}.yml`;
+        if (existsSync(fileLocation)) {
+            return BootstrapUtils.loadYaml(fileLocation, false);
         }
-        return BootstrapUtils.loadYaml(fileLocation, false);
+        throw new KnownError(
+            `Assembly '${assembly}' is not valid for preset '${preset}'. Have you provided the right --preset <preset> --assembly <assembly> ?`,
+        );
     }
 
-    public mergePresets(object: ConfigPreset, ...otherArgs: (CustomPreset | undefined)[]): any {
-        const presets: (CustomPreset | undefined)[] = [object, ...otherArgs];
+    public static loadNetworkPreset(root: string, preset: string): CustomPreset {
+        if (BootstrapUtils.isYmlFile(preset)) {
+            if (!existsSync(preset)) {
+                throw new KnownError(`Preset '${preset}' does not exist. Have you provided the right --preset <preset>`);
+            }
+            return BootstrapUtils.loadYaml(preset, false);
+        }
+        const bundledPreset = `${root}/presets/${preset}/network.yml`;
+        if (!existsSync(bundledPreset)) {
+            throw new KnownError(`Preset '${preset}' does not exist. Have you provided the right --preset <preset>`);
+        }
+        return BootstrapUtils.loadYaml(bundledPreset, false);
+    }
+
+    public static loadSharedPreset(root: string): CustomPreset {
+        return BootstrapUtils.loadYaml(join(root, 'presets', 'shared.yml'), false) as ConfigPreset;
+    }
+
+    public mergePresets<T extends CustomPreset>(object: T | undefined, ...otherArgs: (CustomPreset | undefined)[]): T {
+        const presets = [object, ...otherArgs];
         const inflation: Record<string, number> = presets.reverse().find((p) => p?.inflation)?.inflation || {};
-        const presetData = _.merge(object, ...otherArgs);
-        presetData.inflation = inflation;
+        const presetData = _.merge({}, ...presets.reverse());
+        if (!_.isEmpty(inflation)) presetData.inflation = inflation;
         return presetData;
     }
 
     public createPresetData(params: {
         password: Password;
         root: string;
-        preset?: Preset;
+        preset?: string;
         assembly?: string;
         customPreset?: string;
         customPresetObject?: CustomPreset;
@@ -383,28 +472,25 @@ export class ConfigLoader {
         const customPresetObject = params.customPresetObject;
         const oldPresetData = params.oldPresetData;
         const customPresetFileObject = this.loadCustomPreset(customPreset, params.password);
-        const preset =
-            params.preset ||
-            params.customPresetObject?.preset ||
-            customPresetFileObject?.preset ||
-            oldPresetData?.preset ||
-            Preset.bootstrap;
-
+        const preset = params.preset || params.customPresetObject?.preset || customPresetFileObject?.preset || oldPresetData?.preset;
+        if (!preset) {
+            throw new KnownError('Preset value could not be resolved from target folder contents. Please provide the --preset parameter.');
+        }
         const assembly =
-            params.assembly || params.customPresetObject?.assembly || customPresetFileObject?.assembly || params.oldPresetData?.assembly;
+            params.assembly ||
+            params.customPresetObject?.assembly ||
+            customPresetFileObject?.assembly ||
+            params.oldPresetData?.assembly ||
+            Assembly.dual;
 
         const root = params.root;
-        const sharedPreset = BootstrapUtils.loadYaml(join(root, 'presets', 'shared.yml'), false);
-        const networkPreset = BootstrapUtils.loadYaml(`${root}/presets/${preset}/network.yml`, false);
-        const assemblyPreset = this.loadAssembly(root, preset, assembly);
+        const sharedPreset = ConfigLoader.loadSharedPreset(root);
+        const networkPreset = ConfigLoader.loadNetworkPreset(root, preset);
+        const assemblyPreset = ConfigLoader.loadAssembly(root, preset, assembly);
+        const providedCustomPreset = this.mergePresets(customPresetFileObject, customPresetObject);
+        const resolvedCustomPreset = _.isEmpty(providedCustomPreset) ? oldPresetData?.customPresetCache || {} : providedCustomPreset;
+        const presetData = this.mergePresets(sharedPreset, networkPreset, assemblyPreset, resolvedCustomPreset) as ConfigPreset;
 
-        const presetData = this.mergePresets(sharedPreset, networkPreset, assemblyPreset, customPresetFileObject, customPresetObject, {
-            preset,
-        });
-
-        if (presetData.assemblies && !assembly) {
-            throw new Error(`Preset ${preset} requires assembly (-a, --assembly option). Possible values are: ${presetData.assemblies}`);
-        }
         if (!ConfigLoader.presetInfoLogged) {
             logger.info(`Generating config from preset '${preset}'`);
             if (assembly) {
@@ -415,23 +501,24 @@ export class ConfigLoader {
             }
         }
         ConfigLoader.presetInfoLogged = true;
-        const presetDataWithDynamicDefaults = {
+        const presetDataWithDynamicDefaults: ConfigPreset = {
+            ...presetData,
             version: 1,
             preset: preset,
             assembly: assembly || '',
-            ...presetData,
             nodes: this.dynamicDefaultNodeConfiguration(presetData.nodes),
+            customPresetCache: resolvedCustomPreset,
         };
-        return _.merge(oldPresetData || {}, this.expandRepeat(presetDataWithDynamicDefaults));
+        return this.expandRepeat(presetDataWithDynamicDefaults as ConfigPreset);
     }
 
-    public dynamicDefaultNodeConfiguration(nodes?: NodePreset[]): NodePreset[] {
+    public dynamicDefaultNodeConfiguration(nodes?: Partial<NodePreset>[]): NodePreset[] {
         return _.map(nodes || [], (node) => {
-            return { ...this.getDefaultConfiguration(node), ...node };
+            return { ...this.getDefaultConfiguration(node), ...node } as NodePreset;
         });
     }
 
-    private getDefaultConfiguration(node: NodePreset): DeepPartial<NodePreset> {
+    private getDefaultConfiguration(node: Partial<NodePreset>): Partial<NodePreset> {
         if (node.harvesting && node.api) {
             return {
                 syncsource: true,
@@ -533,10 +620,14 @@ export class ConfigLoader {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     public expandServicesRepeat(context: any, services: any[]): any[] {
         return _.flatMap(services || [], (service) => {
-            if (service.repeat === 0) {
+            if (!_.isObject(service)) {
+                return service;
+            }
+            const repeat = (service as any).repeat;
+            if (repeat === 0) {
                 return [];
             }
-            return _.range(service.repeat || 1).map((index) => {
+            return _.range(repeat || 1).map((index) => {
                 return _.omit(
                     _.mapValues(service, (v: any) =>
                         this.applyValueTemplate(

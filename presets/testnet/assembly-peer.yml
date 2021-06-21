@@ -1,6 +1,0 @@
-localNetworks: 127.0.0.1
-nodes:
-    - harvesting: true
-      api: false
-      name: 'node'
-      openPort: true

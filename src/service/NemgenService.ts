@@ -16,9 +16,9 @@
 
 import { promises } from 'fs';
 import { join } from 'path';
+import { LogType } from '../logger';
 import Logger from '../logger/Logger';
 import LoggerFactory from '../logger/LoggerFactory';
-import { LogType } from '../logger/LogType';
 import { ConfigPreset } from '../model';
 import { BootstrapUtils } from './BootstrapUtils';
 import { ConfigParams } from './ConfigService';
@@ -40,7 +40,7 @@ export class NemgenService {
         }
 
         const nemesisWorkingDir = BootstrapUtils.getTargetNemesisFolder(target, true);
-        const nemesisSeedFolder = join(nemesisWorkingDir, `seed`, `${networkIdentifier}`, `0000`);
+        const nemesisSeedFolder = join(nemesisWorkingDir, `seed`, networkIdentifier, `0000`);
         await BootstrapUtils.mkdir(nemesisSeedFolder);
         await promises.copyFile(join(this.root, `config`, `hashes.dat`), join(nemesisSeedFolder, `hashes.dat`));
         const name = presetData.nodes[0].name;
@@ -72,6 +72,9 @@ export class NemgenService {
             logger.error(stderr);
             throw new Error('Nemgen failed. Check the logs!');
         }
+        // deleting unused statedb and hashes folder.
+        await BootstrapUtils.deleteFolder(join(nemesisWorkingDir, 'data'));
+        await BootstrapUtils.deleteFolder(join(nemesisWorkingDir, `seed`, networkIdentifier));
         logger.info('Nemgen executed!!!!');
     }
 }

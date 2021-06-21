@@ -18,7 +18,7 @@ import * as net from 'net';
 
 export class PortService {
     public static async isReachable(port: number, host: string, timeout = 1000): Promise<boolean> {
-        const promise = new Promise((resolve, reject) => {
+        const promise = new Promise<void>((resolve, reject) => {
             const socket = new net.Socket();
 
             const onError = () => {

@@ -1,10 +1,9 @@
 assemblies: 'api, dual, peer'
+networkDescription: Symbol Testnet
 baseNamespace: symbol
 batchVerificationRandomSource: /dev/urandom
 currencyMosaicId: 091F837E059AE13C
-currencyName: xym
 harvestBeneficiaryPercentage: 25
-harvestingName: xym
 harvestingMosaicId: 091F837E059AE13C
 epochAdjustment: 1616694977s
 enableRevoteOnBoot: false
@@ -28,7 +27,7 @@ importanceGrouping: 180
 votingSetGrouping: 720
 votingKeyDesiredLifetime: 720
 votingKeyDesiredFutureLifetime: 120
-lastKnownNetworkEpoch: 235
+lastKnownNetworkEpoch: 311
 minVotingKeyLifetime: 28
 maxVotingKeyLifetime: 720
 stepDuration: 4m
@@ -53,8 +52,18 @@ nonVotingUnfinalizedBlocksDuration: 10m
 votingUnfinalizedBlocksDuration: 0m
 timeSynchronizationMinImportance: 10000000000
 faucetUrl: 'http://faucet.testnet.symboldev.network'
-explorerUrl: 'http://explorer.testnet.symboldev.network'
 restExtensions: 'accountLink, aggregate, lockHash, lockSecret, mosaic, metadata, multisig, namespace, receipts, restrictions, transfer, cmc'
+nemesis:
+    referenceOnly: true
+    mosaics:
+        -
+            name: xym
+            divisibility: 6
+            duration: 0
+            supply: 7842928625000000
+            isTransferable: true
+            isSupplyMutable: false
+            isRestrictable: false
 knownRestGateways:
     - 'http://ngl-dual-501.testnet.symboldev.network:3000'
     - 'http://ngl-dual-601.testnet.symboldev.network:3000'

@@ -124,6 +124,7 @@ const example = async () => {
         return signedTransaction;
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const sendUnlink = async () => {
         const transferTransaction = AccountKeyLinkTransaction.create(
             deadline,
@@ -191,7 +192,7 @@ const example = async () => {
             const cosignatureTransaction = cosignatory2.signCosignatureTransaction(CosignatureTransaction.create(transaction));
             await transactionRepository.announceAggregateBondedCosignature(cosignatureTransaction).toPromise();
 
-            repositoryFactory
+            await repositoryFactory
                 .createTransactionStatusRepository()
                 .getTransactionStatus(transaction.transactionInfo?.hash || '')
                 .toPromise();

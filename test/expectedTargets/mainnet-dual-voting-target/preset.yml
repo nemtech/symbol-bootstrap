@@ -1,0 +1,1552 @@
+nodeUseRemoteAccount: true
+nodePort: 7900
+enableCacheDatabaseStorage: true
+enableVerifiableState: true
+enableVerifiableReceipts: true
+initialCurrencyAtomicUnits: 7842928625000000
+maxMosaicAtomicUnits: 8999999999000000
+totalChainImportance: 7842928625000000
+minHarvesterBalance: 10000000000
+maxHarvesterBalance: 50000000000000
+minVoterBalance: 3000000000000
+blockGenerationTargetTime: 30s
+blockTimeSmoothingFactor: 3000
+importanceGrouping: 720
+importanceActivityPercentage: 5
+maxDifficultyBlocks: 60
+maxRollbackBlocks: 0
+maxTransactionLifetime: 6h
+maxBlockFutureTime: 300ms
+maxNamespaceDuration: 1825d
+namespaceGracePeriodDuration: 30d
+maxAccountRestrictionValues: 100
+maxMosaicRestrictionValues: 20
+maxMessageSize: 1024
+reservedRootNamespaceNames: 'symbol, symbl, xym, xem, nem, user, account, org, com, biz, net, edu, mil, gov, info'
+defaultDynamicFeeMultiplier: 100
+minFeeMultiplier: 100
+maxTimeBehindPullTransactionsStart: 5m
+epochAdjustment: 1615853185s
+nodeEqualityStrategy: host
+maxVotingKeyLifetime: 360
+minVotingKeyLifetime: 112
+mosaicRentalFee: 500000
+votingSetGrouping: 1440
+maxVotingKeysPerAccount: 3
+autoUpdateVotingKeys: false
+maxTransactionsPerAggregate: 100
+maxCosignaturesPerAggregate: 25
+harvestBeneficiaryPercentage: 25
+harvestNetworkPercentage: 5
+rootNamespaceRentalFeePerBlock: 2
+childNamespaceRentalFee: 100000
+enableStrictCosignatureCheck: false
+enableBondedAggregateSupport: true
+maxBondedTransactionLifetime: 48h
+maxTransactionsPerBlock: 6000
+stepDuration: 5m
+minNamespaceDuration: 30d
+trustedHosts: 127.0.0.1
+localNetworks: 127.0.0.1
+lockedFundsPerAggregate: 10000000
+maxHashLockDuration: 2d
+maxSecretLockDuration: 365d
+minProofSize: 0
+maxProofSize: 1024
+maxValueSize: 1024
+maxMosaicsPerAccount: 1000
+maxMosaicDuration: 3650d
+maxMosaicDivisibility: 6
+maxMultisigDepth: 3
+maxCosignatoriesPerAccount: 25
+maxCosignedAccountsPerAccount: 25
+maxNameSize: 64
+maxChildNamespaces: 100
+maxNamespaceDepth: 3
+batchVerificationRandomSource: /dev/urandom
+symbolServerImage: 'symbolplatform/symbol-server:gcc-10-1.0.1.0'
+symbolRestImage: 'symbolplatform/symbol-rest:2.3.6'
+symbolExplorerImage: 'symbolplatform/symbol-explorer:1.1.0-alpha'
+symbolWalletImage: 'symbolplatform/symbol-desktop-wallet:1.0.1'
+symbolFaucetImage: 'symbolplatform/symbol-faucet:0.5.0-alpha'
+symbolAgentImage: 'symbolplatform/symbol-node-rewards-agent:2.0.0'
+mongoImage: 'mongo:4.4.3-bionic'
+mongoComposeRunParam: '--wiredTigerCacheSizeGB 2'
+logLevel: Info
+transactionsDirectory: ./transactions
+binDirectory: ./seed
+seedDirectory: ./seed
+certificateDirectory: ./cert
+dataDirectory: ./data
+votingKeysDirectory: ./votingkeys
+enableDelegatedHarvestersAutoDetection: true
+catapultAppFolder: /usr/catapult
+rewardProgramAgentPort: 7881
+enableRevoteOnBoot: false
+databaseName: catapult
+maxWriterThreads: 8
+maxDropBatchSize: 10
+writeTimeout: 10m
+peersP2PListLimit: 10000
+peersApiListLimit: 10000
+shortLivedCacheMessageDuration: 10m
+messageSynchronizationMaxResponseSize: 20MB
+finalizationSize: 10000
+finalizationThreshold: 7000
+maxHashesPerPoint: 256
+prevoteBlocksMultiple: 4
+nonVotingUnfinalizedBlocksDuration: 10m
+votingUnfinalizedBlocksDuration: 0m
+voting: false
+subscriberPort: 7902
+messagingListenInterface: 0.0.0.0
+networkheight: false
+networkHeightMaxNodes: 5
+partialTransactionsCacheMaxResponseSize: 5MB
+partialTransactionsCacheMaxSize: 20MB
+timeSynchronizationMaxNodes: 20
+timeSynchronizationMinImportance: 10000000000
+maxIncomingConnectionsPerIdentity: 6
+enableAddressReuse: false
+nodeListenInterface: 0.0.0.0
+enableTransactionSpamThrottling: true
+transactionSpamThrottlingMaxBoostFee: 10000000
+maxHashesPerSyncAttempt: 370
+maxBlocksPerSyncAttempt: 360
+maxChainBytesPerSyncAttempt: 100MB
+shortLivedCacheTransactionDuration: 10m
+shortLivedCacheBlockDuration: 100m
+shortLivedCachePruneInterval: 90s
+shortLivedCacheMaxSize: 10000000
+transactionSelectionStrategy: oldest
+unconfirmedTransactionsCacheMaxResponseSize: 5MB
+unconfirmedTransactionsCacheMaxSize: 20MB
+connectTimeout: 15s
+syncTimeout: 5m
+enableSingleThreadPool: false
+sinkType: Async
+socketWorkingBufferSize: 16KB
+socketWorkingBufferSensitivity: 1
+maxPacketDataSize: 150MB
+blockDisruptorSlotCount: 4096
+blockDisruptorMaxMemorySize: 300MB
+blockElementTraceInterval: 1
+transactionDisruptorSlotCount: 8192
+transactionDisruptorMaxMemorySize: 20MB
+transactionElementTraceInterval: 10
+enableDispatcherAbortWhenFull: false
+enableDispatcherInputAuditing: false
+maxTrackedNodes: 5'000
+enableAutoHarvesting: true
+fileDatabaseBatchSize: 100
+maxUnlockedAccounts: 20
+delegatePrioritizationPolicy: Importance
+dockerComposeVersion: '2.4'
+dockerComposeServiceRestart: 'on-failure:2'
+dockerComposeDebugMode: false
+minPartnerNodeVersion: 1.0.0.0
+maxPartnerNodeVersion: 1.0.255.255
+serverVersion: 1.0.1.0
+outgoing_connections_maxConnections: 10
+outgoing_connections_maxConnectionAge: 200
+outgoing_connections_maxConnectionBanAge: 20
+outgoing_connections_numConsecutiveFailuresBeforeBanning: 3
+incoming_connections_maxConnections: 512
+incoming_connections_maxConnectionAge: 200
+incoming_connections_maxConnectionBanAge: 20
+incoming_connections_numConsecutiveFailuresBeforeBanning: 3
+incoming_connections_backlogSize: 512
+defaultBanDuration: 12h
+maxBanDuration: 72h
+keepAliveDuration: 48h
+maxBannedNodes: 5000
+numReadRateMonitoringBuckets: 4
+readRateMonitoringBucketDuration: 15s
+maxReadRateMonitoringTotalSize: 100MB
+minTransactionFailuresCountForBan: 8
+minTransactionFailuresPercentForBan: 10
+enableStatistics: false
+maxOpenFiles: 0
+maxBackgroundThreads: 0
+maxSubcompactionThreads: 0
+blockCacheSize: 0MB
+memtableMemoryBudget: 0MB
+maxWriteBatchSize: 5MB
+throttlingBurst: 80
+throttlingRate: 60
+restLoggingFilename: /symbol-workdir/logs/catapult-rest.log
+apiNodeConfigPath: /symbol-workdir/api-node-config
+subnet: 172.20.0.0/24
+apiNodePort: 7900
+apiNodeTimeout: 1000
+apiNodeBrokerPort: 7902
+apiNodeBrokerPortMonitorInterval: 500
+apiNodeBrokerConnectTimeout: 10000
+apiNodeBrokerMonitorLoggingThrottle: 60000
+maxConnectionAttempts: 15
+baseRetryDelay: 750
+connectionPoolSize: 10
+maxSubscriptions: 300
+restExtensions: 'accountLink, aggregate, lockHash, lockSecret, mosaic, metadata, multisig, namespace, receipts, restrictions, transfer, cmc'
+restDeploymentTool: symbol-bootstrap
+networkDescription: Symbol Mainnet
+baseNamespace: symbol
+currencyMosaicId: 6BED913FA20223F8
+harvestingMosaicId: 6BED913FA20223F8
+nemesisGenerationHashSeed: 57F7DA205008026C776CB6AED843393F04CD458E0AA2D9F1D5F31A402072B2D6
+harvestNetworkFeeSinkAddress: NBUTOBVT5JQDCV6UEPCPFHWWOAOPOCLA5AY5FLI
+namespaceRentalFeeSinkAddress: NBDTBUD6R32ZYJWDEWLJM4YMOX3OOILHGDUMTSA
+mosaicRentalFeeSinkAddress: NC733XE7DF46Q7QYLIIZBBSCJN2BEEP5FQ6PAYA
+nemesisSignerPublicKey: BE0B4CF546B7B4F4BBFCFF9F574FDA527C07A53D3FC76F8BB7DB746F8E8E0A9F
+networkType: 104
+rewardProgramCaFile: >-
+    LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJZVENDQVJNQ0ZHVWJMZ1FuUEU4azc2VUczNWNGME9yNWh6M1RNQVVHQXl0bGNEQlRNUm93R0FZRFZRUUsKREJGT1JVMGdSM0p2ZFhBZ1RHbHRhWFJsWkRFYk1Ca0dBMVVFQXd3U2MzbHRZbTlzY0d4aGRHWnZjbTB1WTI5dApNUmd3RmdZRFZRUUxEQTlTWlhkaGNtUnpJRkJ5YjJkeVlXMHdIaGNOTWpFd05ESTJNVFV4TlRVMFdoY05OREV3Ck5ESXhNVFV4TlRVMFdqQlRNUm93R0FZRFZRUUtEQkZPUlUwZ1IzSnZkWEFnVEdsdGFYUmxaREViTUJrR0ExVUUKQXd3U2MzbHRZbTlzY0d4aGRHWnZjbTB1WTI5dE1SZ3dGZ1lEVlFRTERBOVNaWGRoY21SeklGQnliMmR5WVcwdwpLakFGQmdNclpYQURJUUNGMEJ5NENlTTV3MWxoZWU3YVlzb0YvbEJMT29kZDI0ZWhqa3k0NnV4djREQUZCZ01yClpYQURRUURneUhSeU1zbVpCV3pFZWlDczJWMVZ1dHFaNWxzZ2tWN0w4K2dxZ3NQTmpCajRlaUpWaDdHUWV0SEcKZXlFaWZoUXFwdnpqWmQycW9MWUNrYWV3TUNRRQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+rewardProgramEnrollmentAddress: NDG2F6IHON7EDOXZCHSTSJ2YMUHDFXAQ2EUZHFA
+rewardProgramControllerApiUrl: 'http://node-monitoring.symbolblockchain.io:7890'
+votingKeyDesiredLifetime: 360
+votingKeyDesiredFutureLifetime: 60
+lastKnownNetworkEpoch: 224
+nemesis:
+    referenceOnly: true
+    mosaics:
+        -
+            name: xym
+            divisibility: 6
+            duration: 0
+            supply: 7842928625000000
+            isTransferable: true
+            isSupplyMutable: false
+            isRestrictable: false
+knownRestGateways:
+    - 'http://ngl-dual-001.symbolblockchain.io:3000'
+    - 'http://ngl-dual-002.symbolblockchain.io:3000'
+    - 'http://ngl-dual-003.symbolblockchain.io:3000'
+    - 'http://ngl-dual-004.symbolblockchain.io:3000'
+    - 'http://ngl-dual-101.symbolblockchain.io:3000'
+    - 'http://ngl-dual-102.symbolblockchain.io:3000'
+    - 'http://ngl-dual-103.symbolblockchain.io:3000'
+    - 'http://ngl-dual-104.symbolblockchain.io:3000'
+    - 'http://ngl-dual-201.symbolblockchain.io:3000'
+    - 'http://ngl-dual-202.symbolblockchain.io:3000'
+    - 'http://ngl-dual-203.symbolblockchain.io:3000'
+    - 'http://ngl-dual-204.symbolblockchain.io:3000'
+    - 'http://ngl-dual-301.symbolblockchain.io:3000'
+    - 'http://ngl-dual-302.symbolblockchain.io:3000'
+    - 'http://ngl-dual-303.symbolblockchain.io:3000'
+    - 'http://ngl-dual-304.symbolblockchain.io:3000'
+    - 'http://ngl-dual-401.symbolblockchain.io:3000'
+    - 'http://ngl-dual-402.symbolblockchain.io:3000'
+    - 'http://ngl-dual-403.symbolblockchain.io:3000'
+    - 'http://ngl-dual-404.symbolblockchain.io:3000'
+    - 'http://ngl-dual-501.symbolblockchain.io:3000'
+    - 'http://ngl-dual-502.symbolblockchain.io:3000'
+    - 'http://ngl-dual-503.symbolblockchain.io:3000'
+    - 'http://ngl-dual-504.symbolblockchain.io:3000'
+    - 'http://ngl-dual-601.symbolblockchain.io:3000'
+    - 'http://ngl-dual-602.symbolblockchain.io:3000'
+    - 'http://ngl-dual-603.symbolblockchain.io:3000'
+    - 'http://ngl-dual-604.symbolblockchain.io:3000'
+    - 'http://ngl-dual-005.symbolblockchain.io:3000'
+    - 'http://ngl-dual-006.symbolblockchain.io:3000'
+    - 'http://ngl-dual-105.symbolblockchain.io:3000'
+    - 'http://ngl-dual-106.symbolblockchain.io:3000'
+    - 'http://ngl-dual-205.symbolblockchain.io:3000'
+    - 'http://ngl-dual-206.symbolblockchain.io:3000'
+    - 'http://ngl-dual-305.symbolblockchain.io:3000'
+    - 'http://ngl-dual-306.symbolblockchain.io:3000'
+    - 'http://ngl-dual-405.symbolblockchain.io:3000'
+    - 'http://ngl-dual-406.symbolblockchain.io:3000'
+    - 'http://ngl-dual-505.symbolblockchain.io:3000'
+    - 'http://ngl-dual-506.symbolblockchain.io:3000'
+    - 'http://ngl-dual-605.symbolblockchain.io:3000'
+    - 'http://ngl-dual-606.symbolblockchain.io:3000'
+    - 'http://ngl-api-001.symbolblockchain.io:3000'
+    - 'http://ngl-api-301.symbolblockchain.io:3000'
+    - 'http://ngl-api-401.symbolblockchain.io:3000'
+    - 'http://ngl-api-501.symbolblockchain.io:3000'
+    - 'http://ngl-api-601.symbolblockchain.io:3000'
+knownPeers:
+    api-node:
+        -
+            publicKey: C7BEA9036ECFA79CB081184CFA0E524E7D567A5127C55360D9FF1D2FC1AC4FDD
+            endpoint:
+                host: ngl-dual-001.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-001
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: CE0AC3FC879B190220A95A67CAC855251EA599F11FA05A77CC02BC32F8228610
+            endpoint:
+                host: ngl-dual-002.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-002
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: B36DE7C3B39B225FEF7FC37D40863A2C9AD90EAFDFD79C630BBFF3883CABD929
+            endpoint:
+                host: ngl-dual-003.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-003
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 86C31F2136FB5EB07147E883ACECB891D2D4734E363B26033B1230D8ACF8BBBE
+            endpoint:
+                host: ngl-dual-004.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-004
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 6E81088A2E2504C4F91E3DC9C2517FAB99574D71EF5D9F74031FB394CCA7AF3B
+            endpoint:
+                host: ngl-dual-101.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-101
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: D1BD3577079DD8CFA5073615B7053712C7B4D4B12899C31D1FB34219145298A2
+            endpoint:
+                host: ngl-dual-102.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-102
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: DCC6C941EE95967B47433EA3241D53594364A34DB33A9BDC0D668C457002E0F1
+            endpoint:
+                host: ngl-dual-103.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-103
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 3A98603E293DCE7CBF5EE860A00670E3025D3E880D3CC339C926217C36FE6436
+            endpoint:
+                host: ngl-dual-104.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-104
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 7E1101CFD5E64D6CA4A55B70E24412365BD1658E767F23AF9E9777410C116D89
+            endpoint:
+                host: ngl-dual-201.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-201
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 3820C4CFB4BA94F62A982991CB2618EC5E1CFF2C11AD34EFA2254F4305013C1D
+            endpoint:
+                host: ngl-dual-202.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-202
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 256AA91283F23168C538F3155DEE946A2B0E7207FBDC369E5C5415F7EE1DE592
+            endpoint:
+                host: ngl-dual-203.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-203
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 6830127294F7C50FE91625076A0D1CCE910A084B032252CDD005C4148ED11A3D
+            endpoint:
+                host: ngl-dual-204.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-204
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 92D05B749D6300C4CDCD13A58BF37B7C82B471AB2DFD1A7A6E8C1584620594CA
+            endpoint:
+                host: ngl-dual-301.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-301
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 5446DA4D21D5809A3C8492C9083743F4349690A21CB5FF0D6621CC78A6FEE979
+            endpoint:
+                host: ngl-dual-302.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-302
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 4C48C2A708CC1857405C9C48C4D7A69AA5F0FBB7FB8323C967E1BC644A4417E9
+            endpoint:
+                host: ngl-dual-303.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-303
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: DEC3292B6ABFAC6687C37FA8963B84715C6E736F6CA27DD50249638D9DF967B1
+            endpoint:
+                host: ngl-dual-304.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-304
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 9D50238B795818044CB330DC5FBA485C7B20EBD38E1A7DBE248555AD70AB4F19
+            endpoint:
+                host: ngl-dual-401.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-401
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 474C5CD5F0B24BCD769DBE99B37C80F4D60B89E28946E126BE23E1EFD5AAA369
+            endpoint:
+                host: ngl-dual-402.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-402
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: EF1209DC3C42B6450BEF658D404252DF2E26784CECD35FAEB19D929AE030A198
+            endpoint:
+                host: ngl-dual-403.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-403
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: E335B45C9FA2666121D81ACDC8007DF0C958D48A0E1ADD34D22894D85B3EA3BC
+            endpoint:
+                host: ngl-dual-404.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-404
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 606BF668BBD9EA1AFCD9E37A2C18C05BE39CC00752AAD99A0E22A79071CCAA7D
+            endpoint:
+                host: ngl-dual-501.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-501
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 428F68595322EADDCC0722F024FB0FAD7D35F40C50F1E99AE8FBC8B7EC68E7F2
+            endpoint:
+                host: ngl-dual-502.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-502
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: C5B4653E6EE56B7E9C1F87D4F0C712B00378D2828CF7AC73F6BE19F8B1B04B4B
+            endpoint:
+                host: ngl-dual-503.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-503
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: E74C655E5A4E72E13EE86B8AE7051EEAAF9AD871D5750A04AB360A3FEFD03440
+            endpoint:
+                host: ngl-dual-504.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-504
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 90009F2C2D396A6B788D6DBAB8F075CB20549A50BBA5259D382618FD86F1419A
+            endpoint:
+                host: ngl-dual-601.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-601
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: E0AB078AC2F363DE0D6823D2A9B5229C092FFB8CB2735D72BE63B8AF94367CB6
+            endpoint:
+                host: ngl-dual-602.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-602
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: F8C70778B37A989480969CB44F509509D1372049E821CA6F0A759FC50E03ADBF
+            endpoint:
+                host: ngl-dual-603.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-603
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: 9F62586518D1707CA57004EF38135509EAE9E9D2933A73041B6171EC0B3F50DF
+            endpoint:
+                host: ngl-dual-604.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-604
+                roles: 'Api,Peer,Voting'
+        -
+            publicKey: BA3E425DA3D32458F8A36C8FCBD6DEDBF5E7A9D8E56A7962EA55AD5125C425B1
+            endpoint:
+                host: ngl-dual-005.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-005
+                roles: 'Api,Peer'
+        -
+            publicKey: 3FDFCB4F510E81A4A44B044298974DAA34F3B6FC9D24B6D5CE90FFA933C11F51
+            endpoint:
+                host: ngl-dual-006.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-006
+                roles: 'Api,Peer'
+        -
+            publicKey: 9266C64CDEE62F2AF54806F0CBF2A53D9144CB02AA10B7F7DDEAEAF483E87591
+            endpoint:
+                host: ngl-dual-105.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-105
+                roles: 'Api,Peer'
+        -
+            publicKey: AC63FD2AAA53B73B4E515F73077522925C8502BFC13B073A520B4BA2F3026BC8
+            endpoint:
+                host: ngl-dual-106.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-106
+                roles: 'Api,Peer'
+        -
+            publicKey: 7811A94C2BF3CE9E7E1933DF9E9D0C3A7C09DAEF5A3CAC23960B252BDB8D52D3
+            endpoint:
+                host: ngl-dual-205.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-205
+                roles: 'Api,Peer'
+        -
+            publicKey: 02A55829A1A10542C460A87C4D2C39D03DCCA3F53692B5095C424CCDC21E64A6
+            endpoint:
+                host: ngl-dual-206.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-206
+                roles: 'Api,Peer'
+        -
+            publicKey: 36CAF133D574DB99B4392D76959488D5B91BD71545039DC80249CFD1FC536795
+            endpoint:
+                host: ngl-dual-305.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-305
+                roles: 'Api,Peer'
+        -
+            publicKey: 9B302ABCE3CD5783D79AD522B1769DA9AAA10A69E1930B998C2675AA105356FA
+            endpoint:
+                host: ngl-dual-306.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-306
+                roles: 'Api,Peer'
+        -
+            publicKey: 4C85111B10EFB6A25FB77C8A2675C5A92DA5FF36686C4CCE24F887B16342CC95
+            endpoint:
+                host: ngl-dual-405.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-405
+                roles: 'Api,Peer'
+        -
+            publicKey: 0AF73C5CAC76624DB9B51560820F8DFC88120994143C6DB344A035EBFF707A2F
+            endpoint:
+                host: ngl-dual-406.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-406
+                roles: 'Api,Peer'
+        -
+            publicKey: E060CA383C533273DB4B3CE7AD964E0E3A2B17018B19ABF830590D5FB9338B29
+            endpoint:
+                host: ngl-dual-505.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-505
+                roles: 'Api,Peer'
+        -
+            publicKey: B1D2AA01E51A81E84CBB2919C0E6AFBBC1383A2760370E60A93C335245A6CB9C
+            endpoint:
+                host: ngl-dual-506.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-506
+                roles: 'Api,Peer'
+        -
+            publicKey: 4F014A430E69EFC422AD8B440FA4D312CBDE9803BB857A0736F38E62CE4CF571
+            endpoint:
+                host: ngl-dual-605.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-605
+                roles: 'Api,Peer'
+        -
+            publicKey: E32504B5590B9927CA5509FAA0C0CA63DB3479095C2DB73D0150FB862AA0E1FC
+            endpoint:
+                host: ngl-dual-606.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-dual-606
+                roles: 'Api,Peer'
+        -
+            publicKey: 47AC3041A5CA98EEA123C64CB7420ADA7F45355CF1993ECA8639891536958011
+            endpoint:
+                host: ngl-api-001.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-api-001
+                roles: Api
+        -
+            publicKey: FE0186777D17DD57CAE5E3D9531EC8E70F1F452ED777910E96A9F44D889D9684
+            endpoint:
+                host: ngl-api-301.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-api-301
+                roles: Api
+        -
+            publicKey: 642197D9D5B283252BFCBC2FEF8B2EE1A7B3383DCD964D159CBF135CA31DC22B
+            endpoint:
+                host: ngl-api-401.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-api-401
+                roles: Api
+        -
+            publicKey: E1640F016401E1A8644614B1707D878992DB01B480B55AEDE0EA1A986067ED79
+            endpoint:
+                host: ngl-api-501.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-api-501
+                roles: Api
+        -
+            publicKey: 0282991F51E91F8994F1B3FD4A7D1CDE39F6B828A5D419150D6E07925CFFD27C
+            endpoint:
+                host: ngl-api-601.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-api-601
+                roles: Api
+    peer-node:
+        -
+            publicKey: FA9F3974FE3B15585E6B72672C7D8BEAE27D1EDF6C4752BAFDB8B2FEA601C0CF
+            endpoint:
+                host: ngl-beacon-001.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-001
+                roles: 'Peer,Voting'
+        -
+            publicKey: AFF16052217A847A6A71B326FEA9073CFF70D07FC5BA9026B3E05FB453C950DF
+            endpoint:
+                host: ngl-beacon-101.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-101
+                roles: 'Peer,Voting'
+        -
+            publicKey: D237B4C5964183141868F90ABEF557F751FFB973E7CFF59CCC1B00C504E048F0
+            endpoint:
+                host: ngl-beacon-201.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-201
+                roles: 'Peer,Voting'
+        -
+            publicKey: 78480D48CC2AA6988E2FD05C884EE0525ACF6DC78766492034EA08CC1ADF788C
+            endpoint:
+                host: ngl-beacon-301.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-301
+                roles: 'Peer,Voting'
+        -
+            publicKey: 9261DB223A28A3DB05315235DF2186260951B66515B17A6B890BBCE3EE9E3FE7
+            endpoint:
+                host: ngl-beacon-401.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-401
+                roles: 'Peer,Voting'
+        -
+            publicKey: B1B60E982CF0DE72584BED82EDCFAF5F187D24B21DECFA814F69605B5DE4A7C1
+            endpoint:
+                host: ngl-beacon-501.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-501
+                roles: 'Peer,Voting'
+        -
+            publicKey: 9785B471C23994341159DB2E66853F6B0EAEA1E6E2A838A020965F4B8E29D03A
+            endpoint:
+                host: ngl-beacon-601.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-601
+                roles: 'Peer,Voting'
+        -
+            publicKey: EA77478068E3266CFA478E39AF1FDCD67EA512381889717AA8B66BFC4D01701F
+            endpoint:
+                host: ngl-beacon-002.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-002
+                roles: 'Peer,Voting'
+        -
+            publicKey: D5A40927DDCCD657F52F4C53FE682B07FC2E375040E0CAC50D8FE060024BB775
+            endpoint:
+                host: ngl-beacon-102.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-102
+                roles: 'Peer,Voting'
+        -
+            publicKey: AF42867433DCAAA560A8A83A923822D55751F360BA385EDF21A932C33F3AEDD0
+            endpoint:
+                host: ngl-beacon-202.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-202
+                roles: 'Peer,Voting'
+        -
+            publicKey: EF14DAE981FBD1E697CCD551DB9146B379CA4FD153C84016E7DA7A1930AD2395
+            endpoint:
+                host: ngl-beacon-302.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-302
+                roles: 'Peer,Voting'
+        -
+            publicKey: 3F880DE47D4EB16D1871B1DED95F081151C9BF910EF682EDF202E8CA904B0CB9
+            endpoint:
+                host: ngl-beacon-402.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-402
+                roles: 'Peer,Voting'
+        -
+            publicKey: 47704C18AC5F0C50A92B3763049EA91D84B17FAC0D86D9A9340AF98E3F610058
+            endpoint:
+                host: ngl-beacon-502.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-502
+                roles: 'Peer,Voting'
+        -
+            publicKey: DE26F36D5426EC7B91200CB8C0DB70F4D82CD15F7FAFCE48A2174781D72CE6AD
+            endpoint:
+                host: ngl-beacon-602.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-602
+                roles: 'Peer,Voting'
+        -
+            publicKey: 533F75316C28E09B652232D1F48468D19EC88AB5125E947873AA3E150E2DD217
+            endpoint:
+                host: ngl-beacon-003.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-003
+                roles: Peer
+        -
+            publicKey: DEE480BD3CA0B2E928543F087A28234E565FF6EDBBBC5B961F8302C16ACEB202
+            endpoint:
+                host: ngl-beacon-004.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-004
+                roles: Peer
+        -
+            publicKey: F925F965D66E2928DDF2C27BB3AB69781C92D0E414C84AE963A505686C66445A
+            endpoint:
+                host: ngl-beacon-103.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-103
+                roles: Peer
+        -
+            publicKey: 4D0AAE4583FDA3BA3CFFA00F9C684A701C360E59DDD14EF3992233D20C59585A
+            endpoint:
+                host: ngl-beacon-104.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-104
+                roles: Peer
+        -
+            publicKey: EEA3B0D28CAEF4A6354F65D7D7F4947145D6FD9FF9F36CA87856CB44A7B1531E
+            endpoint:
+                host: ngl-beacon-203.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-203
+                roles: Peer
+        -
+            publicKey: 2D310E377C0CC84A945E8C9CFDB799F7FDE5F88EE07BBF90D5CED2BFCE27445B
+            endpoint:
+                host: ngl-beacon-204.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-204
+                roles: Peer
+        -
+            publicKey: C1BD10D1320BB22F66692AE002129028BEE7D78E3AA991B12525AD5D3E1BE7DA
+            endpoint:
+                host: ngl-beacon-303.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-303
+                roles: Peer
+        -
+            publicKey: 082F46AEAD35E6C3E443542616F41AAA992389035CAC2DD8807B8321C585E6BB
+            endpoint:
+                host: ngl-beacon-304.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-304
+                roles: Peer
+        -
+            publicKey: 11D6421BC726D684614038B5A0E48D6723CA7C53CDF3A7F9305582227988B3A1
+            endpoint:
+                host: ngl-beacon-403.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-403
+                roles: Peer
+        -
+            publicKey: 66C2A930320B7A00D0A2653588F65967C73222A8356781DD5AB98F9E759AEF27
+            endpoint:
+                host: ngl-beacon-404.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-404
+                roles: Peer
+        -
+            publicKey: C08E5DD1539AA29F1408B288550BCBC27BEA447E97E31C5976E58067CD69F655
+            endpoint:
+                host: ngl-beacon-503.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-503
+                roles: Peer
+        -
+            publicKey: BADFA53EDBFC6B57511A836057DABAE9FF1669027EC37A5A188CCFB81A033C07
+            endpoint:
+                host: ngl-beacon-504.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-504
+                roles: Peer
+        -
+            publicKey: 5A85331AB54F8B296EC69F7ABF05E133907D6B87F658E43D09E5E9F6E7FDFB6A
+            endpoint:
+                host: ngl-beacon-603.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-603
+                roles: Peer
+        -
+            publicKey: 00FB938646A8A458C55036682AEFAD6733DAEB86DDF19404DEED680FE79B1C39
+            endpoint:
+                host: ngl-beacon-604.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-beacon-604
+                roles: Peer
+        -
+            publicKey: AA91F88DF6D80A9FA097E2FD2A6FCC9CC937177FE0D8933D64B16C5C442B2691
+            endpoint:
+                host: ngl-peer-001.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-001
+                roles: Peer
+        -
+            publicKey: 990B2E1DD730964E62250A7DB1EC2EFCAEE8EE0FA9B2B5368CB4102964C4A822
+            endpoint:
+                host: ngl-peer-301.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-301
+                roles: Peer
+        -
+            publicKey: 1F39352BDBFDBDE4FAE4C58A51140C0843A1B8EE1D62B4297BCC7F6ECE47F489
+            endpoint:
+                host: ngl-peer-401.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-401
+                roles: Peer
+        -
+            publicKey: D12440291B4BD458FE6BAFAA67C502A638777462654C59C7070BE0B5215FF510
+            endpoint:
+                host: ngl-peer-601.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-601
+                roles: Peer
+        -
+            publicKey: 92AD7B4E370A7499F1449C1BA2863C5E484B584B59B148724F5970C6EFD6F806
+            endpoint:
+                host: ngl-peer-501.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-501
+                roles: Peer
+        -
+            publicKey: DEE184EB07DD52A171AA3381F5E7047AE3B830D2A99B7A9027461EA5CB6B878D
+            endpoint:
+                host: ngl-peer-002.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-002
+                roles: 'Peer,Voting'
+        -
+            publicKey: 7080531438D8E76B732D76ECB936E74AEAAF3F9491A85691791BB41462EC2DD0
+            endpoint:
+                host: ngl-peer-003.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-003
+                roles: 'Peer,Voting'
+        -
+            publicKey: E4797E4362B7DE5E4EE834DE4EAAA1036B8F035F6A5352FD5BB85664B41633AE
+            endpoint:
+                host: ngl-peer-004.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-004
+                roles: 'Peer,Voting'
+        -
+            publicKey: FEC90947D0AF30CB32BC6018928AA6CEC96ED9861DD0608DAFC69131BFDD971A
+            endpoint:
+                host: ngl-peer-101.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-101
+                roles: 'Peer,Voting'
+        -
+            publicKey: E6C6D041D77590295432EDC5DC8D1019D4F1F0C002C37909EB4837FF03B139CD
+            endpoint:
+                host: ngl-peer-102.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-102
+                roles: 'Peer,Voting'
+        -
+            publicKey: FC8C66547D7C20CD6CBF7F31DC5657247351AF8C12188E56F885FF012431B8C1
+            endpoint:
+                host: ngl-peer-103.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-103
+                roles: 'Peer,Voting'
+        -
+            publicKey: 0E8D31F20B4119D8AE8176970727A37247764CCCE966C72A5809685717FDEA0F
+            endpoint:
+                host: ngl-peer-201.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-201
+                roles: 'Peer,Voting'
+        -
+            publicKey: ABCB18959666D248D8B3677D6E673F3EB7A217DEFC5C31B4EDAEB5D111321DDF
+            endpoint:
+                host: ngl-peer-202.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-202
+                roles: 'Peer,Voting'
+        -
+            publicKey: 5F32F1AAE8934112A9627EFF43414D9E5DA93CFDB5B5149864FBF76BC2EAA09C
+            endpoint:
+                host: ngl-peer-302.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-302
+                roles: 'Peer,Voting'
+        -
+            publicKey: 504699E3C142DD465C5B46BCD7F43ABE232741F4AD82DFB66808E2A338B77EEB
+            endpoint:
+                host: ngl-peer-303.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-303
+                roles: 'Peer,Voting'
+        -
+            publicKey: D2C9A5ECDF0FFBDAC5F9D54EDE06848450798086206C3B5E8D9C7737AC5BF4E7
+            endpoint:
+                host: ngl-peer-304.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-304
+                roles: 'Peer,Voting'
+        -
+            publicKey: 729073C51675055556F67BC1C4FD065A12ABDEEBB9455B835382BEA701B6B644
+            endpoint:
+                host: ngl-peer-402.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-402
+                roles: 'Peer,Voting'
+        -
+            publicKey: 8C63F371ECBEC388A14117662F3CB7456D5EA7449779D20DDC259F084203B9DD
+            endpoint:
+                host: ngl-peer-403.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-403
+                roles: 'Peer,Voting'
+        -
+            publicKey: 22719E8A14770A076A81A3BD9A02847E0E198AA0D8E8D8E7CC0B359CA80CD73D
+            endpoint:
+                host: ngl-peer-404.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-404
+                roles: 'Peer,Voting'
+        -
+            publicKey: 00794D10A9BDEC3E431A8165782D59D54A3EDA682FC50EA31B03BE46E3508D86
+            endpoint:
+                host: ngl-peer-502.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-502
+                roles: 'Peer,Voting'
+        -
+            publicKey: E6051F40218A770C56B170F27E2C031B61C19EB7EAF6D17CEE7854D3A3F264BF
+            endpoint:
+                host: ngl-peer-503.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-503
+                roles: 'Peer,Voting'
+        -
+            publicKey: 4EF71A6C97ADD6A2C07568C38130A7CD7768F3E0F4E5E651A72119DDFF1F74A2
+            endpoint:
+                host: ngl-peer-504.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-504
+                roles: 'Peer,Voting'
+        -
+            publicKey: 98ECC6FFF03B4AB7C687A27C0DB120E3B0ECDFEAFECC54E10D8AA59409890170
+            endpoint:
+                host: ngl-peer-602.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-602
+                roles: 'Peer,Voting'
+        -
+            publicKey: 8EA3F1718C0C8DF68FB3B53702C8B3C44FEB88FA7018CAF0C52D163974CAECD2
+            endpoint:
+                host: ngl-peer-603.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-603
+                roles: 'Peer,Voting'
+        -
+            publicKey: 9C59D2235888E6FE638A9F4E3F6977C230836A9902929F1884220CF2F1A40B85
+            endpoint:
+                host: ngl-peer-604.symbolblockchain.io
+                port: 7900
+            metadata:
+                name: ngl-peer-604
+                roles: 'Peer,Voting'
+inflation:
+    starting-at-height-2: 0
+    starting-at-height-5760: 191997042
+    starting-at-height-172799: 183764522
+    starting-at-height-435299: 175884998
+    starting-at-height-697799: 168343336
+    starting-at-height-960299: 161125048
+    starting-at-height-1222799: 154216270
+    starting-at-height-1485299: 147603728
+    starting-at-height-1747799: 141274720
+    starting-at-height-2010299: 135217090
+    starting-at-height-2272799: 129419202
+    starting-at-height-2535299: 123869918
+    starting-at-height-2797799: 118558578
+    starting-at-height-3060299: 113474978
+    starting-at-height-3322799: 108609356
+    starting-at-height-3585299: 103952364
+    starting-at-height-3847799: 99495056
+    starting-at-height-4110299: 95228870
+    starting-at-height-4372799: 91145612
+    starting-at-height-4635299: 87237436
+    starting-at-height-4897799: 83496838
+    starting-at-height-5160299: 79916630
+    starting-at-height-5422799: 76489934
+    starting-at-height-5685299: 73210170
+    starting-at-height-5947799: 70071038
+    starting-at-height-6210299: 67066506
+    starting-at-height-6472799: 64190804
+    starting-at-height-6735299: 61438406
+    starting-at-height-6997799: 58804028
+    starting-at-height-7260299: 56282608
+    starting-at-height-7522799: 53869300
+    starting-at-height-7785299: 51559472
+    starting-at-height-8047799: 49348686
+    starting-at-height-8310299: 47232696
+    starting-at-height-8572799: 45207434
+    starting-at-height-8835299: 43269014
+    starting-at-height-9097799: 41413708
+    starting-at-height-9360299: 39637956
+    starting-at-height-9622799: 37938346
+    starting-at-height-9885299: 36311610
+    starting-at-height-10147799: 34754628
+    starting-at-height-10410299: 33264406
+    starting-at-height-10672799: 31838082
+    starting-at-height-10935299: 30472918
+    starting-at-height-11197799: 29166288
+    starting-at-height-11460299: 27915686
+    starting-at-height-11722799: 26718706
+    starting-at-height-11985299: 25573052
+    starting-at-height-12247799: 24476520
+    starting-at-height-12510299: 23427008
+    starting-at-height-12772799: 22422496
+    starting-at-height-13035299: 21461056
+    starting-at-height-13297799: 20540840
+    starting-at-height-13560299: 19660082
+    starting-at-height-13822799: 18817090
+    starting-at-height-14085299: 18010244
+    starting-at-height-14347799: 17237994
+    starting-at-height-14610299: 16498858
+    starting-at-height-14872799: 15791412
+    starting-at-height-15135299: 15114302
+    starting-at-height-15397799: 14466226
+    starting-at-height-15660299: 13845938
+    starting-at-height-15922799: 13252246
+    starting-at-height-16185299: 12684012
+    starting-at-height-16447799: 12140142
+    starting-at-height-16710299: 11619592
+    starting-at-height-16972799: 11121364
+    starting-at-height-17235299: 10644498
+    starting-at-height-17497799: 10188078
+    starting-at-height-17760299: 9751230
+    starting-at-height-18022799: 9333114
+    starting-at-height-18285299: 8932924
+    starting-at-height-18547799: 8549896
+    starting-at-height-18810299: 8183290
+    starting-at-height-19072799: 7832404
+    starting-at-height-19335299: 7496562
+    starting-at-height-19597799: 7175122
+    starting-at-height-19860299: 6867464
+    starting-at-height-20122799: 6573000
+    starting-at-height-20385299: 6291160
+    starting-at-height-20647799: 6021404
+    starting-at-height-20910299: 5763216
+    starting-at-height-21172799: 5516100
+    starting-at-height-21435299: 5279578
+    starting-at-height-21697799: 5053198
+    starting-at-height-21960299: 4836526
+    starting-at-height-22222799: 4629144
+    starting-at-height-22485299: 4430652
+    starting-at-height-22747799: 4240674
+    starting-at-height-23010299: 4058840
+    starting-at-height-23272799: 3884804
+    starting-at-height-23535299: 3718230
+    starting-at-height-23797799: 3558798
+    starting-at-height-24060299: 3406202
+    starting-at-height-24322799: 3260150
+    starting-at-height-24585299: 3120360
+    starting-at-height-24847799: 2986564
+    starting-at-height-25110299: 2858506
+    starting-at-height-25372799: 2735938
+    starting-at-height-25635299: 2618624
+    starting-at-height-25897799: 2506342
+    starting-at-height-26160299: 2398874
+    starting-at-height-26422799: 2296014
+    starting-at-height-26685299: 2197564
+    starting-at-height-26947799: 2103336
+    starting-at-height-27210299: 2013150
+    starting-at-height-27472799: 1926828
+    starting-at-height-27735299: 1844210
+    starting-at-height-27997799: 1765132
+    starting-at-height-28260299: 1689446
+    starting-at-height-28522799: 1617006
+    starting-at-height-28785299: 1547672
+    starting-at-height-29047799: 1481310
+    starting-at-height-29310299: 1417794
+    starting-at-height-29572799: 1357000
+    starting-at-height-29835299: 1298814
+    starting-at-height-30097799: 1243124
+    starting-at-height-30360299: 1189820
+    starting-at-height-30622799: 1138802
+    starting-at-height-30885299: 1089972
+    starting-at-height-31147799: 1043236
+    starting-at-height-31410299: 998504
+    starting-at-height-31672799: 955690
+    starting-at-height-31935299: 914712
+    starting-at-height-32197799: 875490
+    starting-at-height-32460299: 837950
+    starting-at-height-32722799: 802020
+    starting-at-height-32985299: 767630
+    starting-at-height-33247799: 734716
+    starting-at-height-33510299: 703212
+    starting-at-height-33772799: 673060
+    starting-at-height-34035299: 644200
+    starting-at-height-34297799: 616578
+    starting-at-height-34560299: 590140
+    starting-at-height-34822799: 564836
+    starting-at-height-35085299: 540616
+    starting-at-height-35347799: 517436
+    starting-at-height-35610299: 495248
+    starting-at-height-35872799: 474014
+    starting-at-height-36135299: 453688
+    starting-at-height-36397799: 434234
+    starting-at-height-36660299: 415616
+    starting-at-height-36922799: 397794
+    starting-at-height-37185299: 380738
+    starting-at-height-37447799: 364412
+    starting-at-height-37710299: 348786
+    starting-at-height-37972799: 333832
+    starting-at-height-38235299: 319518
+    starting-at-height-38497799: 305816
+    starting-at-height-38760299: 292704
+    starting-at-height-39022799: 280154
+    starting-at-height-39285299: 268140
+    starting-at-height-39547799: 256644
+    starting-at-height-39810299: 245638
+    starting-at-height-40072799: 235106
+    starting-at-height-40335299: 225026
+    starting-at-height-40597799: 215376
+    starting-at-height-40860299: 206142
+    starting-at-height-41122799: 197302
+    starting-at-height-41385299: 188842
+    starting-at-height-41647799: 180744
+    starting-at-height-41910299: 172994
+    starting-at-height-42172799: 165578
+    starting-at-height-42435299: 158478
+    starting-at-height-42697799: 151682
+    starting-at-height-42960299: 145178
+    starting-at-height-43222799: 138954
+    starting-at-height-43485299: 132994
+    starting-at-height-43747799: 127292
+    starting-at-height-44010299: 121834
+    starting-at-height-44272799: 116610
+    starting-at-height-44535299: 111610
+    starting-at-height-44797799: 106824
+    starting-at-height-45060299: 102244
+    starting-at-height-45322799: 97860
+    starting-at-height-45585299: 93664
+    starting-at-height-45847799: 89648
+    starting-at-height-46110299: 85804
+    starting-at-height-46372799: 82124
+    starting-at-height-46635299: 78602
+    starting-at-height-46897799: 75232
+    starting-at-height-47160299: 72006
+    starting-at-height-47422799: 68920
+    starting-at-height-47685299: 65964
+    starting-at-height-47947799: 63136
+    starting-at-height-48210299: 60428
+    starting-at-height-48472799: 57838
+    starting-at-height-48735299: 55358
+    starting-at-height-48997799: 52984
+    starting-at-height-49260299: 50712
+    starting-at-height-49522799: 48538
+    starting-at-height-49785299: 46456
+    starting-at-height-50047799: 44464
+    starting-at-height-50310299: 42558
+    starting-at-height-50572799: 40732
+    starting-at-height-50835299: 38986
+    starting-at-height-51097799: 37314
+    starting-at-height-51360299: 35714
+    starting-at-height-51622799: 34182
+    starting-at-height-51885299: 32716
+    starting-at-height-52147799: 31314
+    starting-at-height-52410299: 29972
+    starting-at-height-52672799: 28686
+    starting-at-height-52935299: 27456
+    starting-at-height-53197799: 26278
+    starting-at-height-53460299: 25152
+    starting-at-height-53722799: 24074
+    starting-at-height-53985299: 23042
+    starting-at-height-54247799: 22054
+    starting-at-height-54510299: 21108
+    starting-at-height-54772799: 20202
+    starting-at-height-55035299: 19336
+    starting-at-height-55297799: 18506
+    starting-at-height-55560299: 17714
+    starting-at-height-55822799: 16954
+    starting-at-height-56085299: 16226
+    starting-at-height-56347799: 15532
+    starting-at-height-56610299: 14866
+    starting-at-height-56872799: 14228
+    starting-at-height-57135299: 13618
+    starting-at-height-57397799: 13034
+    starting-at-height-57660299: 12474
+    starting-at-height-57922799: 11940
+    starting-at-height-58185299: 11428
+    starting-at-height-58447799: 10938
+    starting-at-height-58710299: 10468
+    starting-at-height-58972799: 10020
+    starting-at-height-59235299: 9590
+    starting-at-height-59497799: 9178
+    starting-at-height-59760299: 8786
+    starting-at-height-60022799: 8408
+    starting-at-height-60285299: 8048
+    starting-at-height-60547799: 7702
+    starting-at-height-60810299: 7372
+    starting-at-height-61072799: 7056
+    starting-at-height-61335299: 6754
+    starting-at-height-61597799: 6464
+    starting-at-height-61860299: 6186
+    starting-at-height-62122799: 5922
+    starting-at-height-62385299: 5668
+    starting-at-height-62647799: 5424
+    starting-at-height-62910299: 5192
+    starting-at-height-63172799: 4970
+    starting-at-height-63435299: 4756
+    starting-at-height-63697799: 4552
+    starting-at-height-63960299: 4356
+    starting-at-height-64222799: 4170
+    starting-at-height-64485299: 3992
+    starting-at-height-64747799: 3820
+    starting-at-height-65010299: 3656
+    starting-at-height-65272799: 3500
+    starting-at-height-65535299: 3350
+    starting-at-height-65797799: 3206
+    starting-at-height-66060299: 3068
+    starting-at-height-66322799: 2936
+    starting-at-height-66585299: 2810
+    starting-at-height-66847799: 2690
+    starting-at-height-67110299: 2574
+    starting-at-height-67372799: 2464
+    starting-at-height-67635299: 2358
+    starting-at-height-67897799: 2258
+    starting-at-height-68160299: 2160
+    starting-at-height-68422799: 2068
+    starting-at-height-68685299: 1980
+    starting-at-height-68947799: 1894
+    starting-at-height-69210299: 1812
+    starting-at-height-69472799: 1736
+    starting-at-height-69735299: 1660
+    starting-at-height-69997799: 1590
+    starting-at-height-70260299: 1522
+    starting-at-height-70522799: 1456
+    starting-at-height-70785299: 1394
+    starting-at-height-71047799: 1334
+    starting-at-height-71310299: 1276
+    starting-at-height-71572799: 1222
+    starting-at-height-71835299: 1170
+    starting-at-height-72097799: 1120
+    starting-at-height-72360299: 1072
+    starting-at-height-72622799: 1026
+    starting-at-height-72885299: 982
+    starting-at-height-73147799: 938
+    starting-at-height-73410299: 898
+    starting-at-height-73672799: 860
+    starting-at-height-73935299: 824
+    starting-at-height-74197799: 788
+    starting-at-height-74460299: 754
+    starting-at-height-74722799: 722
+    starting-at-height-74985299: 690
+    starting-at-height-75247799: 662
+    starting-at-height-75510299: 632
+    starting-at-height-75772799: 606
+    starting-at-height-76035299: 580
+    starting-at-height-76297799: 554
+    starting-at-height-76560299: 530
+    starting-at-height-76822799: 508
+    starting-at-height-77085299: 486
+    starting-at-height-77347799: 466
+    starting-at-height-77610299: 446
+    starting-at-height-77872799: 426
+    starting-at-height-78135299: 408
+    starting-at-height-78397799: 390
+    starting-at-height-78660299: 374
+    starting-at-height-78922799: 358
+    starting-at-height-79185299: 342
+    starting-at-height-79447799: 328
+    starting-at-height-79710299: 314
+    starting-at-height-79972799: 300
+    starting-at-height-80235299: 286
+    starting-at-height-80497799: 274
+    starting-at-height-80760299: 262
+    starting-at-height-81022799: 252
+    starting-at-height-81285299: 240
+    starting-at-height-81547799: 230
+    starting-at-height-81810299: 220
+    starting-at-height-82072799: 210
+    starting-at-height-82335299: 202
+    starting-at-height-82597799: 194
+    starting-at-height-82860299: 184
+    starting-at-height-83122799: 176
+    starting-at-height-83385299: 170
+    starting-at-height-83647799: 162
+    starting-at-height-83910299: 154
+    starting-at-height-84172799: 148
+    starting-at-height-84435299: 142
+    starting-at-height-84697799: 136
+    starting-at-height-84960299: 130
+    starting-at-height-85222799: 124
+    starting-at-height-85485299: 118
+    starting-at-height-85747799: 114
+    starting-at-height-86010299: 108
+    starting-at-height-86272799: 104
+    starting-at-height-86535299: 100
+    starting-at-height-86797799: 96
+    starting-at-height-87060299: 92
+    starting-at-height-87322799: 88
+    starting-at-height-87585299: 84
+    starting-at-height-87847799: 80
+    starting-at-height-88110299: 76
+    starting-at-height-88372799: 72
+    starting-at-height-88635299: 70
+    starting-at-height-88897799: 66
+    starting-at-height-89160299: 64
+    starting-at-height-89422799: 62
+    starting-at-height-89685299: 58
+    starting-at-height-89947799: 56
+    starting-at-height-90210299: 54
+    starting-at-height-90472799: 52
+    starting-at-height-90735299: 48
+    starting-at-height-90997799: 46
+    starting-at-height-91260299: 44
+    starting-at-height-91522799: 42
+    starting-at-height-91785299: 40
+    starting-at-height-92047799: 40
+    starting-at-height-92310299: 38
+    starting-at-height-92572799: 36
+    starting-at-height-92835299: 34
+    starting-at-height-93097799: 32
+    starting-at-height-93360299: 32
+    starting-at-height-93622799: 30
+    starting-at-height-93885299: 28
+    starting-at-height-94147799: 28
+    starting-at-height-94410299: 26
+    starting-at-height-94672799: 24
+    starting-at-height-94935299: 24
+    starting-at-height-95197799: 22
+    starting-at-height-95460299: 22
+    starting-at-height-95722799: 20
+    starting-at-height-95985299: 20
+    starting-at-height-96247799: 18
+    starting-at-height-96510299: 18
+    starting-at-height-96772799: 18
+    starting-at-height-97035299: 16
+    starting-at-height-97297799: 16
+    starting-at-height-97560299: 14
+    starting-at-height-97822799: 14
+    starting-at-height-98085299: 14
+    starting-at-height-98347799: 12
+    starting-at-height-98610299: 12
+    starting-at-height-98872799: 12
+    starting-at-height-99135299: 12
+    starting-at-height-99397799: 10
+    starting-at-height-99660299: 10
+    starting-at-height-99922799: 10
+    starting-at-height-100185299: 10
+    starting-at-height-100447799: 8
+    starting-at-height-100710299: 8
+    starting-at-height-100972799: 8
+    starting-at-height-101235299: 8
+    starting-at-height-101497799: 8
+    starting-at-height-101760299: 6
+    starting-at-height-102022799: 6
+    starting-at-height-102285299: 6
+    starting-at-height-102547799: 6
+    starting-at-height-102810299: 6
+    starting-at-height-103072799: 6
+    starting-at-height-103335299: 6
+    starting-at-height-103597799: 4
+    starting-at-height-103860299: 4
+    starting-at-height-104122799: 4
+    starting-at-height-104385299: 4
+    starting-at-height-104647799: 4
+    starting-at-height-104910299: 4
+    starting-at-height-105172799: 4
+    starting-at-height-105435299: 4
+    starting-at-height-105697799: 4
+    starting-at-height-105960299: 2
+    starting-at-height-106222799: 2
+    starting-at-height-106485299: 2
+    starting-at-height-106747799: 2
+    starting-at-height-107010299: 2
+    starting-at-height-107272799: 2
+    starting-at-height-107535299: 2
+    starting-at-height-107797799: 2
+    starting-at-height-108060299: 2
+    starting-at-height-108322799: 2
+    starting-at-height-108585299: 2
+    starting-at-height-108847799: 2
+    starting-at-height-109110299: 2
+    starting-at-height-109372799: 2
+    starting-at-height-109635299: 2
+    starting-at-height-109897799: 2
+    starting-at-height-110160299: 1
+    starting-at-height-110422799: 0
+databases:
+    -
+        name: db
+        openPort: false
+nodes:
+    -
+        syncsource: true
+        filespooling: true
+        partialtransaction: true
+        addressextraction: true
+        mongo: true
+        zeromq: true
+        enableAutoSyncCleanup: false
+        harvesting: true
+        api: true
+        name: node
+        databaseHost: db
+        brokerName: broker
+        openPort: true
+        brokerOpenPort: false
+        trustedHosts: '127.0.0.1, 172.20.0.25'
+        localNetworks: '127.0.0.1, 172.20.0.25'
+        friendlyName: myRegularNode
+        host: myRegularNode.host.com
+        voting: true
+gateways:
+    -
+        name: rest-gateway
+        apiNodeName: node
+        apiNodeHost: node
+        apiNodeBrokerHost: broker
+        description: ''
+        databaseHost: db
+        openPort: true
+        ipv4_address: 172.20.0.25
+privateKeySecurityMode: PROMPT_MAIN
+restDeploymentToolVersion: 1.0.8
+restDeploymentToolLastUpdatedDate: '2021-07-05'
+version: 1
+preset: mainnet
+assembly: dual
+customPresetCache:
+    privateKeySecurityMode: PROMPT_MAIN
+    maxUnlockedAccounts: 20
+    peersP2PListLimit: 10000
+    peersApiListLimit: 10000
+    restDeploymentToolVersion: 1.0.8
+    restDeploymentToolLastUpdatedDate: '2021-07-05'
+    nodes:
+        -
+            friendlyName: myRegularNode
+            host: myRegularNode.host.com
+            voting: true
+explorers: []
+wallets: []
+faucets: []
+networkIdentifier: public
+networkName: public

@@ -25,12 +25,7 @@ Symbol CLI tool that allows you creating, configuring and running Symbol&#39;s c
 
 # Why this tool?
 
-This tool has been created to address the problems defined in Symbol's [NIP11](https://github.com/nemtech/NIP/blob/main/NIPs/nip-0011.md).
-
-It replaces:
-
--   [catapult-service-bootstrap](https://github.com/nemtech/catapult-service-bootstrap)
--   [symbol-testnet-bootstrap](https://github.com/nemgrouplimited/symbol-service-bootstrap)
+This tool has been created to address the original problems defined in Symbol's [NIP11](https://github.com/nemtech/NIP/blob/main/NIPs/nip-0011.md).
 
 # Key benefits:
 
@@ -56,20 +51,27 @@ Yaml files that define the configuration and layout of the network and nodes. It
 Presets are defined at 4 levels from general to specific:
 
 -   Shared: Default configurations for all the networks.
--   Network: It defines the main preset of a given network, example: `bootstrap` or `testnet`.
--   Assembly: It defines a modification of a network, example: `testnet peer`, `tesnet dual`, `testnet api`. Assembly is required for some networks (like `testnet`).
+-   Network: It defines the configuration of a given network.
+-   Assembly: It specifies the creates nodes and services for the given network preset.
 -   Custom: A user provided yml file (`--customPreset` param) that could override some or all properties in the out-of-the-box presets.
 
 Properties in each file override the previous values (by object deep merge).
 
-### Out-of-the-box presets:
+### Network Presets:
 
--   `-p bootstrap`: Default [preset](https://github.com/nemtech/symbol-bootstrap/blob/main/presets/bootstrap/network.yml). It's a private network with 1 mongo database, 2 peers, 1 api and 1 rest gateway. Nemesis block is generated.
--   `-p bootstrap -a light`: A [light](https://github.com/nemtech/symbol-bootstrap/blob/main/presets/bootstrap/assembly-light.yml) network. It's a version of bootstrap preset with 1 mongo database, 1 dual peer and 1 rest gateway. Great for faster light e2e automatic testing. Nemesis block is generated.
--   `-p bootstrap -a full`: A [full](https://github.com/nemtech/symbol-bootstrap/blob/main/presets/bootstrap/assembly-full.yml) network. The default bootstrap preset plus 1 wallet, 1 explorer and 1 faucet. Great for demonstration purposes. Nemesis block is generated.
--   `-p testnet -a peer`: A [harvesting](https://github.com/nemtech/symbol-bootstrap/blob/main/presets/testnet/assembly-peer.yml) peer node that connects to the current public [testnet](https://github.com/nemtech/symbol-bootstrap/blob/main/presets/testnet/network.yml). [Nemesis block](https://github.com/nemtech/symbol-bootstrap/tree/main/presets/testnet/seed/00000) is copied over.
--   `-p testnet -a api`: A [api](https://github.com/nemtech/symbol-bootstrap/blob/main/presets/testnet/assembly-api.yml) peer node that connects to the current public [testnet](https://github.com/nemtech/symbol-bootstrap/blob/main/presets/testnet/network.yml) running its own mongo database and rest gateway. [Nemesis block](https://github.com/nemtech/symbol-bootstrap/tree/main/presets/testnet/seed/00000) is copied over.
--   `-p testnet -a dual`: A [dual](https://github.com/nemtech/symbol-bootstrap/blob/main/presets/testnet/assembly-dual.yml) haversting peer node that connects to the current public [testnet](https://github.com/nemtech/symbol-bootstrap/blob/main/presets/testnet/network.yml) running its own mongo database and rest gateway. [Nemesis block](https://github.com/nemtech/symbol-bootstrap/tree/main/presets/testnet/seed/00000) is copied over.
+-   [`mainnet`](presets/mainnet/network.yml): Used to created nodes' connected to Symbol's Mainnet network. The [nemesis block](presets/mainnet/seed/00000) is copied over.
+-   [`testnet`](presets/testnet/network.yml): Used to created nodes' connected to Symbol's Testnet network. The [nemesis block](presets/testnet/seed/00000) is copied over.
+-   [`dualCurrency`](presets/dualCurrency/network.yml): Used to create new private networks with dual currency configuration, network and harvest currencies. Nemesis block is generated. 
+-   [`singleCurrency`](presets/singleCurrency/network.yml): Used to create private/user networks with a single network currency configuration, just main network currency.  Nemesis block is generated. 
+
+### Assemblies:
+
+-   [`dual`](presets/assemblies/assembly-dual.yml): A standard dual node that contains 1 mongo database. 1 api node, 1 rest gateway, and 1 broker.
+-   [`peer`](presets/assemblies/assembly-peer.yml): A standard peer only node that contains 1 peer node.
+-   [`api`](presets/assemblies/assembly-api.yml):  A standard api node that contains 1 mongo database. 1 api node, 1 rest gateway, and 1 broker.
+-   [`demo`](presets/assemblies/assembly-demo.yml): A dual node that contains an explorer, web wallet and faucet for test and demonstration purposes.
+-   [`multinode`](presets/assemblies/assembly-multinode.yml): An special assembly that contains 1 api node and 2 peer only nodes. This assembly is for testing, it showcases how a private network with 3 nodes runs.
+
 
 ### Custom preset:
 
@@ -79,7 +81,9 @@ Custom presets give Symbol Bootstrap its versatility. Check out the custom prese
 
 ## Target:
 
-The folder where the generated config, docker files and data are stored. The folder structure is:
+The folder where the generated config, docker files and data are stored. 
+
+The folder structure is:
 
 -   `./preset.yml`: the final generated preset.yml that it's used to configure bootstrap, the nodes, docker, etc.
 -   `./addresses.yml`: randomly generated data that wasn't provided in the preset. e.g.: SSL keys, nodes' keys, nemesis accounts, generation hash seed, etc.
@@ -88,7 +92,11 @@ The folder where the generated config, docker files and data are stored. The fol
 -   `./nemesis`: The folder used to hold the nemesis block. Block 1 data is generated via `nemgen` tool for new networks. For existing network, it is copied over.
 -   `./databases`: the location where the mongo data is stored for the different database instances.
 -   `./docker`: the generated docker-compose.yml, mongo init scripts and server basic bash scripts.
+-   `./explorers`: the generated explorer configuration.
+-   `./wallets`: the generated wallet configuration.
 -   `./reports`: the location of the generated reports.
+
+Note: **The target folder should not be manually modified**. This tool may override any file in the target folder when doing upgrades. Any custom configuration should be provided via a custom preset. Check out the custom preset [guides](docs/presetGuides.md)!
 
 # Requirements
 
@@ -146,7 +154,7 @@ USAGE
 The general usage would be:
 
 ```
-symbol-bootstrap config -p bootstrap
+symbol-bootstrap config -p testnet -a dual
 symbol-bootstrap compose
 symbol-bootstrap run
 ```
@@ -154,7 +162,7 @@ symbol-bootstrap run
 You can aggregate all these commands with this one liner:
 
 ```
-symbol-bootstrap start -p bootstrap
+symbol-bootstrap start -p testnet -a dual
 ```
 
 If you need to start fresh, you many need to sudo remove the target folder (docker volumes dirs may be created using sudo). Example:
@@ -163,12 +171,34 @@ If you need to start fresh, you many need to sudo remove the target folder (dock
 sudo rm -rf ./target
 ```
 
+## Examples
+
+Network presets and assemblies can be combined to generate different types of nodes. Some examples:
+
+-   `$ symbol-bootstrap start -p mainnet -a dual -c customPreset.yml`
+-   `$ symbol-bootstrap start -p testnet -a peer -c customPreset.yml`  
+-   `$ symbol-bootstrap start -p testnet -a demo -c customPreset.yml`  
+-   `$ symbol-bootstrap start -p dualCurrency -a multinode -c customPreset.yml` 
+-   `$ symbol-bootstrap start -p dualCurrency -a demo -c customPreset.yml` 
+-   `$ symbol-bootstrap start -p dualCurrency -a dual -c customPreset.yml` 
+-   `$ symbol-bootstrap start -p singleCurrency -a multinode -c customPreset.yml` 
+-   `$ symbol-bootstrap start -p singleCurrency -a demo -c customPreset.yml` 
+
+Although some combinations can be done, they may not be really useful. Examples are running  `mainnet` and `testnet` combined the `demo` or `multinode` assemblies.
+
+A custom network preset file can also be provided. This is useful when you have your own custom Symbol network, and you want other nodes to join.
+For this case, you provide your own `networkPreset.yml` and nemesis feed folder. The node admin can then run:
+
+-   `$ symbol-bootstrap start -p customNetworkPreset.yml -a dual -c customNodePreset.yml` 
+
+## Examples
+
 # E2E Testing support
 
 One use case of this CLI is client E2E testing support. If you are coding a Symbol client, you (Travis or Jenkins) can run e2e tests like:
 
 ```
-symbol-bootstrap start -p bootstrap --detached
+symbol-bootstrap start -p dualCurrency --detached
 YOUR TEST (e.g: npm run test, gradle test, selenium etc.)
 symbol-bootstrap stop
 ```
@@ -209,7 +239,7 @@ npm run e2e
 
 ## Node client E2E via API:
 
-Alternatively, you can use the [BootstrapService](https://github.com/nemtech/symbol-bootstrap/blob/main/src/service/BootstrapService.ts) facade to programmatically start and stop a server.
+Alternatively, you can use the [BootstrapService](src/service/BootstrapService.ts) facade to programmatically start and stop a server.
 
 Example:
 

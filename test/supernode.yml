@@ -2,11 +2,12 @@
 nodeUseRemoteAccount: true
 logLevel: 'Debug'
 #lastKnownNetworkEpoch: 70
-votingKeyDesiredLifetime: 28 # create short voting key files, 28 is the minimun
+#votingKeyDesiredLifetime: 28 # create short voting key files, 28 is the minimun
 #votingKeyDesiredFutureLifetime: 300 # create files for at least 60 epochs in the future, this will create voting key file 2 and file 3
 useExperimentalNativeVotingKeyGeneration: true # Use new native ts generation
 symbolServerImage: symbolplatform/symbol-server-private:gcc-voting-key-unlink-rollback-f2633f4a4c
 symbolRestImage: 'symbolplatform/symbol-rest:2.3.6-alpha'
+maxUnlockedAccounts: 30
 nodes:
     - voting: true
       rewardProgram: 'supernode'

@@ -1,0 +1,347 @@
+nodeUseRemoteAccount: true
+nodePort: 7900
+enableCacheDatabaseStorage: true
+enableVerifiableState: true
+enableVerifiableReceipts: true
+initialCurrencyAtomicUnits: 8998999998000000
+maxMosaicAtomicUnits: 9000000000000000
+totalChainImportance: 8998999998000000
+minHarvesterBalance: 500
+maxHarvesterBalance: 50000000000000
+minVoterBalance: 50000
+blockGenerationTargetTime: 15s
+blockTimeSmoothingFactor: 3000
+importanceGrouping: 180
+importanceActivityPercentage: 5
+maxDifficultyBlocks: 60
+maxRollbackBlocks: 0
+maxTransactionLifetime: 6h
+maxBlockFutureTime: 500ms
+maxNamespaceDuration: 365d
+namespaceGracePeriodDuration: 30d
+maxAccountRestrictionValues: 512
+maxMosaicRestrictionValues: 20
+maxMessageSize: 1024
+reservedRootNamespaceNames: 'symbol, symbl, xym, xem, nem, user, account, org, com, biz, net, edu, mil, gov, info'
+defaultDynamicFeeMultiplier: 1000
+minFeeMultiplier: 100
+maxTimeBehindPullTransactionsStart: 5m
+epochAdjustment: 1573430400s
+nodeEqualityStrategy: host
+maxVotingKeyLifetime: 26280
+minVotingKeyLifetime: 28
+mosaicRentalFee: 500
+votingSetGrouping: 180
+maxVotingKeysPerAccount: 3
+autoUpdateVotingKeys: false
+maxTransactionsPerAggregate: 100
+maxCosignaturesPerAggregate: 25
+harvestBeneficiaryPercentage: 10
+harvestNetworkPercentage: 5
+rootNamespaceRentalFeePerBlock: 1
+childNamespaceRentalFee: 100
+enableStrictCosignatureCheck: false
+enableBondedAggregateSupport: true
+maxBondedTransactionLifetime: 48h
+maxTransactionsPerBlock: 6000
+stepDuration: 4m
+minNamespaceDuration: 1m
+trustedHosts: 127.0.0.1
+localNetworks: 127.0.0.1
+lockedFundsPerAggregate: 10000000
+maxHashLockDuration: 2d
+maxSecretLockDuration: 30d
+minProofSize: 20
+maxProofSize: 1024
+maxValueSize: 1024
+maxMosaicsPerAccount: 1000
+maxMosaicDuration: 3650d
+maxMosaicDivisibility: 6
+maxMultisigDepth: 3
+maxCosignatoriesPerAccount: 25
+maxCosignedAccountsPerAccount: 25
+maxNameSize: 64
+maxChildNamespaces: 256
+maxNamespaceDepth: 3
+batchVerificationRandomSource: null
+symbolServerImage: 'symbolplatform/symbol-server:gcc-10-1.0.1.0'
+symbolRestImage: 'symbolplatform/symbol-rest:2.3.6'
+symbolExplorerImage: 'symbolplatform/symbol-explorer:1.1.0-alpha'
+symbolWalletImage: 'symbolplatform/symbol-desktop-wallet:1.0.1'
+symbolFaucetImage: 'symbolplatform/symbol-faucet:0.5.0-alpha'
+symbolAgentImage: 'symbolplatform/symbol-node-rewards-agent:2.0.0'
+mongoImage: 'mongo:4.4.3-bionic'
+mongoComposeRunParam: '--wiredTigerCacheSizeGB 2'
+logLevel: Info
+transactionsDirectory: ./transactions
+binDirectory: ./seed
+seedDirectory: ./seed
+certificateDirectory: ./cert
+dataDirectory: ./data
+votingKeysDirectory: ./votingkeys
+enableDelegatedHarvestersAutoDetection: true
+catapultAppFolder: /usr/catapult
+rewardProgramAgentPort: 7881
+enableRevoteOnBoot: true
+databaseName: catapult
+maxWriterThreads: 8
+maxDropBatchSize: 10
+writeTimeout: 10m
+peersP2PListLimit: 10000
+peersApiListLimit: 10000
+shortLivedCacheMessageDuration: 10m
+messageSynchronizationMaxResponseSize: 20MB
+finalizationSize: 10000
+finalizationThreshold: 7000
+maxHashesPerPoint: 256
+prevoteBlocksMultiple: 4
+nonVotingUnfinalizedBlocksDuration: 8m
+votingUnfinalizedBlocksDuration: 0m
+voting: false
+subscriberPort: 7902
+messagingListenInterface: 0.0.0.0
+networkheight: false
+networkHeightMaxNodes: 5
+partialTransactionsCacheMaxResponseSize: 5MB
+partialTransactionsCacheMaxSize: 20MB
+timeSynchronizationMaxNodes: 20
+timeSynchronizationMinImportance: 3750
+maxIncomingConnectionsPerIdentity: 6
+enableAddressReuse: false
+nodeListenInterface: 0.0.0.0
+enableTransactionSpamThrottling: true
+transactionSpamThrottlingMaxBoostFee: 10000000
+maxHashesPerSyncAttempt: 370
+maxBlocksPerSyncAttempt: 360
+maxChainBytesPerSyncAttempt: 100MB
+shortLivedCacheTransactionDuration: 10m
+shortLivedCacheBlockDuration: 100m
+shortLivedCachePruneInterval: 90s
+shortLivedCacheMaxSize: 10000000
+transactionSelectionStrategy: oldest
+unconfirmedTransactionsCacheMaxResponseSize: 5MB
+unconfirmedTransactionsCacheMaxSize: 20MB
+connectTimeout: 15s
+syncTimeout: 20m
+enableSingleThreadPool: false
+sinkType: Async
+socketWorkingBufferSize: 16KB
+socketWorkingBufferSensitivity: 1
+maxPacketDataSize: 150MB
+blockDisruptorSlotCount: 4096
+blockDisruptorMaxMemorySize: 300MB
+blockElementTraceInterval: 1
+transactionDisruptorSlotCount: 8192
+transactionDisruptorMaxMemorySize: 20MB
+transactionElementTraceInterval: 10
+enableDispatcherAbortWhenFull: false
+enableDispatcherInputAuditing: false
+maxTrackedNodes: 5'000
+enableAutoHarvesting: true
+fileDatabaseBatchSize: 1
+maxUnlockedAccounts: 20
+delegatePrioritizationPolicy: Importance
+dockerComposeVersion: '2.4'
+dockerComposeServiceRestart: 'on-failure:2'
+dockerComposeDebugMode: false
+minPartnerNodeVersion: 1.0.0.0
+maxPartnerNodeVersion: 1.0.255.255
+serverVersion: 1.0.1.0
+outgoing_connections_maxConnections: 10
+outgoing_connections_maxConnectionAge: 200
+outgoing_connections_maxConnectionBanAge: 20
+outgoing_connections_numConsecutiveFailuresBeforeBanning: 3
+incoming_connections_maxConnections: 512
+incoming_connections_maxConnectionAge: 200
+incoming_connections_maxConnectionBanAge: 20
+incoming_connections_numConsecutiveFailuresBeforeBanning: 3
+incoming_connections_backlogSize: 512
+defaultBanDuration: 12h
+maxBanDuration: 72h
+keepAliveDuration: 48h
+maxBannedNodes: 5000
+numReadRateMonitoringBuckets: 4
+readRateMonitoringBucketDuration: 15s
+maxReadRateMonitoringTotalSize: 100MB
+minTransactionFailuresCountForBan: 8
+minTransactionFailuresPercentForBan: 10
+enableStatistics: false
+maxOpenFiles: 0
+maxBackgroundThreads: 0
+maxSubcompactionThreads: 0
+blockCacheSize: 0MB
+memtableMemoryBudget: 0MB
+maxWriteBatchSize: 5MB
+throttlingBurst: 80
+throttlingRate: 60
+restLoggingFilename: /symbol-workdir/logs/catapult-rest.log
+apiNodeConfigPath: /symbol-workdir/api-node-config
+subnet: 172.20.0.0/24
+apiNodePort: 7900
+apiNodeTimeout: 1000
+apiNodeBrokerPort: 7902
+apiNodeBrokerPortMonitorInterval: 500
+apiNodeBrokerConnectTimeout: 10000
+apiNodeBrokerMonitorLoggingThrottle: 60000
+maxConnectionAttempts: 15
+baseRetryDelay: 750
+connectionPoolSize: 10
+maxSubscriptions: 300
+restExtensions: 'accountLink, aggregate, lockHash, lockSecret, mosaic, metadata, multisig, namespace, receipts, restrictions, transfer'
+restDeploymentTool: symbol-bootstrap
+networkType: 168
+baseNamespace: cat
+networkDescription: Symbol Local Bootstrap
+beneficiaryAddress: ''
+votingKeyDesiredLifetime: 720
+votingKeyDesiredFutureLifetime: 120
+lastKnownNetworkEpoch: 1
+nemesis:
+    mosaics:
+        -
+            name: currency
+            divisibility: 6
+            duration: 0
+            supply: 8998999998000000
+            isTransferable: true
+            isSupplyMutable: false
+            isRestrictable: false
+            accounts:
+                - 00000000000000000000000000000000000000000000000000000000000000A1
+                - 00000000000000000000000000000000000000000000000000000000000000A2
+                - 00000000000000000000000000000000000000000000000000000000000000A3
+            currencyDistributions:
+                -
+                    address: VAR4H3YL2TUBLRYZGXUB47FIHWXVJ64USKYFIXY
+                    amount: 4449499999000000
+                -
+                    address: VA75J5YLC4YAQYJ4VGJKHBP4H6QBCMDLCKRWYTA
+                    amount: 2249749999500000
+                -
+                    address: VCTUWEZQJUPOUBEVVKFES2DICKGFXJP3YV66AEI
+                    amount: 2249749999500000
+                -
+                    address: VCR4O62LYKKDYHXW5AAOKD2IT5Q4TC2U4SVXPAI
+                    amount: 50000000000000
+inflation:
+    starting-at-height-1: 0
+    starting-at-height-10000: 0
+faucetUrl: 'http://localhost:100'
+databases:
+    -
+        name: db
+        openPort: false
+nodes:
+    -
+        syncsource: true
+        filespooling: true
+        partialtransaction: true
+        addressextraction: true
+        mongo: true
+        zeromq: true
+        enableAutoSyncCleanup: false
+        harvesting: true
+        api: true
+        name: node
+        host: node
+        databaseHost: db
+        brokerName: broker
+        openPort: true
+        brokerOpenPort: false
+        trustedHosts: '127.0.0.1, 172.20.0.25'
+        localNetworks: '127.0.0.1, 172.20.0.25'
+gateways:
+    -
+        name: rest-gateway
+        apiNodeName: node
+        apiNodeHost: node
+        apiNodeBrokerHost: broker
+        description: ''
+        databaseHost: db
+        openPort: true
+        ipv4_address: 172.20.0.25
+wallets:
+    -
+        name: wallet
+        title: Symbol Bootstrap Wallet
+        openPort: '80'
+explorers:
+    -
+        name: explorer
+        openPort: '90'
+        footer:
+            link:
+                -
+                    href: 'https://nemflash.io/'
+                    text: NEM News
+                    icon: IconNewspaper
+                -
+                    href: 'https://forum.nem.io/'
+                    text: Forum
+                    icon: IconForum
+                -
+                    href: 'https://t.me/nemred'
+                    text: Telegram
+                    icon: IconTelegram
+                -
+                    href: 'https://www.reddit.com/r/nem/'
+                    text: Reddit
+                    icon: IconReddit
+                -
+                    href: 'https://github.com/nemtech'
+                    text: Github
+                    icon: IconGithub
+                -
+                    href: 'http://localhost:100/'
+                    text: Faucet
+                    icon: IconHomeCurrencyUsd
+faucets:
+    -
+        name: faucet
+        gateway: rest-gateway
+        environment:
+            DEFAULT_NODE: 'http://rest-gateway:3000'
+            DEFAULT_NODE_CLIENT: 'http://localhost:3000'
+            NATIVE_CURRENCY_OUT_MAX: 500000000
+            NATIVE_CURRENCY_OUT_MIN: 100000000
+            MAX_FEE: 5000000
+            ENOUGH_BALANCE: 100000000000
+            MAX_UNCONFIRMED: 99
+            BLACKLIST_MOSAIC_IDS: '[]'
+            EXPLORER_URL: 'http://localhost:90/'
+        openPort: '100'
+privateKeySecurityMode: PROMPT_MAIN
+restDeploymentToolVersion: 1.0.8
+restDeploymentToolLastUpdatedDate: '2021-07-05'
+sinkAddress: VBZ43ZAOF6E62PAPIFTXJE4DZHY4Z6B4KGV5MSQ
+nemesisGenerationHashSeed: 0000000000000000000000000000000000000000000000000000000000000CCC
+version: 1
+preset: singleCurrency
+assembly: demo
+customPresetCache:
+    privateKeySecurityMode: PROMPT_MAIN
+    maxUnlockedAccounts: 20
+    peersP2PListLimit: 10000
+    peersApiListLimit: 10000
+    restDeploymentToolVersion: 1.0.8
+    restDeploymentToolLastUpdatedDate: '2021-07-05'
+    nodes:
+        - {}
+    networkType: 168
+    nemesis:
+        mosaics:
+            -
+                accounts:
+                    - 00000000000000000000000000000000000000000000000000000000000000A1
+                    - 00000000000000000000000000000000000000000000000000000000000000A2
+                    - 00000000000000000000000000000000000000000000000000000000000000A3
+    sinkAddress: VBZ43ZAOF6E62PAPIFTXJE4DZHY4Z6B4KGV5MSQ
+    nemesisGenerationHashSeed: 0000000000000000000000000000000000000000000000000000000000000CCC
+harvestNetworkFeeSinkAddress: VBZ43ZAOF6E62PAPIFTXJE4DZHY4Z6B4KGV5MSQ
+mosaicRentalFeeSinkAddress: VBZ43ZAOF6E62PAPIFTXJE4DZHY4Z6B4KGV5MSQ
+namespaceRentalFeeSinkAddress: VBZ43ZAOF6E62PAPIFTXJE4DZHY4Z6B4KGV5MSQ
+networkIdentifier: private-test
+networkName: privateTest
+nemesisSignerPublicKey: 8619CFA41CD1DDAB7DDA2723C02AECA8F46FEF2EE89944CD251A188FFE5D151C
+currencyMosaicId: 5F54633454C3685B
+harvestingMosaicId: 5F54633454C3685B

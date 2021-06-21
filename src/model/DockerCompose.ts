@@ -28,6 +28,7 @@ export interface DockerComposeService {
     user?: string;
     working_dir?: string;
     command?: string;
+    entrypoint?: string;
     hostname?: string;
     environment?: any;
     stop_signal?: string;

@@ -1,0 +1,140 @@
+<!--
+  ~ Copyright 2020 NEM Group (https://nem.io)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  ~
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Profile Importer</title>
+        <script type="application/javascript">
+            window.onload = function () {
+                //save entered gmail address
+
+                function save_profile(profileText) {
+                    try {
+                        var profile = JSON.parse(profileText);
+                        localStorage.setItem('profiles', JSON.stringify(profile.profiles));
+                        localStorage.setItem('accounts', JSON.stringify(profile.accounts));
+                        localStorage.setItem('mosaicConfiguration', JSON.stringify(profile.mosaicConfiguration));
+                        alert('Profile has been saved');
+                        console.log('Profile has been saved');
+                        document.getElementById('profile').value = profileText;
+                    } catch (e) {
+                        alert('Profile could not be saved: ' + e);
+                        console.error('Profile could not be saved', e);
+                    }
+                }
+
+                document.getElementById('save').addEventListener(
+                    'click',
+                    function () {
+                        save_profile(document.getElementById('profile').value);
+                    },
+                    false,
+                );
+
+                document.forms['json_profile_form'].elements['json_profile_file'].onchange = function (evt) {
+                    if (!window.FileReader) {
+                        alert('This browser does not have File Uploading capability');
+                        return; // Browser is not compatible
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function (evt) {
+                        if (evt.target.readyState !== 2) return;
+                        if (evt.target.error) {
+                            alert('Error while reading file');
+                            return;
+                        }
+                        var fileContent = evt.target.result;
+                        save_profile(fileContent);
+                        document.getElementById('json_profile_file').value = '';
+                    };
+                    reader.readAsText(evt.target.files[0]);
+                };
+
+                function load_profile_from_storage() {
+                    const profiles = JSON.parse(localStorage['profiles'] || '{}');
+                    const accounts = JSON.parse(localStorage['accounts'] || '{}');
+                    const mosaicConfiguration = JSON.parse(localStorage['mosaicConfiguration'] || '{}');
+                    return {
+                        profiles: profiles,
+                        accounts: accounts,
+                        mosaicConfiguration: mosaicConfiguration,
+                    };
+                }
+
+                function fetchProfileFile(path, callback) {
+                    var httpRequest = new XMLHttpRequest();
+                    httpRequest.onreadystatechange = function () {
+                        if (httpRequest.readyState === 4) {
+                            if (httpRequest.status === 200) {
+                                try {
+                                    var data = JSON.parse(httpRequest.responseText);
+                                    if (callback) callback(data);
+                                } catch (e) {
+                                    const message = 'Preload profile with path ' + path + ' cannot be loaded. Error: ' + e;
+                                    alert(message);
+                                    console.error(message, e);
+                                }
+                            }
+                        }
+                    };
+                    httpRequest.open('GET', path);
+                    httpRequest.send();
+                }
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const restoredProfileName = urlParams.get('name');
+                if (restoredProfileName) {
+                    const path = '/config/wallet-profile-' + restoredProfileName + '.json';
+                    fetchProfileFile(path, function (data) {
+                        document.getElementById('profile').value = JSON.stringify(data, null, 2);
+                        alert('Pre-loaded profile ' + path + ' has been added to the Profile Importer Text Form. Save to confirm!!!');
+                    });
+                }
+                document.getElementById('profile').value = JSON.stringify(load_profile_from_storage(), null, 2);
+
+                function download_profile() {
+                    var textToSave = JSON.stringify(load_profile_from_storage(), null, 2);
+                    var hiddenElement = document.createElement('a');
+                    hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave);
+                    hiddenElement.target = '_blank';
+                    hiddenElement.download = 'wallet-profile.json';
+                    hiddenElement.click();
+                }
+                document.getElementById('download_profile_button').addEventListener('click', download_profile);
+            };
+        </script>
+    </head>
+    <body>
+        <h1>Profile Importer File Form</h1>
+
+        <button id="download_profile_button">Export Profile File</button>
+        <br />
+        <br />
+        <form id="json_profile_form">
+            <label for="json_profile_file" class="btn">Import Profile File</label>
+            <input id="json_profile_file" name="files" type="file" />
+        </form>
+
+        <h1>Profile Importer Text Form</h1>
+        <textarea id="profile" cols="100" rows="20"></textarea><br />
+        <br />
+        <button id="save">Save</button>
+        <br />
+        <br />
+        <a href="/">Go back to the wallet</a>
+    </body>
+</html>

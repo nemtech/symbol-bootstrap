@@ -1,10 +1,8 @@
-assemblies: 'api, dual, peer'
+networkDescription: Symbol Mainnet
 baseNamespace: symbol
 batchVerificationRandomSource: /dev/urandom
 currencyMosaicId: 6BED913FA20223F8
-currencyName: xym
 harvestBeneficiaryPercentage: 25
-harvestingName: xym
 harvestingMosaicId: 6BED913FA20223F8
 epochAdjustment: 1615853185s
 enableRevoteOnBoot: false
@@ -30,7 +28,7 @@ minVotingKeyLifetime: 112
 maxVotingKeyLifetime: 360
 votingKeyDesiredLifetime: 360
 votingKeyDesiredFutureLifetime: 60
-lastKnownNetworkEpoch: 181
+lastKnownNetworkEpoch: 224
 stepDuration: 5m
 maxBlockFutureTime: 300ms
 maxAccountRestrictionValues: 100
@@ -53,6 +51,17 @@ nonVotingUnfinalizedBlocksDuration: 10m
 votingUnfinalizedBlocksDuration: 0m
 timeSynchronizationMinImportance: 10000000000
 restExtensions: 'accountLink, aggregate, lockHash, lockSecret, mosaic, metadata, multisig, namespace, receipts, restrictions, transfer, cmc'
+nemesis:
+    referenceOnly: true
+    mosaics:
+        -
+            name: xym
+            divisibility: 6
+            duration: 0
+            supply: 7842928625000000
+            isTransferable: true
+            isSupplyMutable: false
+            isRestrictable: false
 knownRestGateways:
     - 'http://ngl-dual-001.symbolblockchain.io:3000'
     - 'http://ngl-dual-002.symbolblockchain.io:3000'

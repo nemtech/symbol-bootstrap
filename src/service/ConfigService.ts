@@ -24,6 +24,7 @@ import {
     Convert,
     Deadline,
     LinkAction,
+    NamespaceId,
     Transaction,
     TransactionMapping,
     UInt64,
@@ -44,15 +45,24 @@ import { NemgenService } from './NemgenService';
 import { RemoteNodeService } from './RemoteNodeService';
 import { ReportService } from './ReportService';
 import { RewardProgramService } from './RewardProgramService';
-import { VotingService } from './VotingService';
+import { VotingParams, VotingService } from './VotingService';
 
 /**
  * Defined presets.
  */
 export enum Preset {
-    bootstrap = 'bootstrap',
+    dualCurrency = 'dualCurrency',
+    singleCurrency = 'singleCurrency',
     testnet = 'testnet',
     mainnet = 'mainnet',
+}
+
+export enum Assembly {
+    api = 'api',
+    demo = 'demo',
+    dual = 'dual',
+    multinode = 'multinode',
+    peer = 'peer',
 }
 
 export enum KeyName {
@@ -66,12 +76,12 @@ export enum KeyName {
     NemesisAccount = 'Nemesis Account',
 }
 
-export interface ConfigParams {
+export interface ConfigParams extends VotingParams {
     report: boolean;
     reset: boolean;
     upgrade: boolean;
     offline?: boolean;
-    preset?: Preset;
+    preset?: string;
     target: string;
     password?: string;
     user: string;
@@ -139,7 +149,7 @@ export class ConfigService {
             }
 
             const presetData: ConfigPreset = this.resolveCurrentPresetData(oldPresetData, password);
-            const addresses = await this.configLoader.generateRandomConfiguration(oldAddresses, presetData);
+            const addresses = await this.configLoader.generateRandomConfiguration(this.root, oldAddresses, oldPresetData, presetData);
 
             const privateKeySecurityMode = CryptoUtils.getPrivateKeySecurityMode(presetData.privateKeySecurityMode);
             await BootstrapUtils.mkdir(target);
@@ -153,7 +163,6 @@ export class ConfigService {
             await this.generateWallets(presetData);
             const isUpgrade = !!oldPresetData || !!oldAddresses;
             await this.resolveNemesis(presetData, addresses, isUpgrade);
-            await this.copyNemesis(addresses);
             if (this.params.report) {
                 await new ReportService(this.root, this.params).run(presetData);
             }
@@ -181,75 +190,65 @@ export class ConfigService {
         return this.configLoader.createPresetData({ ...this.params, root: this.root, password: password, oldPresetData });
     }
 
-    private async copyNemesis(addresses: Addresses) {
-        const target = this.params.target;
-        const nemesisSeedFolder = BootstrapUtils.getTargetNemesisFolder(target, false, 'seed');
-        await this.validateSeedFolder(nemesisSeedFolder, `Invalid final seed folder ${nemesisSeedFolder}`);
-        await Promise.all(
-            (addresses.nodes || []).map(async (account) => {
-                const name = account.name;
-                const dataFolder = BootstrapUtils.getTargetNodesFolder(target, false, name, 'data');
-                await BootstrapUtils.mkdir(dataFolder);
-                const seedFolder = BootstrapUtils.getTargetNodesFolder(target, false, name, 'seed');
-                await BootstrapUtils.generateConfiguration({}, nemesisSeedFolder, seedFolder);
-            }),
-        );
-    }
-
-    private async validateSeedFolder(nemesisSeedFolder: string, message: string) {
-        BootstrapUtils.validateFolder(nemesisSeedFolder);
-        const seedData = join(nemesisSeedFolder, '00000', '00001.dat');
-        if (!existsSync(seedData)) {
-            throw new KnownError(`File ${seedData} doesn't exist! ${message}`);
-        }
-        const seedIndex = join(nemesisSeedFolder, 'index.dat');
-        if (!existsSync(seedIndex)) {
-            throw new KnownError(`File ${seedIndex} doesn't exist! ${message}`);
-        }
-    }
-
-    private async resolveNemesis(presetData: ConfigPreset, addresses: Addresses, isUpgrade: boolean) {
+    private async resolveNemesis(presetData: ConfigPreset, addresses: Addresses, isUpgrade: boolean): Promise<void> {
         const target = this.params.target;
         const nemesisSeedFolder = BootstrapUtils.getTargetNemesisFolder(target, false, 'seed');
         await BootstrapUtils.mkdir(nemesisSeedFolder);
-        if (presetData.nemesis) {
+        if (ConfigLoader.shouldCreateNemesis(this.root, presetData)) {
             if (isUpgrade) {
                 logger.info('Nemesis data cannot be generated when upgrading...');
             } else {
+                await BootstrapUtils.deleteFolder(nemesisSeedFolder);
+                await BootstrapUtils.mkdir(nemesisSeedFolder);
                 await this.generateNemesisConfig(presetData, addresses);
-                await this.validateSeedFolder(nemesisSeedFolder, `Is the generated nemesis seed a valid seed folder?`);
+                await BootstrapUtils.validateSeedFolder(nemesisSeedFolder, `Is the generated nemesis seed a valid seed folder?`);
             }
             return;
         }
         if (isUpgrade) {
             logger.info('Upgrading genesis on upgrade!');
         }
-        await BootstrapUtils.deleteFolder(nemesisSeedFolder);
-        await BootstrapUtils.mkdir(nemesisSeedFolder);
         if (presetData.nemesisSeedFolder) {
-            await this.validateSeedFolder(
+            await BootstrapUtils.validateSeedFolder(
                 presetData.nemesisSeedFolder,
                 `Is the provided preset nemesisSeedFolder: ${presetData.nemesisSeedFolder} a valid seed folder?`,
             );
             logger.info(`Using custom nemesis seed folder in ${presetData.nemesisSeedFolder}`);
+            await BootstrapUtils.deleteFolder(nemesisSeedFolder);
+            await BootstrapUtils.mkdir(nemesisSeedFolder);
             await BootstrapUtils.generateConfiguration({}, presetData.nemesisSeedFolder, nemesisSeedFolder);
+            await BootstrapUtils.validateSeedFolder(
+                nemesisSeedFolder,
+                `Is the ${presetData.preset} preset default seed a valid seed folder?`,
+            );
             return;
         }
-        const finalNemesisSeed = join(this.root, 'presets', presetData.preset, 'seed');
-        if (existsSync(finalNemesisSeed)) {
-            await BootstrapUtils.generateConfiguration({}, finalNemesisSeed, nemesisSeedFolder);
-            await this.validateSeedFolder(nemesisSeedFolder, `Is the ${presetData.preset} preset default seed a valid seed folder?`);
-            return;
+        if (BootstrapUtils.isYmlFile(presetData.preset)) {
+            throw new KnownError(`Seed for preset ${presetData.preset} could not be found. Please provide 'nemesisSeedFolder'!`);
+        } else {
+            const networkNemesisSeed = join(this.root, 'presets', presetData.preset, 'seed');
+            if (existsSync(networkNemesisSeed)) {
+                await BootstrapUtils.deleteFolder(nemesisSeedFolder);
+                await BootstrapUtils.mkdir(nemesisSeedFolder);
+                await BootstrapUtils.generateConfiguration({}, networkNemesisSeed, nemesisSeedFolder);
+                await BootstrapUtils.validateSeedFolder(
+                    nemesisSeedFolder,
+                    `Is the ${presetData.preset} preset default seed a valid seed folder?`,
+                );
+                return;
+            }
+            logger.warn(`Seed for preset ${presetData.preset} could not be found in ${networkNemesisSeed}`);
+            throw new Error('Seed could not be found!!!!');
         }
-        logger.warn(`Seed for preset ${presetData.preset} could not be found in ${finalNemesisSeed}`);
-
-        throw new Error('Seed could not be found!!!!');
     }
 
     private async generateNodes(presetData: ConfigPreset, addresses: Addresses): Promise<void> {
         const currentFinalizationEpoch = this.params.offline
             ? presetData.lastKnownNetworkEpoch
-            : await new RemoteNodeService().resolveCurrentFinalizationEpoch(presetData);
+            : await new RemoteNodeService().resolveCurrentFinalizationEpoch(
+                  presetData,
+                  this.params.offline == undefined ? ConfigLoader.shouldCreateNemesis(this.root, presetData) : this.params.offline,
+              );
         await Promise.all(
             (addresses.nodes || []).map(
                 async (account, index) =>
@@ -303,6 +302,9 @@ export class ConfigService {
 
         const serverConfig = BootstrapUtils.getTargetNodesFolder(this.params.target, false, name, 'server-config');
         const brokerConfig = BootstrapUtils.getTargetNodesFolder(this.params.target, false, name, 'broker-config');
+        const dataFolder = BootstrapUtils.getTargetNodesFolder(this.params.target, false, name, 'data');
+        await BootstrapUtils.mkdir(dataFolder);
+
         const nodePreset = (presetData.nodes || [])[index];
 
         const harvesterSigningPrivateKey = nodePreset.harvesting
@@ -423,7 +425,7 @@ export class ConfigService {
             nodePreset,
             currentFinalizationEpoch,
             undefined,
-            presetData.nemesis != undefined,
+            ConfigLoader.shouldCreateNemesis(this.root, presetData),
         );
     }
 
@@ -456,9 +458,10 @@ export class ConfigService {
             })
             .filter((i) => i);
         const globalKnownPeers = presetData.knownPeers?.[type] || [];
+        const allPeers = [...thisNetworkKnownPeers, ...globalKnownPeers];
         const data = {
             _info: `this file contains a list of ${type} peers`,
-            knownPeers: _.sampleSize([...thisNetworkKnownPeers, ...globalKnownPeers], listLimit),
+            knownPeers: allPeers.length > listLimit ? _.sampleSize(allPeers, listLimit) : allPeers,
         };
         const peerFile = join(outputFolder, `resources`, jsonFileName);
         await fs.promises.writeFile(peerFile, JSON.stringify(data, null, 2));
@@ -489,68 +492,27 @@ export class ConfigService {
 
         await Promise.all((addresses.nodes || []).map((n) => this.createVotingKeyTransactions(transactionsDirectory, presetData, n)));
 
-        if (presetData.nemesis.mosaics && (presetData.nemesis.transactions || presetData.nemesis.balances)) {
-            logger.info('Opt In mode is ON!!! balances or transactions have been provided');
-            if (presetData.nemesis.transactions) {
-                const transactionHashes: string[] = [];
-                const transactions = (
-                    await Promise.all(
-                        Object.entries(presetData.nemesis.transactions || {})
-                            .map(([key, payload]) => {
-                                const transactionHash = Transaction.createTransactionHash(
-                                    payload,
-                                    Array.from(Convert.hexToUint8(presetData.nemesisGenerationHashSeed)),
-                                );
-                                if (transactionHashes.indexOf(transactionHash) > -1) {
-                                    logger.warn(`Transaction ${key} wth hash ${transactionHash} already exist. Excluded from folder.`);
-                                    return undefined;
-                                }
-                                transactionHashes.push(transactionHash);
-                                return this.storeTransaction(transactionsDirectory, key, payload);
-                            })
-                            .filter((p) => p),
-                    )
-                ).filter((p) => p);
-                logger.info(`Found ${transactions.length} opted in transactions.`);
-            }
-            const currencyMosaic = presetData.nemesis.mosaics[0];
-            const nglAccount = currencyMosaic.currencyDistributions[0];
-            const originalNglAccountBalance = nglAccount.amount;
-            if (!nglAccount) {
-                throw Error('"NGL" account could not be found for opt in!');
-            }
-            let totalOptedInBalance = 0;
-            if (presetData.nemesis.balances) {
-                Object.entries(presetData.nemesis.balances || {}).forEach(([address, amount]) => {
-                    totalOptedInBalance += amount;
-                    currencyMosaic.currencyDistributions.push({ address, amount });
-                });
-                logger.info(
-                    `Removing ${
-                        Object.keys(presetData.nemesis.balances).length
-                    } accounts (total of ${totalOptedInBalance}) from "ngl" account ${nglAccount.address}`,
-                );
-            }
-
-            nglAccount.amount = nglAccount.amount - totalOptedInBalance;
-
-            const providedBalances = Object.values(currencyMosaic.currencyDistributions)
-                .map((d) => d.amount)
-                .reduce((a, b) => a + b, 0);
-
-            const currentBalance = providedBalances;
-
-            if (nglAccount.amount < 1) {
-                throw new Error(
-                    `NGL account didn't have enough balance (${originalNglAccountBalance}) to paid all the supplied optedin namespaces and accounts of ${currentBalance}`,
-                );
-            }
-
-            if (currentBalance !== currencyMosaic.supply) {
-                throw new Error(
-                    `Current supplied balance of ${currentBalance} is different from expected supply of ${currencyMosaic.supply}`,
-                );
-            }
+        if (presetData.nemesis.transactions) {
+            const transactionHashes: string[] = [];
+            const transactions = (
+                await Promise.all(
+                    Object.entries(presetData.nemesis.transactions || {})
+                        .map(([key, payload]) => {
+                            const transactionHash = Transaction.createTransactionHash(
+                                payload,
+                                Array.from(Convert.hexToUint8(presetData.nemesisGenerationHashSeed)),
+                            );
+                            if (transactionHashes.indexOf(transactionHash) > -1) {
+                                logger.warn(`Transaction ${key} wth hash ${transactionHash} already exist. Excluded from folder.`);
+                                return undefined;
+                            }
+                            transactionHashes.push(transactionHash);
+                            return this.storeTransaction(transactionsDirectory, key, payload);
+                        })
+                        .filter((p) => p),
+                )
+            ).filter((p) => p);
+            logger.info(`Found ${transactions.length} provided in transactions.`);
         }
 
         await BootstrapUtils.generateConfiguration(templateContext, copyFrom, moveTo);
@@ -689,7 +651,18 @@ export class ConfigService {
         return Promise.all(
             (presetData.explorers || []).map(async (explorerPreset, index: number) => {
                 const copyFrom = join(this.root, 'config', 'explorer');
-                const templateContext = { ...presetData, ...explorerPreset };
+                const mosaicPreset = presetData.nemesis.mosaics[0];
+                const fullName = `${presetData.baseNamespace}.${mosaicPreset.name}`;
+                const namespaceId = new NamespaceId(fullName);
+                const { restNodes, defaultNode } = this.resolveRests(presetData);
+                const templateContext = {
+                    namespaceName: fullName,
+                    namespaceId: namespaceId.toHex(),
+                    restNodes: restNodes,
+                    defaultNode: defaultNode,
+                    ...presetData,
+                    ...explorerPreset,
+                };
                 const name = templateContext.name || `explorer-${index}`;
                 const moveTo = BootstrapUtils.getTargetFolder(this.params.target, false, BootstrapUtils.targetExplorersFolder, name);
                 await BootstrapUtils.generateConfiguration(templateContext, copyFrom, moveTo);
@@ -699,9 +672,19 @@ export class ConfigService {
 
     private generateWallets(presetData: ConfigPreset) {
         return Promise.all(
-            (presetData.wallets || []).map(async (explorerPreset, index: number) => {
+            (presetData.wallets || []).map(async (walletPreset, index: number) => {
                 const copyFrom = join(this.root, 'config', 'wallet');
-                const templateContext = { ...presetData, ...explorerPreset };
+                const { restNodes, defaultNode } = this.resolveRests(presetData);
+                const templateContext = {
+                    namespaceName: `${presetData.baseNamespace}.${presetData.nemesis.mosaics[0].name}`,
+                    defaultNodeUrl: defaultNode,
+                    restNodes: restNodes.map((url) => {
+                        return { url: url, roles: 2, friendlyName: new URL(url).hostname };
+                    }),
+                    ...presetData,
+                    ...walletPreset,
+                };
+
                 const name = templateContext.name || `wallet-${index}`;
                 const moveTo = BootstrapUtils.getTargetFolder(this.params.target, false, BootstrapUtils.targetWalletsFolder, name);
                 await BootstrapUtils.generateConfiguration(templateContext, copyFrom, moveTo);
@@ -710,7 +693,7 @@ export class ConfigService {
                 await fsPromises.chmod(join(moveTo, 'network.conf.js'), 0o777);
                 await fsPromises.chmod(join(moveTo, 'profileImporter.html'), 0o777);
                 await Promise.all(
-                    (explorerPreset.profiles || []).map(async (profile) => {
+                    (walletPreset.profiles || []).map(async (profile) => {
                         if (!profile.name) {
                             throw new Error('Profile`s name must be provided in the wallets preset when creating wallet profiles.');
                         }
@@ -737,6 +720,18 @@ export class ConfigService {
                 );
             }),
         );
+    }
+
+    private resolveRests(presetData: ConfigPreset): { restNodes: string[]; defaultNode: string } {
+        const restNodes: string[] = [];
+        presetData.gateways?.forEach((restService) => {
+            const nodePreset = presetData.nodes?.find((g) => g.name == restService.apiNodeName);
+            restNodes.push(nodePreset?.restGatewayUrl || `http://${restService.host || nodePreset?.host || 'localhost'}:3000`);
+        });
+        if (presetData.knownRestGateways) {
+            restNodes.push(...presetData.knownRestGateways);
+        }
+        return { restNodes: _.uniq(restNodes), defaultNode: restNodes[0] || 'http://localhost:3000' };
     }
 
     private cleanUpConfiguration(presetData: ConfigPreset) {

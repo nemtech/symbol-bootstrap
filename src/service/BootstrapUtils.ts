@@ -160,7 +160,7 @@ export class BootstrapUtils {
                             });
                         });
 
-                        file.on('error', (err) => {
+                        file.on('error', (err: any) => {
                             file.close();
                             if (err.code === 'EEXIST') {
                                 reject(new Error('File already exists'));
@@ -302,7 +302,7 @@ export class BootstrapUtils {
 
     public static sleep(ms: number): Promise<any> {
         // Create a promise that rejects in <ms> milliseconds
-        return new Promise((resolve) => {
+        return new Promise<void>((resolve) => {
             setTimeout(() => {
                 resolve();
             }, ms);
@@ -396,8 +396,18 @@ export class BootstrapUtils {
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     public static runTemplate(template: string, templateContext: any): string {
-        const compiledTemplate = Handlebars.compile(template);
-        return compiledTemplate(templateContext);
+        try {
+            const compiledTemplate = Handlebars.compile(template);
+            return compiledTemplate(templateContext);
+        } catch (e) {
+            const securedTemplate = BootstrapUtils.secureString(template);
+            const securedContext = BootstrapUtils.secureString(BootstrapUtils.toYaml(templateContext));
+            const securedMessage = BootstrapUtils.secureString(e.message || 'Unknown');
+
+            const message = `Unknown error rendering template. Error: ${securedMessage}\nTemplate:\n${securedTemplate}.`;
+            logger.error(`${message}\nContext: \n${securedContext}`);
+            throw new Error(message);
+        }
     }
 
     public static async mkdir(path: string): Promise<void> {
@@ -580,15 +590,6 @@ export class BootstrapUtils {
         return process.platform === 'win32';
     }
 
-    public static validateFolder(workingDirFullPath: string): void {
-        if (!existsSync(workingDirFullPath)) {
-            throw new Error(`${workingDirFullPath} folder does not exist`);
-        }
-        if (!lstatSync(workingDirFullPath).isDirectory()) {
-            throw new Error(`${workingDirFullPath} is not a folder!`);
-        }
-    }
-
     public static getTargetFolder(target: string, absolute: boolean, ...paths: string[]): string {
         if (absolute) {
             return join(process.cwd(), target, ...paths);
@@ -611,6 +612,9 @@ export class BootstrapUtils {
 
     public static getTargetDatabasesFolder(target: string, absolute: boolean, ...paths: string[]): string {
         return this.getTargetFolder(target, absolute, this.targetDatabasesFolder, ...paths);
+    }
+    public static zeroPad(num: number, places: number): string {
+        return String(num).padStart(places, '0');
     }
 
     //HANDLEBARS READY FUNCTIONS:
@@ -659,10 +663,16 @@ export class BootstrapUtils {
     }
 
     public static toHex(renderedText: string): string {
+        if (!renderedText) {
+            return '';
+        }
         const numberAsString = BootstrapUtils.toSimpleHex(renderedText);
         return '0x' + (numberAsString.match(/\w{1,4}(?=(\w{4})*$)/g) || [numberAsString]).join("'");
     }
     public static toSimpleHex(renderedText: string): string {
+        if (!renderedText) {
+            return '';
+        }
         return renderedText.toString().split("'").join('').replace(/^(0x)/, '');
     }
 
@@ -673,7 +683,11 @@ export class BootstrapUtils {
 
     public static formatJson(string: string): string {
         // Validates and format the json string.
-        return JSON.stringify(JSON.parse(string), null, 2);
+        try {
+            return JSON.stringify(JSON.parse(string), null, 2);
+        } catch (e) {
+            throw new Error(`${e.message}:JSON\n ${string}`);
+        }
     }
 
     public static splitCsv(object: string): string[] {
@@ -752,11 +766,36 @@ export class BootstrapUtils {
         writeFileSync(file, Convert.hexToUint8(BootstrapUtils.toAns1(privateKey)));
     }
 
+    public static isYmlFile(string: string): boolean {
+        return string.toLowerCase().endsWith('.yml') || string.toLowerCase().endsWith('.yaml');
+    }
+
     public static validatePassword(password: string): string {
         const passwordMinSize = 4;
         if (password.length < passwordMinSize) {
             throw new KnownError(`Password is too short. It should have at least ${passwordMinSize} characters!`);
         }
         return password;
+    }
+
+    public static validateFolder(workingDirFullPath: string): void {
+        if (!existsSync(workingDirFullPath)) {
+            throw new Error(`${workingDirFullPath} folder does not exist`);
+        }
+        if (!lstatSync(workingDirFullPath).isDirectory()) {
+            throw new Error(`${workingDirFullPath} is not a folder!`);
+        }
+    }
+
+    public static async validateSeedFolder(nemesisSeedFolder: string, message: string): Promise<void> {
+        BootstrapUtils.validateFolder(nemesisSeedFolder);
+        const seedData = join(nemesisSeedFolder, '00000', '00001.dat');
+        if (!existsSync(seedData)) {
+            throw new KnownError(`File ${seedData} doesn't exist! ${message}`);
+        }
+        const seedIndex = join(nemesisSeedFolder, 'index.dat');
+        if (!existsSync(seedIndex)) {
+            throw new KnownError(`File ${seedIndex} doesn't exist! ${message}`);
+        }
     }
 }

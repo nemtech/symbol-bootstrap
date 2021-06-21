@@ -28,7 +28,10 @@ export interface RepositoryInfo {
     chainInfo: ChainInfo;
 }
 export class RemoteNodeService {
-    public async resolveCurrentFinalizationEpoch(presetData: ConfigPreset): Promise<number> {
+    public async resolveCurrentFinalizationEpoch(presetData: ConfigPreset, offline: boolean): Promise<number> {
+        if (offline) {
+            return presetData.lastKnownNetworkEpoch;
+        }
         const votingNode = presetData.nodes?.find((n) => n.voting);
         if (!votingNode) {
             return presetData.lastKnownNetworkEpoch;
@@ -102,7 +105,7 @@ export class RemoteNodeService {
                                 chainInfo,
                             };
                         } catch (e) {
-                            const message = `There has been an error talking to node ${restGatewayUrl}. Error: ${e.message}}`;
+                            const message = `There has been an error talking to node ${restGatewayUrl}. Error: ${e.message}`;
                             logger.warn(message);
                             return undefined;
                         }

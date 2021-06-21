@@ -15,12 +15,10 @@
  */
 import { existsSync, lstatSync, readdirSync, readFileSync } from 'fs';
 import * as noble from 'noble-ed25519';
-import * as forge from 'node-forge';
 import { join } from 'path';
 import { Convert, Crypto } from 'symbol-sdk';
 import * as nacl from 'tweetnacl';
 
-const ed25519 = forge.pki.ed25519;
 export interface KeyPair {
     privateKey: Uint8Array;
     publicKey: Uint8Array;
@@ -51,26 +49,6 @@ export class VotingUtils {
         },
     };
 
-    public static forgeImplementation: CryptoImplementation = {
-        name: 'Forge',
-        createKeyPairFromPrivateKey: async (privateKey: Uint8Array): Promise<KeyPair> => {
-            const keyPair = ed25519.generateKeyPair({ seed: privateKey });
-            return { privateKey, publicKey: keyPair.publicKey };
-        },
-
-        sign: async (keyPair: KeyPair, data: Uint8Array): Promise<Uint8Array> => {
-            const secretKey = new Uint8Array(64);
-            secretKey.set(keyPair.privateKey);
-            secretKey.set(keyPair.publicKey, 32);
-            const signature = ed25519.sign({
-                // also accepts a forge ByteBuffer or Uint8Array
-                message: data,
-                privateKey: secretKey,
-            });
-            return new Uint8Array(signature);
-        },
-    };
-
     public static tweetNaClImplementation: CryptoImplementation = {
         name: 'TweetNaCl',
         createKeyPairFromPrivateKey: async (privateKey: Uint8Array): Promise<KeyPair> => {
@@ -86,7 +64,7 @@ export class VotingUtils {
         },
     };
 
-    public static implementations = [VotingUtils.nobleImplementation, VotingUtils.tweetNaClImplementation, VotingUtils.forgeImplementation];
+    public static implementations = [VotingUtils.nobleImplementation, VotingUtils.tweetNaClImplementation];
 
     constructor(private readonly implementation: CryptoImplementation = VotingUtils.nobleImplementation) {}
     public insert(result: Uint8Array, value: Uint8Array, index: number): number {
