@@ -1,0 +1,27 @@
+initialCurrencyAtomicUnits: 8998999998000000
+totalChainImportance: 8998999998000000
+maxMosaicAtomicUnits: 9000000000000000
+minHarvesterBalance: 500
+maxHarvesterBalance: 50000000000000
+networkType: 152
+minVoterBalance: 50000
+baseNamespace: 'cat'
+networkDescription: 'Symbol Local Bootstrap'
+beneficiaryAddress: ''
+votingKeyDesiredLifetime: 720
+votingKeyDesiredFutureLifetime: 120
+lastKnownNetworkEpoch: 1
+restExtensions: 'accountLink, aggregate, lockHash, lockSecret, mosaic, metadata, multisig, namespace, receipts, restrictions, transfer'
+nemesis:
+    mosaics:
+        - name: 'currency'
+          divisibility: 6
+          duration: 0
+          supply: 8998999998000000
+          isTransferable: true
+          isSupplyMutable: false
+          isRestrictable: false
+          accounts: 5
+inflation:
+    starting-at-height-1: 0
+    starting-at-height-10000: 0

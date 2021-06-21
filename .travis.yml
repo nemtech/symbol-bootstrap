@@ -19,16 +19,17 @@ cache:
         - node_modules
         - .eslintcache
 before_script:
+    - npm run init
     - sudo rm /usr/local/bin/docker-compose
     - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
     - chmod +x docker-compose
     - sudo mv docker-compose /usr/local/bin
     - . ./travis/node-functions.sh
     - VERSION="$(node_load_version)"
-    - if [[ ! -z "$DOCKER_USERNAME" ]] ; then echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin; fi
+    - if [[ ! -z "$DOCKER_PASSWORD" ]] ; then echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin; fi
     - log_env_variables
 script:
-    - npm pack
+    - npm run build
     - npm test
     - npm run coveralls-report
 jobs:

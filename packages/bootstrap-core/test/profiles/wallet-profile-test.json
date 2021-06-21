@@ -1,0 +1,73 @@
+{
+    "profiles": {
+        "version": 5,
+        "data": {
+            "test": {
+                "profileName": "test",
+                "accounts": ["19A1C8D4814ED6C5", "0754991E871DF71C", "96F17E63B63D7B8E"],
+                "seed": "4d99056862429be98ee0d862329364db906cad9b55fe77c7c9406224a47d7edd1fllY3kHRUKFvvkso48aUH0l0io3CKHOlhbk8EdFj2YPwOorcmWCYPDmzpU7iKHAGHF33HrXfdth+is3RFkhyAthLVAEe/aM50VPoVrK45d59P8S+gyxYKePcA06/PDQr7mPgIQ4ZwMOI7er/Xib99pDIyMAXmj4p+TdErI7hUc214DFx3hcwssiSsezwkq4Xk46VhRfKIwvcRMUt6oS7g==",
+                "password": "AAA42FD3FDEA5E8DEC89B5B5364D54D8BA98722B06DC669742C3AE519F07B6D2ED4797FA20DC9995125BC8C7CBDE6BD6B0603CEB6D08CD58CA1A965EAE7D4A25",
+                "hint": "",
+                "networkType": 152,
+                "generationHash": "6C1B92391CCB41C96478471C2634C111D9E989DECD66130C0430B5B8D20117CD"
+            }
+        }
+    },
+    "accounts": {
+        "version": 4,
+        "data": {
+            "694DD72A1B4A5D19": {
+                "id": "694DD72A1B4A5D19",
+                "profileName": "test",
+                "name": "Seed Account 1",
+                "node": "",
+                "type": 1,
+                "address": "TAH24WMWMTO5OYBA7JV7WFNN3PLE5CQHEYZR2EY",
+                "publicKey": "904C0AF0A503F4828DB055495EA3CC42700FA4FAC8A85465A7CF168644545C1E",
+                "encryptedPrivateKey": "6dc5c1d2a445183284619647106b0fd394372f41840dd1d64e12f6db8bac95cf6LcSjpJf/XQy1Yo/UwpMxqa2wRMXMsRnJvSJ5+DLHIHAoMLdCFBxWtQiEPgXUCC5dV+HlJeviNrRvjkbjLHBTtg/dxZ/khT/EgdiSfKrSLc=",
+                "path": "m/44'/4343'/0'/0'/0'",
+                "isMultisig": false,
+                "encRemoteAccountPrivateKey": "3542f81fd19b2dc4202b0b49ab6ae7c948d77d9dc493ac07ec6b67f5732b5f4bGjOyczzmIhepXcPkcrP/kKHRG1C0U/VWya7pvQ8dgMm/jzp1cuqfP67CPkIKopUpmDmdBtfIiLCJl+N+u2vR6RLjOQVgZnZdiCPKpcwN2rY="
+            },
+            "19A1C8D4814ED6C5": {
+                "id": "19A1C8D4814ED6C5",
+                "profileName": "test",
+                "name": "account 1",
+                "node": "",
+                "type": 1,
+                "address": "TAI4NEL4SBQDSPY2XKMPIGOC53UALIXJ5WHRJVQ",
+                "publicKey": "1C8557E7A5E61BFFF2852BFB79A1EE53AB58F2200BDCE7271063BB00697CB66D",
+                "encryptedPrivateKey": "9874bbf36dbd0f68ada927c278d38a97cf9dd66c4c6ee70c1ee130b23d54001fmeWYBkK/fY7Wuk6L01c6cURynREkLMTGvQdjk4IFX+qib3X3iVL1U1cNRHFzqQrRu04+ctyjB5Cj8SjApfUknbm1hjWtU/2TuTPA2Zi4j4Q=",
+                "path": "m/44'/4343'/0'/0'/0'",
+                "isMultisig": false,
+                "encRemoteAccountPrivateKey": "fda9648e671b72ecb5611115ef4e14e26a0bf9332c1c9e5b1f65542201a16cb4UJIBB3EKS7VoOfI8GKS5Y8Rl3bubmAIbghRAyRi1enBsQoQSLLoFQZpnKX2xpy6ql+MJpTvjyFV8cx6NSg1f0zMERvtG5RB/TDQhLtqOmrs="
+            },
+            "0754991E871DF71C": {
+                "id": "0754991E871DF71C",
+                "profileName": "test",
+                "name": "multisig",
+                "node": "",
+                "type": 1,
+                "address": "TAWBSSHIKZNX6E65FJG4BVIJR236Z64Z77CMOJA",
+                "publicKey": "50FBE087E7261CE6E8A804CA0E0CFD1B065ABBBA668E0248FC8F0C268AAB3827",
+                "encryptedPrivateKey": "68843e69f0df9ad39fea8062dd61ee7e8b81fd55bc7dc61127847ad4d6f621b745BL6Pz1MXhLiOcWrWO1AXsda1MQoF8G0KZJVW8Pzh5tXxCZ9RRfuFxAUWUkC1dLHYAbFGkWbphnQuERA9YC8aqTWJsmjZU1K1PZqS9lRF0=",
+                "path": "m/44'/4343'/1'/0'/0'",
+                "isMultisig": false,
+                "encRemoteAccountPrivateKey": "4d67b6ba6877197a0e4ba5e85036f183594f17ca6f3404e6ac5a9f1fe8e59b8cYjqFCgKbwSL+rXCmMWclFNtm7iQXUmdZ8UHRyhBUnEhmrewPcEiHtvn3vtViFX6wk7EZ9Tpp8gXsOoksbiSbz7gPxdiQsmYNotApBBPAH4o="
+            },
+            "96F17E63B63D7B8E": {
+                "id": "96F17E63B63D7B8E",
+                "profileName": "test",
+                "name": "account 3",
+                "node": "",
+                "type": 1,
+                "address": "TDTZLYALSDGWBW5ZJJYKOM65YFHELZHGEEUDZ7A",
+                "publicKey": "7E8CFEE6210BAAE2A07E55473935981DE89F7737AE8034110E20976221B24A60",
+                "encryptedPrivateKey": "3e876f06e0a6de763ee79b79b576842096031f8b1c683468be519bd9770c5fa6sPds/Nd3HxtAf6K0QCx31lz7NmLZqIfbZZNLvYhkW0KXf3XygKp9tdulPM646RESyY/HUZaKwYwtAQk6vr/FrH/21F61XCjS3zvNhqCBXhw=",
+                "path": "m/44'/4343'/2'/0'/0'",
+                "isMultisig": false
+            }
+        }
+    },
+    "mosaicConfiguration": {}
+}

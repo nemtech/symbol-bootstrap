@@ -1,0 +1,20 @@
+[ca]
+default_ca = CA_default
+
+[CA_default]
+new_certs_dir = ./new_certs
+database = index.txt
+serial = serial.dat
+private_key = agent-ca.key.pem
+certificate = agent-ca.crt.pem
+policy = policy_catapult
+
+[policy_catapult]
+commonName = supplied
+
+[req]
+prompt = no
+distinguished_name = dn
+
+[dn]
+CN = Agent CA

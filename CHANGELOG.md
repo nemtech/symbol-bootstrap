@@ -4,14 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The changelog format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.0.8] - NEXT
+## [1.1.1] - NEXT
 
 **Milestone**: Mainnet(1.0.1.0)
 
-| Package          | Version | Link                                                               |
-| ---------------- | ------- | ------------------------------------------------------------------ |
-| Symbol Bootstrap | v1.0.8  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Package               | Version | Link                                                               |
+| --------------------- | ------- | ------------------------------------------------------------------ |
+| Symbol Bootstrap      | v1.1.0  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Bootstrap Core | v1.1.0  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Network        | v0.0.1  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
+| Symbol Network Core   | v0.0.1  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
 
+-   The `bootstrap` preset is not the default anymore. The name must be provided via --preset or as a custom preset field.
+-   When upgrading, the --customPreset param is now only required if there is a configuration change, since
+    the properties from the original custom preset are fully cached in the target folder.
 
 ## [1.0.7] - June-22-2021
 
@@ -36,7 +42,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 -   Symbol Rest `2.3.6` upgrade.
 -   Reward Program Agent `2.0.0` upgrade.
 -   Added `MonitorOnly` reward program.
--   The `link` and `enrollRewardProgram` commands allow `--customPreset` to avoid password prompt when main private key is not stored in the target folder. 
+-   The `link` and `enrollRewardProgram` commands allow `--customPreset` to avoid password prompt when main private key is not stored in the target folder.
 -   Merged tools and server docker images into one.
 
 ## [1.0.5] - May-3-2021
@@ -65,7 +71,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 -   Fixed case issue validating keys when creating certificates.
 -   Updated Wallet to latest 1.0.1 release.
 -   Node properties sinkType: Async and enableSingleThreadPool: false by default in peer nodes too.
--   Dropped NodeJS 10 support. Added Node LTS and Stable Support. 
+-   Dropped NodeJS 10 support. Added Node LTS and Stable Support.
 
 ## [1.0.3] - Mar-31-2021
 
@@ -100,7 +106,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 -   Random and limited peer/api list.
 -   Custom `votingUnfinalizedBlocksDuration` and `nonVotingUnfinalizedBlocksDuration` preset properties.
--   Agent service is disabled until supernode program resumes. 
+-   Agent service is disabled until supernode program resumes.
 -   The default `beneficiaryAddress` is the node's main address. Use `beneficiaryAddress: ''` in a custom preset to override the new default.
 
 ## [1.0.0] - Mar-16-2021
@@ -114,7 +120,7 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 -   **New `mainnet` preset!!!**
 -   Removed node from its own `peers-p2p.json` and `peers-api.json` files.
 -   Voting keys are ephemeral. They cannot be provided, bootstrap will always generate a new one when resetting the configuration. Bootstrap will never store the voting private key in addresses.yml.
--   Dropped `PROMPT_MAIN_VOTING` from `privateKeySecurityMode`. 
+-   Dropped `PROMPT_MAIN_VOTING` from `privateKeySecurityMode`.
 -   Added `PROMPT_MAIN_TRANSPORT` to `privateKeySecurityMode`: The transport/node key will be asked when regenerating the certificates or when upgrading a supernode.
 -   Changed server file permission to 0o600
 
@@ -127,17 +133,17 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 | Symbol Bootstrap | v0.4.5  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
 
 -   Added `privateKeySecurityMode`. It defines which private keys can be encrypted and stored in the `target/addresses.yml`:
-    - `ENCRYPT`: All private keys are encrypted and stored in the target's `addresses.yml` file. Bootstrap will require a password to operate.
-    - `PROMPT_MAIN`: Main private keys are not stored in the target's `addresses.yml` file. Bootstrap will request the main private key when certificates are generated, or transactions need to be signed by the `link` and `enrolProgram` commands.
-    - `PROMPT_MAIN_VOTING`: Main and voting private keys are not stored in the target's `addresses.yml` file. Bootstrap will request the main private key when certificates are generated, or transactions need to be signed by the `link` and `enrolProgram` commands. The voting private key will be requested when generating the voting key file.
-    - `PROMPT_ALL`: No private keys are stored in the in the target's `addresses.yml` file. Bootstrap will request the private keys when they are required by the different commands.
+    -   `ENCRYPT`: All private keys are encrypted and stored in the target's `addresses.yml` file. Bootstrap will require a password to operate.
+    -   `PROMPT_MAIN`: Main private keys are not stored in the target's `addresses.yml` file. Bootstrap will request the main private key when certificates are generated, or transactions need to be signed by the `link` and `enrolProgram` commands.
+    -   `PROMPT_MAIN_VOTING`: Main and voting private keys are not stored in the target's `addresses.yml` file. Bootstrap will request the main private key when certificates are generated, or transactions need to be signed by the `link` and `enrolProgram` commands. The voting private key will be requested when generating the voting key file.
+    -   `PROMPT_ALL`: No private keys are stored in the in the target's `addresses.yml` file. Bootstrap will request the private keys when they are required by the different commands.
 -   The `preset.yml` doesn't contain any private key anymore, encrypted or otherwise.
 -   Certificates are not re-generated if not needed when running `--upgrade`. In this case, the main account private key is not required and will not be requested with the `PROMPT` security modes.
 -   Voting key files are not re-generated if not needed when running `--upgrade`. In this case, the voting account private key is not required and will not be requested with the `PROMPT_ALL` or `PROMPT_MAIN_VOTING` security modes.
 -   Public keys can be used in custom presets in addition to encrypted private keys. If public keys are used, Bootstrap will prompt for the private keys when required.
 -   Added `encrypt` and `decrypt` commands to encrypt custom presets and decrypt generated `target/addresses.yml` files:
 -   The `--upgrade` param can be used to change the server keys without dropping the data.
--   Splitting `userconfig` into `server-config` and `broker-config` for each service. 
+-   Splitting `userconfig` into `server-config` and `broker-config` for each service.
 -   Fixed recovery process.
 
 ## [0.4.4] - Feb-24-2021
@@ -162,9 +168,9 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 -   Added Core Dump files when `dockerComposeDebugMode: true`.
 -   Added autocomplete support. Try `symbol-bootstrap autocomplete` and follow the instructions (Thanks @44uk).
--   Renamed `supernode` keywords for `rewardProgram` for clarification.  Supernode is a type of Reward Program.
+-   Renamed `supernode` keywords for `rewardProgram` for clarification. Supernode is a type of Reward Program.
 -   Voting is not required to enrol a program.
--   Renamed command from `enrolSupernode` for `enrolRewardProgram`. 
+-   Renamed command from `enrolSupernode` for `enrolRewardProgram`.
 -   Added preset configurable `connectionPoolSize` to the Rest Gateway configuration.
 -   Removed Node Key Link transactions from nemesis and `link` command.
 

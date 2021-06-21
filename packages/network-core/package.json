@@ -1,0 +1,47 @@
+{
+    "name": "symbol-network-core",
+    "version": "0.0.1-alpha.0",
+    "description": "",
+    "main": "lib/index.js",
+    "bin": "lib/index.js",
+    "types": "lib/index.js",
+    "homepage": "https://github.com/nemtech/symbol-bootstrap",
+    "bugs": "https://github.com/nemtech/symbol-bootstrap/issues",
+    "scripts": {
+        "doc": "shx mkdir -p ts-docs && typedoc --out \"ts-docs\" src && touch ./ts-docs/.nojekyll",
+        "clean": "shx rm -rf lib",
+        "purge": "shx rm -rf lib coverage node_modules target .nyc_output logs.log ts-docs",
+        "watch": "tsc -p tsconfig.build.json --watch",
+        "compile": "tsc -p tsconfig.build.json",
+        "build": "shx rm -rf lib && npm run compile",
+        "lib": "npm run clean && npm run compile",
+        "version": "echo $npm_package_version",
+        "prettier": "prettier --write ./src",
+        "lint": "eslint --cache src/ --ext .ts",
+        "prepack": "shx rm -rf lib && npm run compile",
+        "lint:fix": "eslint src/ --ext .ts --fix",
+        "style:fix": "npm run create-index-files && npm run prettier && npm run lint:fix",
+        "create-index-files": "cti create ./src -b -n -e commands",
+        "test": "nyc --reporter=lcov --extension .ts mocha -r ts-node/register --timeout 600000 --forbid-only \"test/**/*.test.ts\""
+    },
+    "files": [
+        "/lib"
+    ],
+    "keywords": [],
+    "author": "Fernando Boucquez <fboucquez@gmail.com>",
+    "license": "Apache-2.0",
+    "engines": {
+        "node": ">=12.0.0"
+    },
+    "mocha": {
+        "timeout": 40000
+    },
+    "dependencies": {
+        "lodash": "^4.17.21",
+        "node-fetch": "^2.6.1",
+        "symbol-bootstrap-core": "1.1.0-alpha.0",
+        "symbol-sdk": "^1.0.1",
+        "tslib": "^2.3.0",
+        "utf8": "^3.0.0"
+    }
+}

@@ -1,0 +1,90 @@
+explorerUrl: http://localhost:90
+faucetUrl: http://localhost:100
+databases:
+    - repeat: 1
+      name: 'db-{{$index}}'
+      openPort: '{{add $index 27017}}'
+nodes:
+    - repeat: 2
+      harvesting: true
+      voting: true
+      api: false
+      name: 'peer-node-{{$index}}'
+      friendlyName: 'peer-node-{{$index}}'
+      host: 'peer-node-{{$index}}'
+      openPort: '{{add $index 7900}}'
+    - repeat: 1
+      harvesting: false
+      api: true
+      friendlyName: 'api-node-{{$index}}'
+      name: 'api-node-{{$index}}'
+      host: 'api-node-{{$index}}'
+      brokerName: 'api-node-broker-{{$index}}'
+      brokerOpenPort: '{{add $index 8002}}'
+      databaseHost: 'db-{{$index}}'
+      trustedHosts: '127.0.0.1, 172.20.0.{{add $index 25}}'
+      localNetworks: '127.0.0.1, 172.20.0.{{add $index 25}}'
+gateways:
+    - repeat: 1
+      apiNodeName: 'api-node-{{$index}}'
+      apiNodeHost: 'api-node-{{$index}}'
+      apiNodeBrokerHost: 'api-node-broker-{{$index}}'
+      name: 'rest-gateway-{{$index}}'
+      description: '{{$networkDescription}}'
+      databaseHost: 'db-{{$index}}'
+      openPort: '{{add $index 3000}}'
+      ipv4_address: '172.20.0.{{add $index 25}}'
+wallets:
+    - repeat: 0
+      title: 'Symbol Bootstrap Wallet'
+      name: 'wallet-{{$index}}'
+      defaultNodeUrl: 'http://localhost:{{add $index 3000}}'
+      namespaceName: '{{baseNamespace}}.{{currencyName}}'
+      openPort: '{{add $index 80}}'
+      restNodes:
+          - friendlyName: 'Bootstrap Rest $index'
+            url: 'http://localhost:{{add $index 3000}}'
+            roles: 2
+explorers:
+    - repeat: 0
+      name: 'explorer-{{$index}}'
+      defaultNode: 'http://localhost:{{add $index 3000}}'
+      namespaceName: '{{baseNamespace}}.{{currencyName}}'
+      openPort: '{{add $index 90}}'
+      restNodes:
+          - 'http://localhost:{{add $index 3000}}'
+      footer:
+          link:
+              - href: https://nemflash.io/
+                text: NEM News
+                icon: IconNewspaper
+              - href: https://forum.nem.io/
+                text: Forum
+                icon: IconForum
+              - href: https://t.me/nemred
+                text: Telegram
+                icon: IconTelegram
+              - href: https://www.reddit.com/r/nem/
+                text: Reddit
+                icon: IconReddit
+              - href: https://github.com/nemtech
+                text: Github
+                icon: IconGithub
+              - href: http://localhost:100/
+                text: Faucet
+                icon: IconHomeCurrencyUsd
+faucets:
+    - repeat: 0
+      name: 'faucet-{{$index}}'
+      gateway: 'rest-gateway-{{$index}}'
+      environment:
+          DEFAULT_NODE: 'http://rest-gateway-{{$index}}:{{add $index 3000}}'
+          DEFAULT_NODE_CLIENT: 'http://localhost:{{add $index 3000}}'
+          NATIVE_CURRENCY_OUT_MAX: 500000000
+          NATIVE_CURRENCY_OUT_MIN: 100000000
+          MAX_FEE: 5000000
+          ENOUGH_BALANCE: 100000000000
+          MAX_UNCONFIRMED: 99
+          BLACKLIST_MOSAIC_IDS: '[]'
+          EXPLORER_URL: 'http://localhost:{{add $index 90}}/'
+      openPort: '{{add $index 100}}'

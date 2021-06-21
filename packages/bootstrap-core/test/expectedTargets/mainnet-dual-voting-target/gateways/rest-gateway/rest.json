@@ -1,0 +1,92 @@
+{
+  "network": {
+    "name": "public",
+    "description": ""
+  },
+  "port": 3000,
+  "crossDomain": {
+    "allowedHosts": [
+      "*"
+    ],
+    "allowedMethods": [
+      "GET",
+      "POST",
+      "PUT",
+      "OPTIONS"
+    ]
+  },
+  "extensions": [
+    "accountLink",
+    "aggregate",
+    "lockHash",
+    "lockSecret",
+    "mosaic",
+    "metadata",
+    "multisig",
+    "namespace",
+    "receipts",
+    "restrictions",
+    "transfer",
+    "cmc"
+  ],
+  "db": {
+    "url": "mongodb://db:27017/",
+    "name": "catapult",
+    "pageSizeMin": 10,
+    "pageSizeMax": 100,
+    "maxConnectionAttempts": 15,
+    "baseRetryDelay": 750,
+    "connectionPoolSize": 10
+  },
+  "apiNode": {
+    "host": "node",
+    "port": 7900,
+    "tlsClientCertificatePath": "/symbol-workdir/api-node-config/cert/node.crt.pem",
+    "tlsClientKeyPath": "/symbol-workdir/api-node-config/cert/node.key.pem",
+    "tlsCaCertificatePath": "/symbol-workdir/api-node-config/cert/ca.cert.pem",
+    "timeout": 1000,
+    "networkPropertyFilePath": "/symbol-workdir/api-node-config/config-network.properties",
+    "nodePropertyFilePath": "/symbol-workdir/api-node-config/config-node.properties"
+  },
+  "websocket": {
+    "mq": {
+      "host": "broker",
+      "port": 7902,
+      "monitorInterval": 500,
+      "connectTimeout": 10000,
+      "monitorLoggingThrottle": 60000,
+      "maxSubscriptions": 300
+    },
+    "allowOptionalAddress": true
+  },
+  "throttling": {
+    "burst": 80,
+    "rate": 60
+  },
+  "logging": {
+    "console": {
+      "formats": [
+        "colorize",
+        "simple"
+      ],
+      "level": "verbose",
+      "handleExceptions": true
+    },
+    "file": {
+      "formats": [
+        "prettyPrint"
+      ],
+      "level": "verbose",
+      "handleExceptions": true,
+      "filename": "/symbol-workdir/logs/catapult-rest.log",
+      "maxsize": 20971520,
+      "maxFiles": 100
+    }
+  },
+  "numBlocksTransactionFeeStats": 300,
+  "deployment": {
+    "deploymentTool": "symbol-bootstrap",
+    "deploymentToolVersion": "1.0.8",
+    "lastUpdatedDate": "2021-07-05"
+  }
+}

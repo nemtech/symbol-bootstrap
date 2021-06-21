@@ -1,0 +1,23 @@
+minFeeMultiplier: 0
+defaultDynamicFeeMultiplier: 0
+baseNamespace: 'bob'
+nemesisGenerationHashSeed: 6C1B92391CCB41C96478471C2634C111D9E989DECD66130C0430B5B8D20117CD
+dockerComposeDebugMode: true
+
+#totalChainImportance: 8998999998000000
+#nemesis:
+##   Disable harvest currency with repeat 0
+#   mosaics: [{}, { repeat: 0 }]
+
+databases:
+    - dockerComposeDebugMode: false
+nemesis:
+    nemesisSignerPrivateKey: B2AF9675B7AA8CCCBB3C1072256B3DF7354223FB5C490FFBDDB1C60696E25219
+    mosaics:
+        - name: 'marley'
+        - name: 'reggae'
+
+wallets:
+    - profiles:
+          - name: test
+            location: ./test/profiles/wallet-profile-test.json
