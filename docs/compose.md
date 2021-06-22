@@ -33,4 +33,4 @@ EXAMPLE
   $ symbol-bootstrap compose
 ```
 
-_See code: [src/commands/compose.ts](https://github.com/nemtech/symbol-bootstrap/blob/v1.0.7/src/commands/compose.ts)_
+_See code: [src/commands/compose.ts](https://github.com/nemtech/symbol-bootstrap/blob/v1.0.8/src/commands/compose.ts)_

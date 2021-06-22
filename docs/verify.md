@@ -20,4 +20,4 @@ EXAMPLE
   $ symbol-bootstrap verify
 ```
 
-_See code: [src/commands/verify.ts](https://github.com/nemtech/symbol-bootstrap/blob/v1.0.7/src/commands/verify.ts)_
+_See code: [src/commands/verify.ts](https://github.com/nemtech/symbol-bootstrap/blob/v1.0.8/src/commands/verify.ts)_
