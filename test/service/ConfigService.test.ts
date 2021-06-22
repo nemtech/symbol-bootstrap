@@ -62,16 +62,23 @@ describe('ConfigService', () => {
         const configResult = await new ConfigService('.', {
             ...ConfigService.defaultParams,
             reset: true,
+            password: '1111',
             target: 'target/tests/bootstrap',
             preset: Preset.bootstrap,
         }).run();
 
+        expect(configResult.addresses.mosaics?.length).eq(2);
+        expect(configResult.addresses.mosaics?.[0]?.accounts.length).eq(5);
+        expect(configResult.addresses.mosaics?.[1]?.accounts.length).eq(2);
+
         const configResultUpgrade = await new ConfigService('.', {
             ...ConfigService.defaultParams,
             upgrade: true,
+            password: '1111',
             target: 'target/tests/bootstrap',
             preset: Preset.bootstrap,
         }).run();
+        expect(configResult.addresses).deep.eq(configResultUpgrade.addresses);
 
         expect(CryptoUtils.removePrivateKeys(configResultUpgrade.presetData)).deep.eq(
             CryptoUtils.removePrivateKeys(configResult.presetData),

@@ -139,7 +139,7 @@ export class ConfigService {
             }
 
             const presetData: ConfigPreset = this.resolveCurrentPresetData(oldPresetData, password);
-            const addresses = await this.configLoader.generateRandomConfiguration(oldAddresses, presetData);
+            const addresses = await this.configLoader.generateRandomConfiguration(oldAddresses, oldPresetData, presetData);
 
             const privateKeySecurityMode = CryptoUtils.getPrivateKeySecurityMode(presetData.privateKeySecurityMode);
             await BootstrapUtils.mkdir(target);

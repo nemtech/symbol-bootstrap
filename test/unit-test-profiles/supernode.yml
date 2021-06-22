@@ -1,4 +1,5 @@
 privateKeySecurityMode: PROMPT_MAIN
+maxUnlockedAccounts: 20
 nodes:
     - voting: true
       rewardProgram: 'supernode'

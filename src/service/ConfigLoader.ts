@@ -25,7 +25,6 @@ import {
     ConfigAccount,
     ConfigPreset,
     CustomPreset,
-    DeepPartial,
     MosaicAccounts,
     NodeAccount,
     NodePreset,
@@ -41,7 +40,11 @@ const logger: Logger = LoggerFactory.getLogger(LogType.System);
 export class ConfigLoader {
     public static presetInfoLogged = false;
 
-    public async generateRandomConfiguration(oldAddresses: Addresses | undefined, presetData: ConfigPreset): Promise<Addresses> {
+    public async generateRandomConfiguration(
+        oldAddresses: Addresses | undefined,
+        oldPresetData: ConfigPreset | undefined,
+        presetData: ConfigPreset,
+    ): Promise<Addresses> {
         const networkType = presetData.networkType;
         const addresses: Addresses = {
             version: this.getAddressesMigration(presetData.networkType).length + 1,
@@ -113,8 +116,12 @@ export class ConfigLoader {
 
         if (presetData.nemesis) {
             if (oldAddresses) {
+                if (!oldPresetData) {
+                    throw new Error('oldPresetData must be defined when upgrading!');
+                }
                 // Nemesis configuration cannot be changed on upgrade.
                 addresses.mosaics = oldAddresses.mosaics;
+                presetData.nemesis = oldPresetData.nemesis;
             } else {
                 if (presetData.nemesis.mosaics) {
                     const mosaics: MosaicAccounts[] = [];
@@ -362,11 +369,11 @@ export class ConfigLoader {
         return BootstrapUtils.loadYaml(fileLocation, false);
     }
 
-    public mergePresets(object: ConfigPreset, ...otherArgs: (CustomPreset | undefined)[]): any {
-        const presets: (CustomPreset | undefined)[] = [object, ...otherArgs];
+    public mergePresets<T extends CustomPreset>(object: T | undefined, ...otherArgs: (CustomPreset | undefined)[]): T {
+        const presets = [object, ...otherArgs];
         const inflation: Record<string, number> = presets.reverse().find((p) => p?.inflation)?.inflation || {};
-        const presetData = _.merge(object, ...otherArgs);
-        presetData.inflation = inflation;
+        const presetData = _.merge({}, ...presets.reverse());
+        if (!_.isEmpty(inflation)) presetData.inflation = inflation;
         return presetData;
     }
 
@@ -391,14 +398,14 @@ export class ConfigLoader {
             params.assembly || params.customPresetObject?.assembly || customPresetFileObject?.assembly || params.oldPresetData?.assembly;
 
         const root = params.root;
-        const sharedPreset = BootstrapUtils.loadYaml(join(root, 'presets', 'shared.yml'), false);
+        const sharedPreset = BootstrapUtils.loadYaml(join(root, 'presets', 'shared.yml'), false) as ConfigPreset;
         const networkPreset = BootstrapUtils.loadYaml(`${root}/presets/${preset}/network.yml`, false);
         const assemblyPreset = this.loadAssembly(root, preset, assembly);
 
-        const resolvedCustomPreset = _.merge(customPresetFileObject, customPresetObject) || oldPresetData?.resolvedCustomPreset;
-        const presetData = this.mergePresets(sharedPreset, networkPreset, assemblyPreset, resolvedCustomPreset, {
-            preset,
-        });
+        const providedCustomPreset = this.mergePresets(customPresetFileObject, customPresetObject);
+        const resolvedCustomPreset = _.isEmpty(providedCustomPreset) ? oldPresetData?.customPresetCache || {} : providedCustomPreset;
+
+        const presetData = this.mergePresets(sharedPreset, networkPreset, assemblyPreset, resolvedCustomPreset);
 
         if (presetData.assemblies && !assembly) {
             throw new KnownError(
@@ -416,23 +423,23 @@ export class ConfigLoader {
         }
         ConfigLoader.presetInfoLogged = true;
         const presetDataWithDynamicDefaults: ConfigPreset = {
+            ...presetData,
             version: 1,
             preset: preset,
             assembly: assembly || '',
-            ...presetData,
             nodes: this.dynamicDefaultNodeConfiguration(presetData.nodes),
-            resolvedCustomPreset: resolvedCustomPreset,
+            customPresetCache: resolvedCustomPreset,
         };
-        return _.merge(oldPresetData || {}, this.expandRepeat(presetDataWithDynamicDefaults));
+        return this.expandRepeat(presetDataWithDynamicDefaults as ConfigPreset);
     }
 
-    public dynamicDefaultNodeConfiguration(nodes?: NodePreset[]): NodePreset[] {
+    public dynamicDefaultNodeConfiguration(nodes?: Partial<NodePreset>[]): NodePreset[] {
         return _.map(nodes || [], (node) => {
-            return { ...this.getDefaultConfiguration(node), ...node };
+            return { ...this.getDefaultConfiguration(node), ...node } as NodePreset;
         });
     }
 
-    private getDefaultConfiguration(node: NodePreset): DeepPartial<NodePreset> {
+    private getDefaultConfiguration(node: Partial<NodePreset>): Partial<NodePreset> {
         if (node.harvesting && node.api) {
             return {
                 syncsource: true,

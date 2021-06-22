@@ -30,7 +30,7 @@ minVotingKeyLifetime: 112
 maxVotingKeyLifetime: 360
 votingKeyDesiredLifetime: 360
 votingKeyDesiredFutureLifetime: 60
-lastKnownNetworkEpoch: 181
+lastKnownNetworkEpoch: 197
 stepDuration: 5m
 maxBlockFutureTime: 300ms
 maxAccountRestrictionValues: 100
