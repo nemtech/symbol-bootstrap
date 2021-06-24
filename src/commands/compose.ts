@@ -15,8 +15,7 @@
  */
 
 import { Command, flags } from '@oclif/command';
-import { BootstrapService, BootstrapUtils, ComposeService } from '../service';
-import { CommandUtils } from '../service/CommandUtils';
+import { BootstrapService, BootstrapUtils, CommandUtils, ComposeService } from '../service';
 
 export default class Compose extends Command {
     static description = 'It generates the `docker-compose.yml` file from the configured network.';

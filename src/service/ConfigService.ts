@@ -102,6 +102,16 @@ export class ConfigService {
         this.configLoader = new ConfigLoader();
     }
 
+    public resolveConfigPreset(password: Password): ConfigPreset {
+        const target = this.params.target;
+        const presetLocation = this.configLoader.getGeneratedPresetLocation(target);
+        if (fs.existsSync(presetLocation) && !this.params.upgrade) {
+            return this.configLoader.loadExistingPresetData(target, password);
+        }
+        const oldPresetData = this.configLoader.loadExistingPresetDataIfPreset(target, password);
+        return this.resolveCurrentPresetData(oldPresetData, password);
+    }
+
     public async run(): Promise<ConfigResult> {
         const target = this.params.target;
         try {

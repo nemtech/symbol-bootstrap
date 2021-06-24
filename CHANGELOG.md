@@ -12,6 +12,8 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 | ---------------- | ------- | ------------------------------------------------------------------ |
 | Symbol Bootstrap | v1.0.8  | [symbol-bootstrap](https://www.npmjs.com/package/symbol-bootstrap) |
 
+-   Added `wizard` command.
+-   Added `pack` command.
 
 ## [1.0.7] - June-22-2021
 

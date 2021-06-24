@@ -31,7 +31,7 @@ import {
 import * as Handlebars from 'handlebars';
 import { get } from 'https';
 import * as _ from 'lodash';
-import { platform, totalmem } from 'os';
+import { totalmem } from 'os';
 import { basename, dirname, join, resolve } from 'path';
 import { Convert, DtoMapping, NetworkType } from 'symbol-sdk';
 import * as util from 'util';
@@ -183,7 +183,7 @@ export class BootstrapUtils {
     }
 
     public static logSameLineMessage(message: string): void {
-        process.stdout.write(platform() == 'win32' ? '\\033[0G' : '\r');
+        process.stdout.write(BootstrapUtils.isWindows() ? '\x1b[0G' : '\r');
         process.stdout.write(message);
     }
 

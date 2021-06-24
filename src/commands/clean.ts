@@ -15,8 +15,7 @@
  */
 
 import { Command } from '@oclif/command';
-import { BootstrapUtils } from '../service';
-import { CommandUtils } from '../service/CommandUtils';
+import { BootstrapUtils, CommandUtils } from '../service';
 
 export default class Clean extends Command {
     static description = 'It removes the target folder deleting the generated configuration and data';

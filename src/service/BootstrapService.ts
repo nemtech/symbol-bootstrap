@@ -41,6 +41,15 @@ export class BootstrapService {
     }
 
     /**
+     * It resolves the preset used for preventive configuration.
+     *
+     * @param config the params of the config command.
+     */
+    public resolveConfigPreset(config: ConfigParams = ConfigService.defaultParams): ConfigPreset {
+        return new ConfigService(this.root, config).resolveConfigPreset(false);
+    }
+
+    /**
      * It generates the docker-compose.yaml file from the previously generated configuration.
      *
      * The config method/command needs to be called before this method
