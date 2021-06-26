@@ -24,7 +24,8 @@ import { BootstrapUtils, ComposeService, ConfigLoader, ConfigService, LinkServic
 describe('ComposeService', () => {
     const password = '1234';
 
-    const assertDockerCompose = async (params: StartParams, expectedComposeFile: string) => {
+    const assertDockerCompose = async (partialParams: Partial<StartParams>, expectedComposeFile: string) => {
+        const params = { ...ConfigService.defaultParams, ...ComposeService.defaultParams, ...LinkService.defaultParams, ...partialParams };
         const root = '.';
         const presetData = new ConfigLoader().createPresetData({ root, password, ...params });
         const dockerCompose = await new ComposeService(root, params).run(presetData);
@@ -68,8 +69,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose testnet dual', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             target: 'target/tests/testnet-dual',
             password,
             reset: false,
@@ -81,8 +80,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose testnet api', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             target: 'target/tests/testnet-api',
             password,
             reset: false,
@@ -94,8 +91,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose testnet peer', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             target: 'target/tests/testnet-peer',
             password,
             reset: false,
@@ -107,8 +102,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose mainnet dual', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             target: 'target/tests/mainnet-dual',
             password,
             reset: false,
@@ -120,8 +113,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose mainnet api', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             target: 'target/tests/mainnet-api',
             password,
             reset: false,
@@ -133,8 +124,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose mainnet peer', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             target: 'target/tests/mainnet-peer',
             password,
             reset: false,
@@ -146,8 +135,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose testnet supernode', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             target: 'target/tests/testnet-supernode',
             password,
             customPreset: './test/unit-test-profiles/supernode.yml',
@@ -160,8 +147,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose testnet dual voting', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             target: 'target/tests/ComposeService-testnet-voting',
             password,
             reset: false,
@@ -174,8 +159,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose bootstrap default', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             customPresetObject: {
                 faucets: [
                     {
@@ -192,8 +175,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose bootstrap custom compose', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             customPresetObject: {
                 faucets: [
                     {
@@ -212,8 +193,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose bootstrap custom preset', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             customPresetObject: {
                 faucets: [
                     {
@@ -231,8 +210,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose bootstrap full with debug on', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             customPresetObject: {
                 dockerComposeDebugMode: true,
                 faucets: [
@@ -252,8 +229,6 @@ ${BootstrapUtils.toYaml(dockerCompose)}
 
     it('Compose bootstrap repeat', async () => {
         const params = {
-            ...ConfigService.defaultParams,
-            ...LinkService.defaultParams,
             customPresetObject: {
                 faucets: [
                     {

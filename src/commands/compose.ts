@@ -42,12 +42,6 @@ export default class Compose extends Command {
     public async run(): Promise<void> {
         const { flags } = this.parse(Compose);
         BootstrapUtils.showBanner();
-        flags.password = await CommandUtils.resolvePassword(
-            flags.password,
-            flags.noPassword,
-            CommandUtils.passwordPromptDefaultMessage,
-            true,
-        );
-        await new BootstrapService(this.config.root).compose(flags);
+        await new BootstrapService(this.config.root).compose({ ...flags, composeResolvePassword: !flags.noPassword });
     }
 }

@@ -22,9 +22,10 @@ import Logger from '../logger/Logger';
 import LoggerFactory from '../logger/LoggerFactory';
 import { Addresses, ConfigPreset, DockerCompose, DockerComposeService, DockerServicePreset } from '../model';
 import { BootstrapUtils } from './BootstrapUtils';
+import { CommandUtils } from './CommandUtils';
 import { ConfigLoader } from './ConfigLoader';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-export type ComposeParams = { target: string; user?: string; upgrade?: boolean; password?: string };
+export type ComposeParams = { target: string; user?: string; upgrade?: boolean; password?: string; composeResolvePassword?: boolean };
 
 const logger: Logger = LoggerFactory.getLogger(LogType.System);
 
@@ -41,6 +42,7 @@ export interface PortConfiguration {
 
 export class ComposeService {
     public static defaultParams: ComposeParams = {
+        composeResolvePassword: false,
         target: BootstrapUtils.defaultTargetFolder,
         user: BootstrapUtils.CURRENT_USER,
         upgrade: false,
@@ -385,7 +387,7 @@ export class ComposeService {
                             stop_signal: 'SIGINT',
                             environment: {
                                 FAUCET_PRIVATE_KEY:
-                                    n.environment?.FAUCET_PRIVATE_KEY || this.getMainAccountPrivateKey(passedAddresses) || '',
+                                    n.environment?.FAUCET_PRIVATE_KEY || (await this.getNemesisAccountPrivateKey(passedAddresses)) || '',
                                 NATIVE_CURRENCY_ID: BootstrapUtils.toSimpleHex(
                                     n.environment?.NATIVE_CURRENCY_ID || presetData.currencyMosaicId || '',
                                 ),
@@ -426,8 +428,18 @@ export class ComposeService {
         return dockerCompose;
     }
 
-    private getMainAccountPrivateKey(passedAddresses: Addresses | undefined) {
-        const addresses = passedAddresses ?? this.configLoader.loadExistingAddresses(this.params.target, this.params.password);
+    private async getNemesisAccountPrivateKey(passedAddresses: Addresses | undefined) {
+        const addresses =
+            passedAddresses ??
+            this.configLoader.loadExistingAddresses(
+                this.params.target,
+                await CommandUtils.resolvePassword(
+                    this.params.password,
+                    !this.params.composeResolvePassword,
+                    CommandUtils.passwordPromptDefaultMessage,
+                    false,
+                ),
+            );
         return addresses?.mosaics?.[0]?.accounts[0].privateKey;
     }
 }

@@ -34,6 +34,7 @@ describe('RunService', () => {
             detached: true,
             build: false,
             user: 'current',
+            composeResolvePassword: false,
             timeout: 1200,
         };
 
@@ -62,6 +63,7 @@ describe('RunService', () => {
             detached: true,
             build: false,
             user: 'current',
+            composeResolvePassword: false,
             timeout: 1200,
         };
 

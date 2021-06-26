@@ -23,6 +23,7 @@ describe('BootstrapService', () => {
         const service = new BootstrapService();
         const config: StartParams = {
             report: false,
+            composeResolvePassword: false,
             preset: Preset.bootstrap,
             reset: true,
             upgrade: false,
