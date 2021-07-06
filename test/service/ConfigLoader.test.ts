@@ -32,24 +32,6 @@ class ConfigLoaderMocked extends ConfigLoader {
 }
 
 describe('ConfigLoader', () => {
-    it('ConfigLoader loadPresetData testnet no assembly', async () => {
-        const configLoader = new ConfigLoaderMocked();
-        try {
-            await configLoader.createPresetData({
-                root: '.',
-                preset: Preset.testnet,
-                assembly: undefined,
-                customPreset: undefined,
-                customPresetObject: undefined,
-                password: 'abc',
-            });
-        } catch (e) {
-            expect(e.message).to.equal('Preset testnet requires assembly (-a, --assembly option). Possible values are: api, dual, peer');
-            return;
-        }
-        expect(true).to.be.false;
-    });
-
     it('ConfigLoader loadPresetData testnet assembly', async () => {
         const configLoader = new ConfigLoaderMocked();
         const presetData = await configLoader.createPresetData({
@@ -63,11 +45,130 @@ describe('ConfigLoader', () => {
         expect(presetData).to.not.be.undefined;
     });
 
+    it('ConfigLoader supernode custom maxUnlockedAccounts', async () => {
+        const configLoader = new ConfigLoaderMocked();
+        const originalPresetData = await configLoader.createPresetData({
+            root: '.',
+            preset: Preset.testnet,
+            assembly: 'dual',
+            customPreset: 'test/unit-test-profiles/supernode.yml',
+            customPresetObject: {
+                maxUnlockedAccounts: 30,
+            },
+            password: 'abcd',
+        });
+        expect(originalPresetData).to.not.be.undefined;
+        expect(originalPresetData.nodes![0].maxUnlockedAccounts).eq(undefined);
+        expect(originalPresetData.maxUnlockedAccounts).eq(30);
+        expect(originalPresetData.customPresetCache).deep.eq({
+            maxUnlockedAccounts: 30,
+            nodes: [
+                {
+                    agentPrivateKey: 'AAAA231C860EB1B6E3A4F8366C8F0F6C7C2462A40263DCB67124FB76CDD4E368',
+                    agentUrl: 'https://fboucquez-agent-symbollocal.ngrok.io',
+                    host: 'fboucquez-agent-symbollocal.ngrok.io',
+                    mainPrivateKey: 'CA82E7ADAF7AB729A5462A1BD5AA78632390634904A64EB1BB22295E2E1A1BDD',
+                    remotePrivateKey: 'EFE3F0EF0AB368B8D7AC194D52A8CCFA2D5050B80B9C76E4D2F4D4BF2CD461C1',
+                    restGatewayUrl: 'http://fboucquez-rest-gateway-symbollocal.ngrok.io',
+                    rewardProgram: 'supernode',
+                    transportPrivateKey: '6154154096354BC3DB522174ACD8BFE553893A0991BD5D105599846F17A3383B',
+                    voting: true,
+                    vrfPrivateKey: 'F3C24C153783B683E40FB2671493B54480370BF4E3AB8027D4BF1293E14EB9B8',
+                },
+            ],
+            privateKeySecurityMode: 'PROMPT_MAIN',
+        });
+
+        const upgradedPresetData = await configLoader.createPresetData({
+            oldPresetData: originalPresetData,
+            root: '.',
+            preset: Preset.testnet,
+            assembly: 'dual',
+            password: 'abcd',
+        });
+        expect(upgradedPresetData).to.not.be.undefined;
+        expect(upgradedPresetData.nodes![0].maxUnlockedAccounts).eq(undefined);
+        expect(upgradedPresetData.maxUnlockedAccounts).eq(30);
+        expect(upgradedPresetData.customPresetCache).deep.eq({
+            maxUnlockedAccounts: 30,
+            nodes: [
+                {
+                    agentPrivateKey: 'AAAA231C860EB1B6E3A4F8366C8F0F6C7C2462A40263DCB67124FB76CDD4E368',
+                    agentUrl: 'https://fboucquez-agent-symbollocal.ngrok.io',
+                    host: 'fboucquez-agent-symbollocal.ngrok.io',
+                    mainPrivateKey: 'CA82E7ADAF7AB729A5462A1BD5AA78632390634904A64EB1BB22295E2E1A1BDD',
+                    remotePrivateKey: 'EFE3F0EF0AB368B8D7AC194D52A8CCFA2D5050B80B9C76E4D2F4D4BF2CD461C1',
+                    restGatewayUrl: 'http://fboucquez-rest-gateway-symbollocal.ngrok.io',
+                    rewardProgram: 'supernode',
+                    transportPrivateKey: '6154154096354BC3DB522174ACD8BFE553893A0991BD5D105599846F17A3383B',
+                    voting: true,
+                    vrfPrivateKey: 'F3C24C153783B683E40FB2671493B54480370BF4E3AB8027D4BF1293E14EB9B8',
+                },
+            ],
+            privateKeySecurityMode: 'PROMPT_MAIN',
+        });
+
+        const upgradedPresetResetToDefaults = await configLoader.createPresetData({
+            oldPresetData: originalPresetData,
+            root: '.',
+            preset: Preset.testnet,
+            customPresetObject: {
+                maxUnlockedAccounts: 15,
+            },
+            assembly: 'dual',
+            password: 'abcd',
+        });
+        expect(upgradedPresetResetToDefaults).to.not.be.undefined;
+        expect(upgradedPresetResetToDefaults.nodes![0].maxUnlockedAccounts).eq(undefined);
+        expect(upgradedPresetResetToDefaults.maxUnlockedAccounts).eq(15);
+        expect(upgradedPresetResetToDefaults.customPresetCache).deep.eq({
+            maxUnlockedAccounts: 15,
+        });
+    });
+
+    it('mergePreset', async () => {
+        const configLoader = new ConfigLoaderMocked();
+        expect(
+            configLoader.mergePresets(
+                { maxUnlockedAccounts: 1, inflation: { a: 1, c: 1, d: 1 } },
+                { maxUnlockedAccounts: 2 },
+                { maxUnlockedAccounts: 3, inflation: { c: 2, d: 2, e: 2 } },
+                { maxUnlockedAccounts: 4 },
+            ),
+        ).deep.eq({ maxUnlockedAccounts: 4, inflation: { c: 2, d: 2, e: 2 } });
+    });
+
+    it('mergePreset with node', async () => {
+        const configLoader = new ConfigLoaderMocked();
+        const merged = configLoader.mergePresets(
+            {
+                maxUnlockedAccounts: 1,
+                inflation: { a: 1, c: 1, d: 1 },
+            },
+            { nodes: [{ maxUnlockedAccounts: 5, name: 'name1' }], knownRestGateways: ['r1', 'r2'] },
+            { maxUnlockedAccounts: 3, inflation: { c: 2, d: 2, e: 2 }, knownRestGateways: ['r2', 'r3'] },
+            {
+                maxUnlockedAccounts: 4,
+                nodes: [{ maxUnlockedAccounts: 3 }, { maxUnlockedAccounts: 4, name: 'nameB' }],
+            },
+        );
+        console.log(JSON.stringify(merged));
+        expect(merged).deep.eq({
+            maxUnlockedAccounts: 4,
+            inflation: { c: 2, d: 2, e: 2 },
+            nodes: [
+                { maxUnlockedAccounts: 3, name: 'name1' },
+                { maxUnlockedAccounts: 4, name: 'nameB' },
+            ],
+            knownRestGateways: ['r2', 'r3'],
+        });
+    });
+
     it('ConfigLoader loadPresetData bootstrap custom', async () => {
         const configLoader = new ConfigLoaderMocked();
         const presetData = await configLoader.createPresetData({
             root: '.',
-            preset: Preset.bootstrap,
+            preset: Preset.dualCurrency,
             assembly: undefined,
             customPreset: 'test/override-currency-preset.yml',
             customPresetObject: undefined,
@@ -84,7 +185,7 @@ describe('ConfigLoader', () => {
         try {
             await configLoader.createPresetData({
                 root: '.',
-                preset: Preset.bootstrap,
+                preset: Preset.dualCurrency,
                 assembly: undefined,
                 customPreset: 'test/override-currency-preset.yml',
                 customPresetObject: undefined,

@@ -113,52 +113,21 @@ export class ComposeService {
             servicePreset: DockerServicePreset,
             rawService: DockerComposeService,
         ): Promise<DockerComposeService> => {
-            if (false) {
-                // POC about creating custom aws images.
-                const serviceName = rawService.container_name;
-                const volumes = rawService.volumes || [];
-                const image = rawService.image;
-                const repository = 'nem-repository';
-                const dockerfileContent = `FROM docker.io/${image}\n\n${volumes
-                    .map((v) => {
-                        const parts = v.split(':');
-                        return `ADD ${parts[0].replace('../', '').replace('./', 'docker/')} ${parts[1]}`;
-                    })
-                    .join('\n')}\n`;
-                const dockerFile = join(target, 'Dockerfile-' + serviceName);
-                await BootstrapUtils.writeTextFile(dockerFile, dockerfileContent);
-                await Promise.all(
-                    volumes.map(async (v) => {
-                        const parts = v.split(':');
-                        await BootstrapUtils.mkdir(join(targetDocker, parts[0]));
-                    }),
-                );
-                const generatedImageName = repository + ':' + serviceName;
-                await BootstrapUtils.createImageUsingExec(target, dockerFile, generatedImageName);
-
-                // const awsUserId = '172617417348';
-                // aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 172617417348.dkr.ecr.us-east-1.amazonaws.com
-                // const absoluteImageUrl = `${awsUserId}.dkr.ecr.us-east-1.amazonaws.com/${generatedImageName}`;
-                // await BootstrapUtils.exec(`docker tag ${generatedImageName} ${absoluteImageUrl}`);
-
-                return { ...rawService, image: generatedImageName, volumes: undefined };
-            } else {
-                const service = { ...rawService };
-                if (servicePreset.host || servicePreset.ipv4_address) {
-                    service.networks = { default: {} };
-                }
-                if (servicePreset.host) {
-                    service.hostname = servicePreset.host;
-                    service.networks!.default.aliases = [servicePreset.host];
-                }
-                if (servicePreset.environment) {
-                    service.environment = { ...servicePreset.environment, ...rawService.environment };
-                }
-                if (servicePreset.ipv4_address) {
-                    service.networks!.default.ipv4_address = servicePreset.ipv4_address;
-                }
-                return service;
+            const service = { ...rawService };
+            if (servicePreset.host || servicePreset.ipv4_address) {
+                service.networks = { default: {} };
             }
+            if (servicePreset.host) {
+                service.hostname = servicePreset.host;
+                service.networks!.default.aliases = [servicePreset.host];
+            }
+            if (servicePreset.environment) {
+                service.environment = { ...servicePreset.environment, ...rawService.environment };
+            }
+            if (servicePreset.ipv4_address) {
+                service.networks!.default.ipv4_address = servicePreset.ipv4_address;
+            }
+            return service;
         };
 
         await Promise.all(
@@ -190,6 +159,7 @@ export class ComposeService {
 
         const nodeWorkingDirectory = '/symbol-workdir';
         const nodeCommandsDirectory = '/symbol-commands';
+        const nemesisSeed = presetData.seedDirectory;
         const restart = presetData.dockerComposeServiceRestart;
         await Promise.all(
             (presetData.nodes || [])
@@ -219,6 +189,7 @@ export class ComposeService {
                     const volumes = [
                         vol(`../${targetNodesFolder}/${n.name}`, nodeWorkingDirectory, false),
                         vol(`./server`, nodeCommandsDirectory, true),
+                        vol(`../nemesis/seed`, nodeWorkingDirectory + nemesisSeed.replace('./', '/'), true),
                     ];
                     const nodeService = await resolveService(n, {
                         user: serverDebugMode === debugFlag ? undefined : user, // if debug on, run as root
@@ -356,14 +327,15 @@ export class ComposeService {
                         vol(`../${targetExplorersFolder}/${n.name}`, nodeWorkingDirectory, true),
                         vol(`./explorer`, nodeCommandsDirectory, true),
                     ];
+                    const entrypoint = `ash -c "/bin/ash ${nodeCommandsDirectory}/run.sh ${n.name}"`;
                     services.push(
                         await resolveService(n, {
                             container_name: n.name,
                             image: presetData.symbolExplorerImage,
-                            command: `ash -c "/bin/ash ${nodeCommandsDirectory}/run.sh ${n.name}"`,
+                            entrypoint: entrypoint,
                             stop_signal: 'SIGINT',
                             working_dir: nodeWorkingDirectory,
-                            ports: resolvePorts([{ internalPort: 80, openPort: n.openPort }]),
+                            ports: resolvePorts([{ internalPort: 4000, openPort: n.openPort }]),
                             restart: restart,
                             volumes: volumes,
                             ...this.resolveDebugOptions(presetData.dockerComposeDebugMode, n.dockerComposeDebugMode),
@@ -377,6 +349,8 @@ export class ComposeService {
             (presetData.faucets || [])
                 .filter((d) => !d.excludeDockerService)
                 .map(async (n) => {
+                    const mosaicPreset = presetData.nemesis.mosaics[0];
+                    const fullName = `${presetData.baseNamespace}.${mosaicPreset.name}`;
                     // const nemesisPrivateKey = addresses?.mosaics?[0]?/;
                     services.push(
                         await resolveService(n, {
@@ -384,6 +358,7 @@ export class ComposeService {
                             image: presetData.symbolFaucetImage,
                             stop_signal: 'SIGINT',
                             environment: {
+                                NATIVE_CURRENCY_NAME: n.environment?.FAUCET_PRIVATE_KEY || fullName,
                                 FAUCET_PRIVATE_KEY:
                                     n.environment?.FAUCET_PRIVATE_KEY || this.getMainAccountPrivateKey(passedAddresses) || '',
                                 NATIVE_CURRENCY_ID: BootstrapUtils.toSimpleHex(

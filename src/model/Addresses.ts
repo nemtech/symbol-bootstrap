@@ -48,7 +48,6 @@ export interface NodeAccount {
 export interface MosaicAccounts {
     name: string;
     id: string;
-    type: 'currency' | 'harvest';
     accounts: ConfigAccount[];
 }
 
@@ -56,7 +55,7 @@ export interface Addresses {
     version: number;
     nodes?: NodeAccount[];
     nemesisGenerationHashSeed: string;
-    sinkAddress: string;
+    sinkAddress?: string;
     nemesisSigner?: ConfigAccount;
     networkType: NetworkType;
     mosaics?: MosaicAccounts[];

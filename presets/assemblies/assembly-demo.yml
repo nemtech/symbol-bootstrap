@@ -1,0 +1,65 @@
+faucetUrl: http://localhost:100
+databases:
+    - name: 'db'
+      openPort: false
+nodes:
+    - harvesting: true
+      api: true
+      name: 'node'
+      host: 'node'
+      databaseHost: 'db'
+      brokerName: 'broker'
+      openPort: true
+      brokerOpenPort: false
+      trustedHosts: 127.0.0.1, 172.20.0.25
+      localNetworks: 127.0.0.1, 172.20.0.25
+gateways:
+    - name: 'rest-gateway'
+      apiNodeName: 'node'
+      apiNodeHost: 'node'
+      apiNodeBrokerHost: 'broker'
+      description: '{{$networkDescription}}'
+      databaseHost: 'db'
+      openPort: true
+      ipv4_address: 172.20.0.25
+wallets:
+    - name: 'wallet'
+      title: 'Symbol Bootstrap Wallet'
+      openPort: '80'
+explorers:
+    - name: 'explorer'
+      openPort: '90'
+      footer:
+          link:
+              - href: https://nemflash.io/
+                text: NEM News
+                icon: IconNewspaper
+              - href: https://forum.nem.io/
+                text: Forum
+                icon: IconForum
+              - href: https://t.me/nemred
+                text: Telegram
+                icon: IconTelegram
+              - href: https://www.reddit.com/r/nem/
+                text: Reddit
+                icon: IconReddit
+              - href: https://github.com/nemtech
+                text: Github
+                icon: IconGithub
+              - href: http://localhost:100/
+                text: Faucet
+                icon: IconHomeCurrencyUsd
+faucets:
+    - name: 'faucet'
+      gateway: 'rest-gateway'
+      environment:
+          DEFAULT_NODE: 'http://rest-gateway:3000'
+          DEFAULT_NODE_CLIENT: 'http://localhost:3000'
+          NATIVE_CURRENCY_OUT_MAX: 500000000
+          NATIVE_CURRENCY_OUT_MIN: 100000000
+          MAX_FEE: 5000000
+          ENOUGH_BALANCE: 100000000000
+          MAX_UNCONFIRMED: 99
+          BLACKLIST_MOSAIC_IDS: '[]'
+          EXPLORER_URL: 'http://localhost:90/'
+      openPort: '{{add $index 100}}'

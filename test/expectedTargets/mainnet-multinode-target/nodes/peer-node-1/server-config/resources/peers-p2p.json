@@ -1,0 +1,599 @@
+{
+  "_info": "this file contains a list of peer-node peers",
+  "knownPeers": [
+    {
+      "publicKey": "7ED1C14DCD5644DF6DEB259072A77F308DB24B011D9ACADAEAD7265EFD2D3F47",
+      "endpoint": {
+        "host": "peer-node-0",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "peer-node-0",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "FA9F3974FE3B15585E6B72672C7D8BEAE27D1EDF6C4752BAFDB8B2FEA601C0CF",
+      "endpoint": {
+        "host": "ngl-beacon-001.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-001",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "AFF16052217A847A6A71B326FEA9073CFF70D07FC5BA9026B3E05FB453C950DF",
+      "endpoint": {
+        "host": "ngl-beacon-101.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-101",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "D237B4C5964183141868F90ABEF557F751FFB973E7CFF59CCC1B00C504E048F0",
+      "endpoint": {
+        "host": "ngl-beacon-201.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-201",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "78480D48CC2AA6988E2FD05C884EE0525ACF6DC78766492034EA08CC1ADF788C",
+      "endpoint": {
+        "host": "ngl-beacon-301.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-301",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "9261DB223A28A3DB05315235DF2186260951B66515B17A6B890BBCE3EE9E3FE7",
+      "endpoint": {
+        "host": "ngl-beacon-401.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-401",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "B1B60E982CF0DE72584BED82EDCFAF5F187D24B21DECFA814F69605B5DE4A7C1",
+      "endpoint": {
+        "host": "ngl-beacon-501.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-501",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "9785B471C23994341159DB2E66853F6B0EAEA1E6E2A838A020965F4B8E29D03A",
+      "endpoint": {
+        "host": "ngl-beacon-601.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-601",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "EA77478068E3266CFA478E39AF1FDCD67EA512381889717AA8B66BFC4D01701F",
+      "endpoint": {
+        "host": "ngl-beacon-002.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-002",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "D5A40927DDCCD657F52F4C53FE682B07FC2E375040E0CAC50D8FE060024BB775",
+      "endpoint": {
+        "host": "ngl-beacon-102.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-102",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "AF42867433DCAAA560A8A83A923822D55751F360BA385EDF21A932C33F3AEDD0",
+      "endpoint": {
+        "host": "ngl-beacon-202.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-202",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "EF14DAE981FBD1E697CCD551DB9146B379CA4FD153C84016E7DA7A1930AD2395",
+      "endpoint": {
+        "host": "ngl-beacon-302.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-302",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "3F880DE47D4EB16D1871B1DED95F081151C9BF910EF682EDF202E8CA904B0CB9",
+      "endpoint": {
+        "host": "ngl-beacon-402.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-402",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "47704C18AC5F0C50A92B3763049EA91D84B17FAC0D86D9A9340AF98E3F610058",
+      "endpoint": {
+        "host": "ngl-beacon-502.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-502",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "DE26F36D5426EC7B91200CB8C0DB70F4D82CD15F7FAFCE48A2174781D72CE6AD",
+      "endpoint": {
+        "host": "ngl-beacon-602.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-602",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "533F75316C28E09B652232D1F48468D19EC88AB5125E947873AA3E150E2DD217",
+      "endpoint": {
+        "host": "ngl-beacon-003.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-003",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "DEE480BD3CA0B2E928543F087A28234E565FF6EDBBBC5B961F8302C16ACEB202",
+      "endpoint": {
+        "host": "ngl-beacon-004.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-004",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "F925F965D66E2928DDF2C27BB3AB69781C92D0E414C84AE963A505686C66445A",
+      "endpoint": {
+        "host": "ngl-beacon-103.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-103",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "4D0AAE4583FDA3BA3CFFA00F9C684A701C360E59DDD14EF3992233D20C59585A",
+      "endpoint": {
+        "host": "ngl-beacon-104.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-104",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "EEA3B0D28CAEF4A6354F65D7D7F4947145D6FD9FF9F36CA87856CB44A7B1531E",
+      "endpoint": {
+        "host": "ngl-beacon-203.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-203",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "2D310E377C0CC84A945E8C9CFDB799F7FDE5F88EE07BBF90D5CED2BFCE27445B",
+      "endpoint": {
+        "host": "ngl-beacon-204.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-204",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "C1BD10D1320BB22F66692AE002129028BEE7D78E3AA991B12525AD5D3E1BE7DA",
+      "endpoint": {
+        "host": "ngl-beacon-303.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-303",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "082F46AEAD35E6C3E443542616F41AAA992389035CAC2DD8807B8321C585E6BB",
+      "endpoint": {
+        "host": "ngl-beacon-304.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-304",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "11D6421BC726D684614038B5A0E48D6723CA7C53CDF3A7F9305582227988B3A1",
+      "endpoint": {
+        "host": "ngl-beacon-403.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-403",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "66C2A930320B7A00D0A2653588F65967C73222A8356781DD5AB98F9E759AEF27",
+      "endpoint": {
+        "host": "ngl-beacon-404.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-404",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "C08E5DD1539AA29F1408B288550BCBC27BEA447E97E31C5976E58067CD69F655",
+      "endpoint": {
+        "host": "ngl-beacon-503.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-503",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "BADFA53EDBFC6B57511A836057DABAE9FF1669027EC37A5A188CCFB81A033C07",
+      "endpoint": {
+        "host": "ngl-beacon-504.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-504",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "5A85331AB54F8B296EC69F7ABF05E133907D6B87F658E43D09E5E9F6E7FDFB6A",
+      "endpoint": {
+        "host": "ngl-beacon-603.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-603",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "00FB938646A8A458C55036682AEFAD6733DAEB86DDF19404DEED680FE79B1C39",
+      "endpoint": {
+        "host": "ngl-beacon-604.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-604",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "AA91F88DF6D80A9FA097E2FD2A6FCC9CC937177FE0D8933D64B16C5C442B2691",
+      "endpoint": {
+        "host": "ngl-peer-001.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-001",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "990B2E1DD730964E62250A7DB1EC2EFCAEE8EE0FA9B2B5368CB4102964C4A822",
+      "endpoint": {
+        "host": "ngl-peer-301.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-301",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "1F39352BDBFDBDE4FAE4C58A51140C0843A1B8EE1D62B4297BCC7F6ECE47F489",
+      "endpoint": {
+        "host": "ngl-peer-401.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-401",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "D12440291B4BD458FE6BAFAA67C502A638777462654C59C7070BE0B5215FF510",
+      "endpoint": {
+        "host": "ngl-peer-601.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-601",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "92AD7B4E370A7499F1449C1BA2863C5E484B584B59B148724F5970C6EFD6F806",
+      "endpoint": {
+        "host": "ngl-peer-501.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-501",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "DEE184EB07DD52A171AA3381F5E7047AE3B830D2A99B7A9027461EA5CB6B878D",
+      "endpoint": {
+        "host": "ngl-peer-002.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-002",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "7080531438D8E76B732D76ECB936E74AEAAF3F9491A85691791BB41462EC2DD0",
+      "endpoint": {
+        "host": "ngl-peer-003.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-003",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "E4797E4362B7DE5E4EE834DE4EAAA1036B8F035F6A5352FD5BB85664B41633AE",
+      "endpoint": {
+        "host": "ngl-peer-004.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-004",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "FEC90947D0AF30CB32BC6018928AA6CEC96ED9861DD0608DAFC69131BFDD971A",
+      "endpoint": {
+        "host": "ngl-peer-101.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-101",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "E6C6D041D77590295432EDC5DC8D1019D4F1F0C002C37909EB4837FF03B139CD",
+      "endpoint": {
+        "host": "ngl-peer-102.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-102",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "FC8C66547D7C20CD6CBF7F31DC5657247351AF8C12188E56F885FF012431B8C1",
+      "endpoint": {
+        "host": "ngl-peer-103.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-103",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "0E8D31F20B4119D8AE8176970727A37247764CCCE966C72A5809685717FDEA0F",
+      "endpoint": {
+        "host": "ngl-peer-201.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-201",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "ABCB18959666D248D8B3677D6E673F3EB7A217DEFC5C31B4EDAEB5D111321DDF",
+      "endpoint": {
+        "host": "ngl-peer-202.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-202",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "5F32F1AAE8934112A9627EFF43414D9E5DA93CFDB5B5149864FBF76BC2EAA09C",
+      "endpoint": {
+        "host": "ngl-peer-302.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-302",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "504699E3C142DD465C5B46BCD7F43ABE232741F4AD82DFB66808E2A338B77EEB",
+      "endpoint": {
+        "host": "ngl-peer-303.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-303",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "D2C9A5ECDF0FFBDAC5F9D54EDE06848450798086206C3B5E8D9C7737AC5BF4E7",
+      "endpoint": {
+        "host": "ngl-peer-304.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-304",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "729073C51675055556F67BC1C4FD065A12ABDEEBB9455B835382BEA701B6B644",
+      "endpoint": {
+        "host": "ngl-peer-402.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-402",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "8C63F371ECBEC388A14117662F3CB7456D5EA7449779D20DDC259F084203B9DD",
+      "endpoint": {
+        "host": "ngl-peer-403.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-403",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "22719E8A14770A076A81A3BD9A02847E0E198AA0D8E8D8E7CC0B359CA80CD73D",
+      "endpoint": {
+        "host": "ngl-peer-404.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-404",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "00794D10A9BDEC3E431A8165782D59D54A3EDA682FC50EA31B03BE46E3508D86",
+      "endpoint": {
+        "host": "ngl-peer-502.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-502",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "E6051F40218A770C56B170F27E2C031B61C19EB7EAF6D17CEE7854D3A3F264BF",
+      "endpoint": {
+        "host": "ngl-peer-503.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-503",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "4EF71A6C97ADD6A2C07568C38130A7CD7768F3E0F4E5E651A72119DDFF1F74A2",
+      "endpoint": {
+        "host": "ngl-peer-504.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-504",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "98ECC6FFF03B4AB7C687A27C0DB120E3B0ECDFEAFECC54E10D8AA59409890170",
+      "endpoint": {
+        "host": "ngl-peer-602.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-602",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "8EA3F1718C0C8DF68FB3B53702C8B3C44FEB88FA7018CAF0C52D163974CAECD2",
+      "endpoint": {
+        "host": "ngl-peer-603.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-603",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "9C59D2235888E6FE638A9F4E3F6977C230836A9902929F1884220CF2F1A40B85",
+      "endpoint": {
+        "host": "ngl-peer-604.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-604",
+        "roles": "Peer,Voting"
+      }
+    }
+  ]
+}

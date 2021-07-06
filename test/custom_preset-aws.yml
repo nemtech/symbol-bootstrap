@@ -1,15 +1,13 @@
 minFeeMultiplier: 0
 defaultDynamicFeeMultiplier: 0
 baseNamespace: 'bob'
-currencyName: 'marley'
-harvestingName: 'reggae'
 explorerUrl: http://aws-explorer-url:80
 faucetUrl: http://aws-faucet-url:80
 nemesisGenerationHashSeed: A4D7C86BB3D1334FF40D607C891C676FBC76D336285A9AB851CD4ACC8CCB3276
-#totalChainImportance: 8998999998000000
-#nemesis:
-##   Disable harvest currency with repeat 0
-#   mosaics: [{}, { repeat: 0 }]
+nemesis:
+    mosaics:
+        - name: 'marley'
+        - name: 'reggae'
 databases:
     - repeat: 1
 nodes:

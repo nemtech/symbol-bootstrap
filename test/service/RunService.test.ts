@@ -28,7 +28,7 @@ describe('RunService', () => {
         const config: StartParams = {
             report: false,
             upgrade: false,
-            preset: Preset.bootstrap,
+            preset: Preset.dualCurrency,
             reset: false,
             target,
             detached: true,
@@ -56,7 +56,7 @@ describe('RunService', () => {
         const config: StartParams = {
             report: false,
             upgrade: false,
-            preset: Preset.bootstrap,
+            preset: Preset.dualCurrency,
             reset: false,
             target,
             detached: true,

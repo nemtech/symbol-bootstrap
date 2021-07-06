@@ -1,0 +1,34 @@
+nemesis:
+    nemesisSignerPrivateKey: 935C58E9D933D9A4E3BE6EEB5DA7B518FF90DA6B32BA6BEDE1098B79E2B69B66
+    mosaics:
+        - accounts: 20
+          currencyDistributions:
+              - address: TACBGHDQEJOAOAIR4KGWWAOZRGGSR4BPR6JRCPI
+                amount: 1
+              - address: TBJEKGLTINMGFEH6O47E7ZXMZFWZAJHBJTHOVUY
+                amount: 2
+              - address: TAFVG5SVH3PVPK7A53P33GADIDHZBRYESR4BHOA
+                amount: 3
+              - address: TB7CMTCZBRMWTGDFBU6D5Q6OSTFEIS47QI6NX6Q
+                amount: 4
+              - address: TCDXRIOF2TNZDGMKZJNEVYY2OJVS7V5AKXXADFI
+                amount: 5
+              - address: TCHX23ENEKTSUGI7MMXFFALNF57C6WXBL7VXM7I
+                amount: 6
+              - address: TCCGI34RLMGW5HTEB3YLKK3BAYVV3XPEBCB6EBI
+                amount: 7
+              - address: TBKXWLGKQSCLNSVHQWTI2V3C6SMJMGFBEZOQY5Y
+                amount: 8
+        - name: harvest
+          accounts: 10
+          currencyDistributions:
+              - address: TDSDCOH77Z27YCQ4NPDNC6MMVHXFGIQ7AV4JQSI
+                amount: 1
+              - address: TDEOPVFMZW4CEY5OHSGTT3DKTU2JLF2HN57K6AY
+                amount: 2
+              - address: TCHX23ENEKTSUGI7MMXFFALNF57C6WXBL7VXM7I
+                amount: 3
+              - address: TCCGI34RLMGW5HTEB3YLKK3BAYVV3XPEBCB6EBI
+                amount: 4
+              - address: TBKXWLGKQSCLNSVHQWTI2V3C6SMJMGFBEZOQY5Y
+                amount: 5

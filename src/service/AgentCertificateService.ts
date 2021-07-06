@@ -163,6 +163,8 @@ openssl req -config agent-ca.cnf -key agent-ca.key.pem -new -out agent-ca.csr.pe
 
 rm createAgentCertificate.sh
 rm agent-ca.der
+rm -rf new_certs
+rm index.txt*
 
 echo "Certificate Created"
 `;

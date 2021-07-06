@@ -30,10 +30,10 @@ describe('NetworkPresetUpgrade', () => {
         networkPreset.lastKnownNetworkEpoch = epoch;
         await BootstrapUtils.writeYaml(presetLocation, networkPreset, undefined);
     };
-    it('should patch testnet lastKnownNetworkEpoch', () => {
+    it.skip('should patch testnet lastKnownNetworkEpoch', () => {
         return patchNetworkPreset(Preset.testnet);
     });
-    it('should patch mainnet lastKnownNetworkEpoch', () => {
+    it.skip('should patch mainnet lastKnownNetworkEpoch', () => {
         return patchNetworkPreset(Preset.mainnet);
     });
 });

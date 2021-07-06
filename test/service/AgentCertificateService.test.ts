@@ -29,7 +29,7 @@ describe('AgentCertificateService', () => {
 
         const presetData = new ConfigLoader().createPresetData({
             root: '.',
-            preset: Preset.bootstrap,
+            preset: Preset.dualCurrency,
             password: 'abc',
         });
 
@@ -53,15 +53,11 @@ describe('AgentCertificateService', () => {
             'agent-ca.key.pem',
             'agent-ca.pubkey.pem',
             'agent-comm.cnf',
-            'index.txt',
             'metadata.yml',
-            'new_certs',
         ]);
 
-        files
-            .filter((f) => f != 'new_certs')
-            .forEach((f) => {
-                expect(readFileSync(join(target, f))).deep.eq(readFileSync(join('test', 'agentCertificates', f)));
-            });
+        files.forEach((f) => {
+            expect(readFileSync(join(target, f))).deep.eq(readFileSync(join('test', 'agentCertificates', f)));
+        });
     });
 });
