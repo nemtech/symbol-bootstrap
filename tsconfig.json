@@ -1,14 +1,15 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "importHelpers": true,
-    "module": "commonjs",
-    "outDir": "lib",
-    "rootDir": "src",
-    "strict": true,
-    "target": "es2017"
-  },
-  "include": [
-    "src/**/*"
-  ]
+    "extends": "./tsconfig.build.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "symbol-bootstrap-core": ["packages/bootstrap-core/src"],
+            "symbol-network-core": ["packages/network-core/src"],
+            "symbol-bootstrap": ["packages/bootstrap-cli/src"],
+            "symbol-network": ["packages/network-cli/src"]
+        },
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "types": []
+    }
 }

@@ -1,0 +1,18 @@
+{
+	"peersApi": {
+		"defaultNode": "{{defaultNode}}",
+		"nodes":  {{{toJson restNodes}}}
+	},
+	"endpoints": {
+		"marketData": "https://min-api.cryptocompare.com/"
+	},
+	"networkConfig": {
+		"namespaceName": "{{namespaceName}}",
+		"mosaicId": "{{{toSimpleHex currencyMosaicId}}}",
+		"divisibility": "{{maxMosaicDivisibility}}",
+		"namespaceId": "{{{toSimpleHex namespaceId}}}",
+		"networkIdentifier": {{networkType}}
+	},
+	"footer": {{{toJson footer}}}
+}
+

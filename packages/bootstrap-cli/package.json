@@ -1,0 +1,68 @@
+{
+    "name": "symbol-bootstrap",
+    "version": "1.1.0-alpha.0",
+    "description": "Symbol CLI tool that allows you creating, configuring and running Symbol's simple node networks or nodes to be sync with existing networks.",
+    "bin": {
+        "symbol-bootstrap": "bin/run"
+    },
+    "homepage": "https://github.com/nemtech/symbol-bootstrap/packages/tree/main/bootstrap-cli",
+    "bugs": "https://github.com/nemtech/symbol-bootstrap/issues",
+    "scripts": {
+        "doc": "shx mkdir -p ts-docs && typedoc --out \"ts-docs\" src && touch ./ts-docs/.nojekyll",
+        "clean": "shx rm -rf ./lib",
+        "purge": "shx rm -rf lib coverage node_modules target .nyc_output logs.log ts-docs",
+        "lint": "eslint --cache src/ test/ --ext .ts",
+        "lint:fix": "eslint src/ test/ --ext .ts --fix",
+        "prettier": "prettier --write ./src ./test",
+        "style:fix": "npm run create-index-files && npm run prettier && npm run lint:fix && npm run oclif-doc",
+        "create-index-files": "cti create ./src -b -n -e commands",
+        "postpack": "shx rm -f oclif.manifest.json",
+        "posttest": "eslint src/ test/ --ext .ts",
+        "oclif-doc": "oclif-dev manifest && oclif-dev readme --multi",
+        "watch": "tsc -p tsconfig.build.json --watch",
+        "compile": "tsc -p tsconfig.build.json",
+        "build": "shx rm -rf lib && npm run compile",
+        "prepack": "shx rm -rf lib && npm run compile && npm run oclif-doc",
+        "test": "nyc --reporter=lcov --extension .ts mocha -r ts-node/register --timeout 900000 --forbid-only \"test/**/*.test.ts\"",
+        "e2e": "nyc --reporter=lcov --extension .ts mocha -r ts-node/register --timeout 900000 --forbid-only \"test/**/*.e2e.ts\"",
+        "version": "echo $npm_package_version",
+        "install-cli": "npm pack && npm i -g"
+    },
+    "engines": {
+        "node": ">=12.0.0"
+    },
+    "files": [
+        "/bin",
+        "/lib",
+        "/npm-shrinkwrap.json",
+        "/oclif.manifest.json"
+    ],
+    "oclif": {
+        "commands": "./lib/commands",
+        "bin": "symbol-bootstrap",
+        "plugins": [
+            "@oclif/plugin-autocomplete",
+            "@oclif/plugin-help"
+        ]
+    },
+    "keywords": [],
+    "author": "Fernando Boucquez <fboucquez@gmail.com>",
+    "license": "Apache-2.0",
+    "mocha": {
+        "timeout": 40000
+    },
+    "types": "lib/index.d.ts",
+    "dependencies": {
+        "@oclif/command": "^1.8.0",
+        "@oclif/config": "^1.17.0",
+        "@oclif/plugin-autocomplete": "^0.3.0",
+        "@oclif/plugin-help": "^3.2.2",
+        "figlet": "^1.5.0",
+        "inquirer": "^8.1.1",
+        "lodash": "^4.17.21",
+        "symbol-bootstrap-core": "1.1.0-alpha.0",
+        "symbol-sdk": "^1.0.1",
+        "tslib": "^2.3.0",
+        "winston": "^3.3.3"
+    }
+}

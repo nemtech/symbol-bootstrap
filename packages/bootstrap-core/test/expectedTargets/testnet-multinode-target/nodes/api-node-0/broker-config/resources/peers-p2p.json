@@ -1,0 +1,181 @@
+{
+  "_info": "this file contains a list of peer-node peers",
+  "knownPeers": [
+    {
+      "publicKey": "7ED1C14DCD5644DF6DEB259072A77F308DB24B011D9ACADAEAD7265EFD2D3F47",
+      "endpoint": {
+        "host": "peer-node-0",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "peer-node-0",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "F8E0D94002594071941DAB81AC455439093D4AE0B0DCC45EE36B30A61F1D2CB8",
+      "endpoint": {
+        "host": "peer-node-1",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "peer-node-1",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "3CA5B729F46A56928C4971674B641C9535B93B560FC789F1134314786FC5766F",
+      "endpoint": {
+        "host": "ngl-beacon-501.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-501",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "CFC25E8E5C7348C075B8189BD2FEF16E9AE26A1E4814A1002B562B95F5538435",
+      "endpoint": {
+        "host": "ngl-beacon-601.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-601",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "5E5BF270398818DC58107C599238D00247DA33446BC1CE334CAD5ED44057184D",
+      "endpoint": {
+        "host": "ngl-beacon-001.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-001",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "3BE809A65B98E8AF7E5835A9C12F90B29BEDFFFF97E11C1160D8136F15B66AD1",
+      "endpoint": {
+        "host": "ngl-beacon-101.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-101",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "A33EF3ED8CFBF16C2C3468FCAEE78B36F6F0E737820CE9F48D349309515316F8",
+      "endpoint": {
+        "host": "ngl-beacon-401.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-beacon-401",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "723C4D540D0796C998D62258DF16AEE8D55A403F716211DEAB479FCE18640B2C",
+      "endpoint": {
+        "host": "ngl-peer-201.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-201",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "DC7A90D0676DB3A2D963768276F606AF76541A59588B23C6C6B48D98E0AC3837",
+      "endpoint": {
+        "host": "ngl-peer-301.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-301",
+        "roles": "Peer"
+      }
+    },
+    {
+      "publicKey": "22F6D59D56E17619B8F8B7323A500693892092268122AF5E2A02F6EE29FA2F11",
+      "endpoint": {
+        "host": "ngl-peer-001.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-001",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "78EFF533B504F49054F8CACEA9E5751E88EDCBBB057DE7410161B9398FEB9FCE",
+      "endpoint": {
+        "host": "ngl-peer-101.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-101",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "BA8CA590E44FE53FAAF8E98ED6E98A53C5E911CE2E6D0ACCAB22A979DA151824",
+      "endpoint": {
+        "host": "ngl-peer-202.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-202",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "356854C754039984F94C37C26CF58CD282AC3BCAC99F9549367702823A50D37C",
+      "endpoint": {
+        "host": "ngl-peer-302.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-302",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "FE5D4350784BF72E9D36B6E7BE7BB8F3DF26D501614BB707A4C0DFB8DB541BEB",
+      "endpoint": {
+        "host": "ngl-peer-401.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-401",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "FB1B701426A29A22A0711E351117AAFB9449B69CD0D6F310663DED02CD29F5CE",
+      "endpoint": {
+        "host": "ngl-peer-501.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-501",
+        "roles": "Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "2489946E49B03D9BE040E3FD42FEBC705D001A746BD25399E2796D615B35B732",
+      "endpoint": {
+        "host": "ngl-peer-601.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-peer-601",
+        "roles": "Peer,Voting"
+      }
+    }
+  ]
+}

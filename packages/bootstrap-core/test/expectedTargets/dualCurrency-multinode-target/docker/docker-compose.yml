@@ -1,0 +1,113 @@
+version: '2.4'
+services:
+    db-0:
+        user: '1000:1000'
+        environment:
+            MONGO_INITDB_DATABASE: catapult
+        container_name: db-0
+        image: 'mongo:4.4.3-bionic'
+        command: mongod --dbpath=/dbdata --bind_ip=db-0 --wiredTigerCacheSizeGB 2
+        stop_signal: SIGINT
+        working_dir: /docker-entrypoint-initdb.d
+        ports:
+            - '27017:27017'
+        volumes:
+            - './mongo:/docker-entrypoint-initdb.d:ro'
+            - '../databases/db-0:/dbdata:rw'
+    peer-node-0:
+        user: '1000:1000'
+        container_name: peer-node-0
+        image: 'symbolplatform/symbol-server:gcc-10-1.0.1.0'
+        command: /bin/bash /symbol-commands/start.sh /usr/catapult ./data server broker peer-node-0 NORMAL false
+        stop_signal: SIGINT
+        working_dir: /symbol-workdir
+        restart: 'on-failure:2'
+        ports:
+            - '7900:7900'
+        volumes:
+            - '../nodes/peer-node-0:/symbol-workdir:rw'
+            - './server:/symbol-commands:ro'
+            - '../nemesis/seed:/symbol-workdir/seed:ro'
+        networks:
+            default:
+                aliases:
+                    - peer-node-0
+        hostname: peer-node-0
+    peer-node-1:
+        user: '1000:1000'
+        container_name: peer-node-1
+        image: 'symbolplatform/symbol-server:gcc-10-1.0.1.0'
+        command: /bin/bash /symbol-commands/start.sh /usr/catapult ./data server broker peer-node-1 NORMAL false
+        stop_signal: SIGINT
+        working_dir: /symbol-workdir
+        restart: 'on-failure:2'
+        ports:
+            - '7901:7900'
+        volumes:
+            - '../nodes/peer-node-1:/symbol-workdir:rw'
+            - './server:/symbol-commands:ro'
+            - '../nemesis/seed:/symbol-workdir/seed:ro'
+        networks:
+            default:
+                aliases:
+                    - peer-node-1
+        hostname: peer-node-1
+    api-node-0:
+        user: '1000:1000'
+        container_name: api-node-0
+        image: 'symbolplatform/symbol-server:gcc-10-1.0.1.0'
+        command: /bin/bash /symbol-commands/start.sh /usr/catapult ./data server broker api-node-0 NORMAL true
+        stop_signal: SIGINT
+        working_dir: /symbol-workdir
+        restart: 'on-failure:2'
+        volumes:
+            - '../nodes/api-node-0:/symbol-workdir:rw'
+            - './server:/symbol-commands:ro'
+            - '../nemesis/seed:/symbol-workdir/seed:ro'
+        depends_on:
+            - db-0
+            - api-node-broker-0
+        networks:
+            default:
+                aliases:
+                    - api-node-0
+        hostname: api-node-0
+    api-node-broker-0:
+        user: '1000:1000'
+        container_name: api-node-broker-0
+        image: 'symbolplatform/symbol-server:gcc-10-1.0.1.0'
+        working_dir: /symbol-workdir
+        command: /bin/bash /symbol-commands/start.sh /usr/catapult ./data broker server api-node-broker-0 NORMAL
+        ports:
+            - '8002:7902'
+        stop_signal: SIGINT
+        restart: 'on-failure:2'
+        volumes:
+            - '../nodes/api-node-0:/symbol-workdir:rw'
+            - './server:/symbol-commands:ro'
+            - '../nemesis/seed:/symbol-workdir/seed:ro'
+        depends_on:
+            - db-0
+    rest-gateway-0:
+        container_name: rest-gateway-0
+        user: '1000:1000'
+        image: 'symbolplatform/symbol-rest:2.3.6'
+        command: npm start --prefix /app/catapult-rest/rest /symbol-workdir/rest.json
+        stop_signal: SIGINT
+        working_dir: /symbol-workdir
+        ports:
+            - '3000:3000'
+        restart: 'on-failure:2'
+        volumes:
+            - '../gateways/rest-gateway-0:/symbol-workdir:rw'
+        depends_on:
+            - db-0
+        networks:
+            default:
+                ipv4_address: 172.20.0.25
+networks:
+    default:
+        ipam:
+            config:
+                -
+                    subnet: 172.20.0.0/24

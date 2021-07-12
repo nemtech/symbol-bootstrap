@@ -1,0 +1,522 @@
+{
+  "_info": "this file contains a list of api-node peers",
+  "knownPeers": [
+    {
+      "publicKey": "C7BEA9036ECFA79CB081184CFA0E524E7D567A5127C55360D9FF1D2FC1AC4FDD",
+      "endpoint": {
+        "host": "ngl-dual-001.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-001",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "CE0AC3FC879B190220A95A67CAC855251EA599F11FA05A77CC02BC32F8228610",
+      "endpoint": {
+        "host": "ngl-dual-002.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-002",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "B36DE7C3B39B225FEF7FC37D40863A2C9AD90EAFDFD79C630BBFF3883CABD929",
+      "endpoint": {
+        "host": "ngl-dual-003.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-003",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "86C31F2136FB5EB07147E883ACECB891D2D4734E363B26033B1230D8ACF8BBBE",
+      "endpoint": {
+        "host": "ngl-dual-004.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-004",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "6E81088A2E2504C4F91E3DC9C2517FAB99574D71EF5D9F74031FB394CCA7AF3B",
+      "endpoint": {
+        "host": "ngl-dual-101.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-101",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "D1BD3577079DD8CFA5073615B7053712C7B4D4B12899C31D1FB34219145298A2",
+      "endpoint": {
+        "host": "ngl-dual-102.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-102",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "DCC6C941EE95967B47433EA3241D53594364A34DB33A9BDC0D668C457002E0F1",
+      "endpoint": {
+        "host": "ngl-dual-103.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-103",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "3A98603E293DCE7CBF5EE860A00670E3025D3E880D3CC339C926217C36FE6436",
+      "endpoint": {
+        "host": "ngl-dual-104.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-104",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "7E1101CFD5E64D6CA4A55B70E24412365BD1658E767F23AF9E9777410C116D89",
+      "endpoint": {
+        "host": "ngl-dual-201.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-201",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "3820C4CFB4BA94F62A982991CB2618EC5E1CFF2C11AD34EFA2254F4305013C1D",
+      "endpoint": {
+        "host": "ngl-dual-202.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-202",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "256AA91283F23168C538F3155DEE946A2B0E7207FBDC369E5C5415F7EE1DE592",
+      "endpoint": {
+        "host": "ngl-dual-203.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-203",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "6830127294F7C50FE91625076A0D1CCE910A084B032252CDD005C4148ED11A3D",
+      "endpoint": {
+        "host": "ngl-dual-204.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-204",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "92D05B749D6300C4CDCD13A58BF37B7C82B471AB2DFD1A7A6E8C1584620594CA",
+      "endpoint": {
+        "host": "ngl-dual-301.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-301",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "5446DA4D21D5809A3C8492C9083743F4349690A21CB5FF0D6621CC78A6FEE979",
+      "endpoint": {
+        "host": "ngl-dual-302.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-302",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "4C48C2A708CC1857405C9C48C4D7A69AA5F0FBB7FB8323C967E1BC644A4417E9",
+      "endpoint": {
+        "host": "ngl-dual-303.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-303",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "DEC3292B6ABFAC6687C37FA8963B84715C6E736F6CA27DD50249638D9DF967B1",
+      "endpoint": {
+        "host": "ngl-dual-304.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-304",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "9D50238B795818044CB330DC5FBA485C7B20EBD38E1A7DBE248555AD70AB4F19",
+      "endpoint": {
+        "host": "ngl-dual-401.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-401",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "474C5CD5F0B24BCD769DBE99B37C80F4D60B89E28946E126BE23E1EFD5AAA369",
+      "endpoint": {
+        "host": "ngl-dual-402.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-402",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "EF1209DC3C42B6450BEF658D404252DF2E26784CECD35FAEB19D929AE030A198",
+      "endpoint": {
+        "host": "ngl-dual-403.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-403",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "E335B45C9FA2666121D81ACDC8007DF0C958D48A0E1ADD34D22894D85B3EA3BC",
+      "endpoint": {
+        "host": "ngl-dual-404.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-404",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "606BF668BBD9EA1AFCD9E37A2C18C05BE39CC00752AAD99A0E22A79071CCAA7D",
+      "endpoint": {
+        "host": "ngl-dual-501.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-501",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "428F68595322EADDCC0722F024FB0FAD7D35F40C50F1E99AE8FBC8B7EC68E7F2",
+      "endpoint": {
+        "host": "ngl-dual-502.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-502",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "C5B4653E6EE56B7E9C1F87D4F0C712B00378D2828CF7AC73F6BE19F8B1B04B4B",
+      "endpoint": {
+        "host": "ngl-dual-503.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-503",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "E74C655E5A4E72E13EE86B8AE7051EEAAF9AD871D5750A04AB360A3FEFD03440",
+      "endpoint": {
+        "host": "ngl-dual-504.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-504",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "90009F2C2D396A6B788D6DBAB8F075CB20549A50BBA5259D382618FD86F1419A",
+      "endpoint": {
+        "host": "ngl-dual-601.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-601",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "E0AB078AC2F363DE0D6823D2A9B5229C092FFB8CB2735D72BE63B8AF94367CB6",
+      "endpoint": {
+        "host": "ngl-dual-602.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-602",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "F8C70778B37A989480969CB44F509509D1372049E821CA6F0A759FC50E03ADBF",
+      "endpoint": {
+        "host": "ngl-dual-603.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-603",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "9F62586518D1707CA57004EF38135509EAE9E9D2933A73041B6171EC0B3F50DF",
+      "endpoint": {
+        "host": "ngl-dual-604.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-604",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "BA3E425DA3D32458F8A36C8FCBD6DEDBF5E7A9D8E56A7962EA55AD5125C425B1",
+      "endpoint": {
+        "host": "ngl-dual-005.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-005",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "3FDFCB4F510E81A4A44B044298974DAA34F3B6FC9D24B6D5CE90FFA933C11F51",
+      "endpoint": {
+        "host": "ngl-dual-006.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-006",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "9266C64CDEE62F2AF54806F0CBF2A53D9144CB02AA10B7F7DDEAEAF483E87591",
+      "endpoint": {
+        "host": "ngl-dual-105.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-105",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "AC63FD2AAA53B73B4E515F73077522925C8502BFC13B073A520B4BA2F3026BC8",
+      "endpoint": {
+        "host": "ngl-dual-106.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-106",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "7811A94C2BF3CE9E7E1933DF9E9D0C3A7C09DAEF5A3CAC23960B252BDB8D52D3",
+      "endpoint": {
+        "host": "ngl-dual-205.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-205",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "02A55829A1A10542C460A87C4D2C39D03DCCA3F53692B5095C424CCDC21E64A6",
+      "endpoint": {
+        "host": "ngl-dual-206.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-206",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "36CAF133D574DB99B4392D76959488D5B91BD71545039DC80249CFD1FC536795",
+      "endpoint": {
+        "host": "ngl-dual-305.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-305",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "9B302ABCE3CD5783D79AD522B1769DA9AAA10A69E1930B998C2675AA105356FA",
+      "endpoint": {
+        "host": "ngl-dual-306.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-306",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "4C85111B10EFB6A25FB77C8A2675C5A92DA5FF36686C4CCE24F887B16342CC95",
+      "endpoint": {
+        "host": "ngl-dual-405.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-405",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "0AF73C5CAC76624DB9B51560820F8DFC88120994143C6DB344A035EBFF707A2F",
+      "endpoint": {
+        "host": "ngl-dual-406.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-406",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "E060CA383C533273DB4B3CE7AD964E0E3A2B17018B19ABF830590D5FB9338B29",
+      "endpoint": {
+        "host": "ngl-dual-505.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-505",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "B1D2AA01E51A81E84CBB2919C0E6AFBBC1383A2760370E60A93C335245A6CB9C",
+      "endpoint": {
+        "host": "ngl-dual-506.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-506",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "4F014A430E69EFC422AD8B440FA4D312CBDE9803BB857A0736F38E62CE4CF571",
+      "endpoint": {
+        "host": "ngl-dual-605.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-605",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "E32504B5590B9927CA5509FAA0C0CA63DB3479095C2DB73D0150FB862AA0E1FC",
+      "endpoint": {
+        "host": "ngl-dual-606.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-606",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "47AC3041A5CA98EEA123C64CB7420ADA7F45355CF1993ECA8639891536958011",
+      "endpoint": {
+        "host": "ngl-api-001.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-api-001",
+        "roles": "Api"
+      }
+    },
+    {
+      "publicKey": "FE0186777D17DD57CAE5E3D9531EC8E70F1F452ED777910E96A9F44D889D9684",
+      "endpoint": {
+        "host": "ngl-api-301.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-api-301",
+        "roles": "Api"
+      }
+    },
+    {
+      "publicKey": "642197D9D5B283252BFCBC2FEF8B2EE1A7B3383DCD964D159CBF135CA31DC22B",
+      "endpoint": {
+        "host": "ngl-api-401.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-api-401",
+        "roles": "Api"
+      }
+    },
+    {
+      "publicKey": "E1640F016401E1A8644614B1707D878992DB01B480B55AEDE0EA1A986067ED79",
+      "endpoint": {
+        "host": "ngl-api-501.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-api-501",
+        "roles": "Api"
+      }
+    },
+    {
+      "publicKey": "0282991F51E91F8994F1B3FD4A7D1CDE39F6B828A5D419150D6E07925CFFD27C",
+      "endpoint": {
+        "host": "ngl-api-601.symbolblockchain.io",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-api-601",
+        "roles": "Api"
+      }
+    }
+  ]
+}

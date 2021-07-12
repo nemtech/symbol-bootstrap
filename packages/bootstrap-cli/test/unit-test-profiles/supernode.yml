@@ -1,0 +1,13 @@
+privateKeySecurityMode: PROMPT_MAIN
+maxUnlockedAccounts: 20
+nodes:
+    - voting: true
+      rewardProgram: 'supernode'
+      host: fboucquez-agent-symbollocal.ngrok.io
+      agentUrl: https://fboucquez-agent-symbollocal.ngrok.io
+      restGatewayUrl: http://fboucquez-rest-gateway-symbollocal.ngrok.io
+      mainPrivateKey: CA82E7ADAF7AB729A5462A1BD5AA78632390634904A64EB1BB22295E2E1A1BDD
+      transportPrivateKey: 6154154096354BC3DB522174ACD8BFE553893A0991BD5D105599846F17A3383B
+      remotePrivateKey: EFE3F0EF0AB368B8D7AC194D52A8CCFA2D5050B80B9C76E4D2F4D4BF2CD461C1
+      vrfPrivateKey: F3C24C153783B683E40FB2671493B54480370BF4E3AB8027D4BF1293E14EB9B8
+      agentPrivateKey: AAAA231C860EB1B6E3A4F8366C8F0F6C7C2462A40263DCB67124FB76CDD4E368

@@ -1,0 +1,112 @@
+{
+    "name": "symbol-bootstrap",
+    "description": "Symbol tool that allows you creating, configuring and running Symbol's networks",
+    "version": "1.0.8",
+    "author": "Fernando Boucquez <fboucquez@gmail.com>",
+    "bin": {
+        "symbol-bootstrap": "bin/run"
+    },
+    "bugs": "https://github.com/nemtech/symbol-bootstrap/issues",
+    "dependencies": {
+        "@oclif/command": "^1.7.0",
+        "@oclif/config": "^1.16.0",
+        "@oclif/plugin-autocomplete": "^0.3.0",
+        "@oclif/plugin-help": "^3.1.0",
+        "figlet": "^1.2.4",
+        "handlebars": "^4.7.7",
+        "inquirer": "^7.3.3",
+        "js-yaml": "^3.14.0",
+        "lodash": "^4.17.21",
+        "memorystream": "^0.3.1",
+        "noble-ed25519": "^1.0.3",
+        "rxjs": "^6.6.3",
+        "semver": "^7.3.5",
+        "shx": "^0.3.2",
+        "symbol-sdk": "^1.0.1",
+        "tslib": "^1.13.0",
+        "utf8": "^2.1.2",
+        "winston": "^3.3.3"
+    },
+    "devDependencies": {
+        "@oclif/dev-cli": "^1.22.2",
+        "@oclif/test": "^1.2.8",
+        "@types/chai": "^4.2.12",
+        "@types/figlet": "^1.2.0",
+        "@types/handlebars": "^4.1.0",
+        "@types/inquirer": "^7.3.1",
+        "@types/js-yaml": "^3.12.5",
+        "@types/lodash": "^4.14.165",
+        "@types/memorystream": "^0.3.0",
+        "@types/mocha": "^8.2.2",
+        "@types/node": "^10.17.28",
+        "@types/semver": "^7.3.6",
+        "@types/winston": "^2.4.4",
+        "@typescript-eslint/eslint-plugin": "^3.7.1",
+        "@typescript-eslint/parser": "^3.7.1",
+        "chai": "^4.2.0",
+        "coveralls": "^3.1.0",
+        "create-ts-index": "^1.13.6",
+        "dir-compare": "^3.3.0",
+        "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.10.1",
+        "eslint-plugin-prettier": "^3.1.3",
+        "globby": "^10.0.2",
+        "marked": ">=2.0.0",
+        "mocha": "^8.3.2",
+        "mocha-lcov-reporter": "^1.3.0",
+        "nyc": "^15.1.0",
+        "prettier": "^2.0.5",
+        "prettier-plugin-organize-imports": "^1.1.1",
+        "ts-node": "^8.10.2",
+        "typedoc": "^0.20.34",
+        "typescript": "^3.9.7"
+    },
+    "engines": {
+        "node": ">=12.0.0"
+    },
+    "files": [
+        "/config",
+        "/presets",
+        "/bin",
+        "/lib",
+        "/npm-shrinkwrap.json",
+        "/oclif.manifest.json"
+    ],
+    "homepage": "https://github.com/nemtech/symbol-bootstrap",
+    "keywords": [
+        "oclif"
+    ],
+    "license": "Apache-2.0",
+    "main": "lib/index.js",
+    "oclif": {
+        "commands": "./lib/commands",
+        "bin": "symbol-bootstrap",
+        "plugins": [
+            "@oclif/plugin-autocomplete",
+            "@oclif/plugin-help"
+        ]
+    },
+    "repository": "nemtech/symbol-bootstrap",
+    "scripts": {
+        "doc": "typedoc --out \"ts-docs\" src && touch ./ts-docs/.nojekyll",
+        "lint": "eslint --cache src/ test/ --ext .ts",
+        "lint:fix": "eslint src/ test/ --ext .ts --fix",
+        "prettier": "prettier --write ./src ./test",
+        "style:fix": "npm run create-index-files && npm run prettier && npm run lint:fix && npm run oclif-doc",
+        "create-index-files": "cti create ./src -b -n -e commands",
+        "postpack": "shx rm -f oclif.manifest.json",
+        "posttest": "eslint src/ test/ --ext .ts",
+        "oclif-doc": "oclif-dev manifest && oclif-dev readme --multi",
+        "compile": "tsc -b",
+        "watch": "tsc -b -w",
+        "prepack": "shx rm -rf lib && npm run compile && npm run oclif-doc",
+        "test": "nyc --reporter=lcov --extension .ts mocha -r ts-node/register --timeout 900000 --forbid-only \"test/**/*.test.ts\"",
+        "e2e": "nyc --reporter=lcov --extension .ts mocha -r ts-node/register --timeout 900000 --forbid-only \"test/**/*.e2e.ts\"",
+        "coveralls-report": "cat ./coverage/lcov.info | coveralls",
+        "version": "echo $npm_package_version",
+        "install-cli": "npm pack && npm i -g",
+        "clean-network": "symbol-bootstrap clean -t target/bootstrap-test",
+        "start-network": "symbol-bootstrap start -t target/bootstrap-test -u 'current'"
+    },
+    "types": "lib/index.d.ts"
+}

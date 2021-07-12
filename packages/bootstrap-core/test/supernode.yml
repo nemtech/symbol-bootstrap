@@ -1,0 +1,21 @@
+#privateKeySecurityMode: PROMPT_MAIN
+nodeUseRemoteAccount: true
+logLevel: 'Debug'
+#lastKnownNetworkEpoch: 70
+#votingKeyDesiredLifetime: 28 # create short voting key files, 28 is the minimun
+#votingKeyDesiredFutureLifetime: 300 # create files for at least 60 epochs in the future, this will create voting key file 2 and file 3
+useExperimentalNativeVotingKeyGeneration: true # Use new native ts generation
+symbolServerImage: symbolplatform/symbol-server-private:gcc-voting-key-unlink-rollback-f2633f4a4c
+symbolRestImage: 'symbolplatform/symbol-rest:2.3.6-alpha'
+maxUnlockedAccounts: 30
+nodes:
+    - voting: true
+      rewardProgram: 'supernode'
+      host: fboucquez-agent-symbollocal.ngrok.io
+      agentUrl: https://fboucquez-agent-symbollocal.ngrok.io
+      restGatewayUrl: http://fboucquez-rest-gateway-symbollocal.ngrok.io
+      mainPrivateKey: E095162875BB1D98CA5E0941670E01C1B0DBDF86DF7B3BEDA4A93635F8E51A03
+      transportPrivateKey: 415F253ABF0FB2DFD39D7F409EFA2E88769873CAEB45617313B98657A1476A15
+      remotePrivateKey: 24B485712045FEDA5782ECFF1752F63D41C134371BB46AC68EE6DC9183CF5061
+      vrfPrivateKey: D34A231C860EB1B6E3A4F8366C8F0F6C7C2462A40263DCB67124FB76CDD4E368
+      agentPrivateKey: AAAA231C860EB1B6E3A4F8366C8F0F6C7C2462A40263DCB67124FB76CDD4E368

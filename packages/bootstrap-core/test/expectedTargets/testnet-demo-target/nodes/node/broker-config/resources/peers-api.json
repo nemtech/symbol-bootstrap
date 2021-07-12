@@ -1,0 +1,126 @@
+{
+  "_info": "this file contains a list of api-node peers",
+  "knownPeers": [
+    {
+      "publicKey": "1B8491EE121B865E733A0AFC2B0B5A0C762B57A7CDDDBDE6608943EAE135BE44",
+      "endpoint": {
+        "host": "ngl-dual-501.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-501",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "41F38D9C02F7D3D460A4CB0311E3D6E67CB063351434A6A00BB6F7AE64CD4FD7",
+      "endpoint": {
+        "host": "ngl-dual-601.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-601",
+        "roles": "Api,Peer,Voting"
+      }
+    },
+    {
+      "publicKey": "E3FC28889BDE31406465167F1D9D6A16DCA1FF67A3BABFA5E5A8596478848F78",
+      "endpoint": {
+        "host": "ngl-dual-001.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-001",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "C4348215B4C417D3E4B52ACAA3D370D29DE3A5F482CAED3C9F1BE257DD2B4079",
+      "endpoint": {
+        "host": "ngl-dual-101.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-101",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "C084A7B93E7B2B04A95328A39FD0851086BEE4389987654315F02F4DE32634F8",
+      "endpoint": {
+        "host": "ngl-dual-201.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-201",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "4AD462EFDB312769AB0F146E287C4216E0858992F8181B32A232EDF94E4D4A7C",
+      "endpoint": {
+        "host": "ngl-dual-301.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-301",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "EBB821CFAE5B8FBE76FAD81D4A6A2135EB6E2603E083AE9A726132B6AE8A1089",
+      "endpoint": {
+        "host": "ngl-dual-401.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-401",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "093894ECBD487A2601E9DFEF100C40238F39EA29E9DF2DB244BFD4F3E7B64142",
+      "endpoint": {
+        "host": "ngl-dual-502.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-502",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "53100549CE67E4B94867B461DC489747862A0CB34ADA701C6A974134F1DCC197",
+      "endpoint": {
+        "host": "ngl-dual-602.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-dual-602",
+        "roles": "Api,Peer"
+      }
+    },
+    {
+      "publicKey": "3BD4CECB2C82DE809CE6AD285ECF8687B4594EAE7D9220C2064E56812977EAE6",
+      "endpoint": {
+        "host": "ngl-api-001.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-api-001",
+        "roles": "Api"
+      }
+    },
+    {
+      "publicKey": "904303E0DAF19BA69CD6A1AB4CA3E2E80525BD9D814342B67C850A0CBB3ECC0F",
+      "endpoint": {
+        "host": "ngl-api-101.testnet.symboldev.network",
+        "port": 7900
+      },
+      "metadata": {
+        "name": "ngl-api-101",
+        "roles": "Api"
+      }
+    }
+  ]
+}
